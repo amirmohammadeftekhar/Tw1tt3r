@@ -16,14 +16,14 @@ import java.util.Arrays;
 public class AspectLogging {
     private static final Logger log = LoggerFactory.getLogger(AspectLogging.class);
 
-    @AfterThrowing(pointcut = "execution(* com.example.demo.service..*.*(..)) || execution(* com.example.demo.repository..*.*(..))", throwing = "e")
+    @AfterThrowing(pointcut = "execution(* com.example.tw1tt3rServer.service..*.*(..)) || execution(* com.example.tw1tt3rServer.repository..*.*(..))", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
         log.error("Exception in {}.{}() with cause = {}, exception = {}",
                 joinPoint.getSignature().getDeclaringTypeName(),
                 joinPoint.getSignature().getName(), e.getCause() != null ? e.getCause() : "NULL", e.toString());
     }
 
-    @Around("execution(* com.example.demo.service..*.*(..))")
+    @Around("execution(* com.example.tw1tt3rServer.service..*.*(..))")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
         log.info("Enter: {}.{}() with argument[s] = {}", joinPoint.getSignature().getDeclaringTypeName(),
                 joinPoint.getSignature().getName(), Arrays.toString(joinPoint.getArgs()));

@@ -6,6 +6,9 @@ logging:
       hibernate: INFO
       hibernate.SQL: INFO
 spring:
+  session:
+    jdbc:
+      initialize-schema: always
   datasource:
     #    hikari:
     #      auto-commit: false

@@ -13,7 +13,8 @@ import lombok.Setter;
         property = "type"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = StringDto.class, name = "StringDto")
+        @JsonSubTypes.Type(value = StringDto.class, name = "StringDto"),
+        @JsonSubTypes.Type(value = PersonIniDto.class, name = "PersonIniDto")
 })
 public abstract class Dto {
     public Dto(){

@@ -12,6 +12,11 @@ import java.util.Set;
 @Getter
 @Setter
 public class Message {
+
+    public Message(){
+
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;

@@ -5,12 +5,12 @@ import org.apache.commons.configuration2.CombinedConfiguration;
 import org.apache.commons.configuration2.builder.combined.CombinedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
 
-public class CombinedPropertyLoader {
-    private static CombinedPropertyLoader instance;
+public class ConfigInstance {
+    private static ConfigInstance instance;
     private CombinedConfiguration configuration;
 
     @SneakyThrows
-    private CombinedPropertyLoader() {
+    private ConfigInstance() {
         Parameters params = new Parameters();
         CombinedConfigurationBuilder builder = new CombinedConfigurationBuilder()
                 .configure(params.fileBased().setFileName("configuration.xml"));
@@ -18,9 +18,9 @@ public class CombinedPropertyLoader {
     }
 
     @SneakyThrows
-    public static synchronized CombinedPropertyLoader getInstance() {
+    public static synchronized ConfigInstance getInstance() {
         if (instance == null) {
-            instance = new CombinedPropertyLoader();
+            instance = new ConfigInstance();
         }
         return(instance);
     }

@@ -1,6 +1,6 @@
 package com.example.tw1tt3rServer.repository.entity;
 
-import com.example.tw1tt3rServer.repository.entity.enums.ActionType;
+import entities.enums.ActionType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +10,10 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class Action {
+
+    public Action(){
+
+    }
 
     //------------------------------------------------------------------------------------------------------------
 

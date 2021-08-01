@@ -1,6 +1,6 @@
 package com.example.tw1tt3rServer.repository.entity;
 
-import com.example.tw1tt3rServer.repository.entity.enums.LastSeenType;
+import entities.enums.LastSeenType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +13,10 @@ import java.util.Set;
 @Getter
 @Setter
 public class Person {
+
+    public Person(){
+
+    }
 
     //------------------------------------------------------------------------------------------------------------
 
@@ -69,7 +73,7 @@ public class Person {
     private Room savedMessageRoom;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sourcePerson")
-    private Set<Category> OwnedCategories = new HashSet<Category>();
+    private Set<Category> ownedCategories = new HashSet<Category>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

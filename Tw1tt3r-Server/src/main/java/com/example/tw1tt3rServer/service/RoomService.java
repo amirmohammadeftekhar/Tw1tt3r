@@ -5,7 +5,7 @@ import com.example.tw1tt3rServer.repository.entity.Message;
 import com.example.tw1tt3rServer.repository.entity.Person;
 import com.example.tw1tt3rServer.repository.entity.Picture;
 import com.example.tw1tt3rServer.repository.entity.Room;
-import com.example.tw1tt3rServer.repository.entity.enums.RoomType;
+import entities.enums.RoomType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

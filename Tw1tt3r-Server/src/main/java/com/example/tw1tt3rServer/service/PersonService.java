@@ -4,15 +4,14 @@ import com.example.tw1tt3rServer.repository.PersonRepository;
 import com.example.tw1tt3rServer.repository.entity.Person;
 import com.example.tw1tt3rServer.repository.entity.Picture;
 import com.example.tw1tt3rServer.repository.entity.Room;
-import com.example.tw1tt3rServer.repository.entity.enums.LastSeenType;
-import com.example.tw1tt3rServer.repository.entity.enums.RoomType;
+import entities.enums.LastSeenType;
+import entities.enums.RoomType;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;

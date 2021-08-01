@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox alignment="TOP_CENTER" fillWidth="false" styleClass="border" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER">
+         <children>
+            <ImageView fx:id="messageImage" fitHeight="239.0" fitWidth="372.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </VBox>
+      <TextArea fx:id="messageTextArea" editable="false" maxHeight="600.0" minHeight="150.0" wrapText="true" VBox.vgrow="ALWAYS" />
+      <HBox fx:id="messageHBox" alignment="CENTER" maxHeight="50.0" minHeight="50.0" prefHeight="50.0">
+         <children>
+            <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="266.0" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

@@ -3,7 +3,7 @@ package com.example.tw1tt3rServer.service;
 import com.example.tw1tt3rServer.repository.ActionRepository;
 import com.example.tw1tt3rServer.repository.entity.Action;
 import com.example.tw1tt3rServer.repository.entity.Person;
-import com.example.tw1tt3rServer.repository.entity.enums.ActionType;
+import entities.enums.ActionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

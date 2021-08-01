@@ -1,7 +1,7 @@
 package com.example.tw1tt3rServer.repository;
 
 import com.example.tw1tt3rServer.repository.entity.Room;
-import com.example.tw1tt3rServer.repository.entity.enums.RoomType;
+import entities.enums.RoomType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

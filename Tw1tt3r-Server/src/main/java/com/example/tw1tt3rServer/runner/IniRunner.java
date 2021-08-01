@@ -1,7 +1,5 @@
 package com.example.tw1tt3rServer.runner;
 
-import com.example.tw1tt3rServer.repository.entity.Person;
-import com.example.tw1tt3rServer.repository.entity.enums.LastSeenType;
 import com.example.tw1tt3rServer.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

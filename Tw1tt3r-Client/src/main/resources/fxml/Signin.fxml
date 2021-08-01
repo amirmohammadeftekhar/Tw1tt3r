@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import java.lang.String?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="SigninPane" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="400.0"
+            xmlns="http://javafx.com/javafx/16" fx:controller="controller.SignInController">
+   <children>
+      <Label layoutX="31.0" layoutY="39.0" prefHeight="36.0" prefWidth="75.0" text="username:"/>
+      <Label layoutX="31.0" layoutY="115.0" text="password:"/>
+      <Label fx:id="infoLabel" layoutX="31.0" layoutY="150.0" prefHeight="36.0" prefWidth="294.0"/>
+      <TextField fx:id="userNameField" layoutX="150.0" layoutY="45.0"/>
+      <PasswordField fx:id="passwordField" layoutX="150.0" layoutY="111.0"/>
+      <Button fx:id="singinButton" layoutX="78.0" layoutY="197.0" mnemonicParsing="false" onAction="#signinAction"
+              prefHeight="24.0" prefWidth="200.0" stylesheets="@../css/style.css" text="Signin">
+         <styleClass>
+            <String fx:value="mouse-moved"/>
+            <String fx:value="rect-round"/>
+            <String fx:value="shadow"/>
+         </styleClass>
+      </Button>
+   </children>
+</AnchorPane>

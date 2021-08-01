@@ -10,6 +10,11 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class Picture {
+
+    public Picture(){
+
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;

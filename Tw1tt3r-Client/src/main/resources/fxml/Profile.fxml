@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<VBox alignment="TOP_CENTER" minHeight="1008.0" minWidth="1300.0" prefHeight="1008.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProfileController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="112.0" prefWidth="1296.0" stylesheets="@../css/style.css">
+         <children>
+            <ImageView fx:id="profileImage" fitHeight="121.0" fitWidth="134.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/user-icon.png" />
+               </image>
+            </ImageView>
+         </children>
+         <VBox.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </VBox.margin>
+      </VBox>
+      <VBox alignment="CENTER" prefHeight="61.0" prefWidth="1296.0" spacing="5.0" stylesheets="@../css/style.css">
+         <children>
+            <Label fx:id="userNameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="69.0" prefWidth="484.0" text="\@UserName">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Label>
+            <Label fx:id="nameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="512.0" text="first name last name">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Label fx:id="mailLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="49.0" prefWidth="358.0" text="test@test.test">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </VBox.margin>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <HBox alignment="CENTER" prefHeight="81.0" prefWidth="1296.0" spacing="40.0" stylesheets="@../css/style.css">
+         <children>
+            <VBox fx:id="tweetButton" alignment="CENTER" maxWidth="-Infinity" onMouseClicked="#tweetButtonAction" prefHeight="151.0" prefWidth="178.0" stylesheets="@../css/style.css">
+               <children>
+                  <Label fx:id="tweetCount" alignment="CENTER" contentDisplay="CENTER" prefHeight="53.0" prefWidth="166.0" text="100">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="187.0" text="Posts">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <styleClass>
+                  <String fx:value="mouse-moved" />
+                  <String fx:value="rect-round" />
+                  <String fx:value="shadow" />
+                  <String fx:value="white-background" />
+               </styleClass>
+            </VBox>
+            <VBox fx:id="followingButton" alignment="CENTER" maxWidth="-Infinity" onMouseClicked="#followingButtonAction" prefHeight="151.0" prefWidth="178.0" stylesheets="@../css/style.css">
+               <children>
+                  <Label fx:id="followingCount" alignment="CENTER" contentDisplay="CENTER" prefHeight="53.0" prefWidth="166.0" text="100">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="187.0" text="Following">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <styleClass>
+                  <String fx:value="mouse-moved" />
+                  <String fx:value="rect-round" />
+                  <String fx:value="shadow" />
+                  <String fx:value="white-background" />
+               </styleClass>
+            </VBox>
+            <VBox fx:id="followerButton" alignment="CENTER" maxWidth="-Infinity" onMouseClicked="#followerButtonAction" prefHeight="151.0" prefWidth="178.0" stylesheets="@../css/style.css">
+               <children>
+                  <Label fx:id="followerCount" alignment="CENTER" contentDisplay="CENTER" prefHeight="53.0" prefWidth="166.0" text="100">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="187.0" text="Follower">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <styleClass>
+                  <String fx:value="mouse-moved" />
+                  <String fx:value="rect-round" />
+                  <String fx:value="shadow" />
+                  <String fx:value="white-background" />
+               </styleClass>
+            </VBox>
+            <VBox fx:id="blackListButton" alignment="CENTER" maxWidth="-Infinity" onMouseClicked="#blackListButtonAction" prefHeight="151.0" prefWidth="178.0" stylesheets="@../css/style.css">
+               <children>
+                  <Label fx:id="blockListCount" alignment="CENTER" contentDisplay="CENTER" prefHeight="53.0" prefWidth="166.0" text="100">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="187.0" text="Black list">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+               <styleClass>
+                  <String fx:value="mouse-moved" />
+                  <String fx:value="rect-round" />
+                  <String fx:value="shadow" />
+                  <String fx:value="white-background" />
+               </styleClass>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </VBox.margin>
+      </HBox>
+      <VBox alignment="CENTER" prefHeight="175.0" prefWidth="1296.0" spacing="20.0" stylesheets="@../css/style.css">
+         <children>
+            <Button fx:id="makeTweetButton" mnemonicParsing="false" onMouseClicked="#makeTweetButtonAction" prefHeight="46.0" prefWidth="117.0" stylesheets="@../css/style.css" text="Tweet!">
+               <font>
+                  <Font size="22.0" />
+               </font>
+               <styleClass>
+                  <String fx:value="rect-round" />
+                  <String fx:value="mouse-moved" />
+                  <String fx:value="shadow" />
+               </styleClass>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <VBox.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </VBox.margin>
+      </VBox>
+      <HBox alignment="CENTER" prefHeight="225.0" prefWidth="1296.0" spacing="30.0" stylesheets="@../css/style.css">
+         <children>
+            <VBox alignment="CENTER" prefHeight="277.0" prefWidth="585.0" spacing="5.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="44.0" prefWidth="235.0" text="Your Requests">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Label>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                     <children>
+                        <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                           <content>
+                              <GridPane fx:id="yourRequestsGridPane">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="277.0" prefWidth="575.0" spacing="5.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="268.0" text="Other Requests">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Label>
+                  <VBox prefHeight="200.0" prefWidth="412.0">
+                     <children>
+                        <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="388.0">
+                           <content>
+                              <GridPane fx:id="otherRequestsPane">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="238.0" prefWidth="1300.0" spacing="5.0" stylesheets="@../css/style.css">
+         <children>
+            <VBox alignment="CENTER" prefHeight="272.0" prefWidth="414.0" spacing="5.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="44.0" prefWidth="235.0" text="New followers">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Label>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                     <children>
+                        <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                           <content>
+                              <GridPane fx:id="newFollowerGridPane">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="272.0" prefWidth="402.0" spacing="5.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="268.0" text="New unfollowers">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Label>
+                  <VBox prefHeight="200.0" prefWidth="412.0">
+                     <children>
+                        <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="388.0">
+                           <content>
+                              <GridPane fx:id="newUnfollowerGridPane">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="272.0" prefWidth="431.0" spacing="5.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="44.0" prefWidth="235.0" text="New rejectors">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Label>
+                  <VBox prefHeight="200.0" prefWidth="416.0" spacing="5.0">
+                     <children>
+                        <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="386.0">
+                           <content>
+                              <GridPane fx:id="newRejectorGridPane">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>

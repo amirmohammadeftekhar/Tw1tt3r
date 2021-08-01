@@ -11,6 +11,11 @@ import java.util.Set;
 @Getter
 @Setter
 public class Category {
+
+    public Category(){
+
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;

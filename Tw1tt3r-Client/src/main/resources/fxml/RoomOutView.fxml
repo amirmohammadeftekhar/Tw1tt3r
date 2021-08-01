@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.String?>
+<HBox alignment="TOP_CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="65.0" spacing="5.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="roomImage" fitHeight="72.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/user-icon.png" />
+         </image></ImageView>
+      <Label fx:id="roomNameLabel" prefHeight="74.0" prefWidth="225.0" text="chat name" HBox.hgrow="ALWAYS">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+      </Label>
+      <Label fx:id="unreadCountLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="90.0" prefWidth="89.0" textFill="#241a97">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+   </children>
+   <styleClass>
+      <String fx:value="mouse-moved" />
+      <String fx:value="white-background" />
+   </styleClass>
+</HBox>

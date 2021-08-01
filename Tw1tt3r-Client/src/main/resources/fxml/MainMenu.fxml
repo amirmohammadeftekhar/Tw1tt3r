@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
+   <left>
+      <VBox prefHeight="200.0" prefWidth="300.0" styleClass="white-background" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <ImageView fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/twitter.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </HBox>
+            <VBox alignment="CENTER" prefHeight="249.0" prefWidth="300.0" spacing="5.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/user-icon.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="nameLabel" alignment="CENTER" prefHeight="36.0" prefWidth="277.0" text="first last">
+                     <font>
+                        <Font name="System Bold Italic" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="userNameLabel" alignment="CENTER" prefHeight="30.0" prefWidth="264.0" text="\@username" textFill="#606060">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="431.0" prefWidth="300.0" spacing="12.0">
+               <children>
+                  <HBox fx:id="exploreButton" alignment="CENTER" onMouseClicked="#exploreButtonAction" prefHeight="50.0" prefWidth="300.0" spacing="10.0" styleClass="mouse-moved" stylesheets="@../css/style.css">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/explore-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="29.0" prefWidth="155.0" text="Explore">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="messagingButton" alignment="CENTER" onMouseClicked="#messageButtonAction" prefHeight="50.0" prefWidth="300.0" spacing="10.0" styleClass="mouse-moved" stylesheets="@../css/style.css">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/messaging-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="29.0" prefWidth="155.0" text="Messaging">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="profileButton" alignment="CENTER" onMouseClicked="#profileButtonAction" prefHeight="50.0" prefWidth="300.0" spacing="10.0" styleClass="mouse-moved" stylesheets="@../css/style.css">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/user-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="29.0" prefWidth="155.0" text="Profile">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="settingButton" alignment="CENTER" onMouseClicked="#settingButtonAction" prefHeight="50.0" prefWidth="300.0" spacing="10.0" styleClass="mouse-moved" stylesheets="@../css/style.css">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/setting-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="29.0" prefWidth="155.0" text="Setting">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="homeButton" alignment="CENTER" onMouseClicked="#homeButtonAction" prefHeight="50.0" prefWidth="300.0" spacing="10.0" styleClass="mouse-moved" stylesheets="@../css/style.css">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/home-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="29.0" prefWidth="155.0" text="Home">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="exitButton" alignment="CENTER" onMouseClicked="#exitButtonAction" prefHeight="50.0" prefWidth="300.0" spacing="12.0" styleClass="mouse-moved" stylesheets="@../css/style.css">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/exit-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="29.0" prefWidth="155.0" text="Exit">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <BorderPane fx:id="MainWindowPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

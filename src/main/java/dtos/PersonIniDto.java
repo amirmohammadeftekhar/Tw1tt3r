@@ -1,11 +1,13 @@
 package dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class PersonIniDto extends Dto{
     @JsonProperty("firstname")
     private String firstname;
@@ -27,17 +29,6 @@ public class PersonIniDto extends Dto{
 
     @JsonProperty("toShowEmail")
     private boolean toShowEmail;
-
-    public PersonIniDto(String firstname, String lastName, String userName, String password, String emailAddress,
-                        boolean isPrivate, boolean toShowEmail) {
-        this.firstname = firstname;
-        this.lastName = lastName;
-        this.userName = userName;
-        this.password = password;
-        this.emailAddress = emailAddress;
-        this.isPrivate = isPrivate;
-        this.toShowEmail = toShowEmail;
-    }
 
     public PersonIniDto(){
 

@@ -2,7 +2,7 @@ package com.example.tw1tt3rServer.repository;
 
 import com.example.tw1tt3rServer.repository.entity.Action;
 import com.example.tw1tt3rServer.repository.entity.Person;
-import com.example.tw1tt3rServer.repository.entity.enums.ActionType;
+import entities.enums.ActionType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

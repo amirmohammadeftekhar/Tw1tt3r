@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SettingController">
+   <children>
+      <ScrollPane fitToWidth="true">
+         <content>
+            <VBox>
+               <children>
+                  <TitledPane expanded="false" text="Room">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="98.0" prefWidth="596.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER" layoutX="-2.0" prefHeight="141.0">
+                                 <children>
+                                    <Label prefHeight="37.0" prefWidth="639.0" text="Make Room:">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="System Bold" size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="9.0" prefWidth="600.0" spacing="30.0">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="78.0" text="Name:">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="roomMakingNameField" prefHeight="29.0" prefWidth="184.0" />
+                                          <CheckBox fx:id="pvCheckBox" mnemonicParsing="false" text="PV" />
+                                          <HBox fx:id="roomCreateChoosingButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#roomCreateChoosingButtonAction" prefHeight="45.0" prefWidth="45.0" stylesheets="@../css/style.css">
+                                             <children>
+                                                <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                                                   <image>
+                                                      <Image url="@../icons/choosing-icon.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                             <styleClass>
+                                                <String fx:value="mouse-moved" />
+                                                <String fx:value="rect-round" />
+                                                <String fx:value="shadow" />
+                                             </styleClass>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </HBox>
+                                          <Button fx:id="roomCreateButton" mnemonicParsing="false" onMouseClicked="#roomCreateButtonAction" prefHeight="40.0" prefWidth="105.0" stylesheets="@../css/style.css" text="Make">
+                                             <styleClass>
+                                                <String fx:value="mouse-moved" />
+                                                <String fx:value="rect-round" />
+                                                <String fx:value="shadow" />
+                                             </styleClass>
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" right="5.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane expanded="false" text="Category">
+                    <content>
+                      <AnchorPane>
+                           <children>
+                              <VBox alignment="TOP_CENTER" layoutX="-2.0">
+                                 <children>
+                                    <Label prefHeight="37.0" prefWidth="639.0" text="Make Category:">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="System Bold" size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="9.0" prefWidth="600.0" spacing="57.0">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="85.0" text="Name:">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="categoryMakingNameField" prefHeight="29.0" prefWidth="184.0" />
+                                          <HBox fx:id="categoryCreateChoosingButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#categoryCreateChoosingButtonAction" prefHeight="45.0" prefWidth="45.0" stylesheets="@../css/style.css">
+                                             <children>
+                                                <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                                                   <image>
+                                                      <Image url="@../icons/choosing-icon.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                             <styleClass>
+                                                <String fx:value="mouse-moved" />
+                                                <String fx:value="rect-round" />
+                                                <String fx:value="shadow" />
+                                             </styleClass>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </HBox>
+                                          <Button fx:id="categoryCreateButton" mnemonicParsing="false" onMouseClicked="#categoryCreateButtonAction" prefHeight="40.0" prefWidth="105.0" stylesheets="@../css/style.css" text="Make">
+                                             <styleClass>
+                                                <String fx:value="mouse-moved" />
+                                                <String fx:value="rect-round" />
+                                                <String fx:value="shadow" />
+                                             </styleClass>
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" right="5.0" />
+                                       </padding>
+                                    </HBox>
+                                    <Label prefHeight="37.0" prefWidth="639.0" text="Manage Categories:">
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="System Bold" size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="908.0" spacing="20.0">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="117.0" text="Category:">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <ComboBox fx:id="choosingCategoryComboBox" prefHeight="32.0" prefWidth="146.0" />
+                                          <HBox fx:id="categoryManagingChooserButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#categoryManagingChooserButtonAction" prefHeight="45.0" prefWidth="45.0" stylesheets="@../css/style.css">
+                                             <children>
+                                                <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                                                   <image>
+                                                      <Image url="@../icons/choosing-icon.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                             <styleClass>
+                                                <String fx:value="mouse-moved" />
+                                                <String fx:value="rect-round" />
+                                                <String fx:value="shadow" />
+                                             </styleClass>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </HBox>
+                                          <Button fx:id="deleteCategoryButton" mnemonicParsing="false" onMouseClicked="#deleteCategoryButtonAction" prefHeight="40.0" prefWidth="99.0" stylesheets="@../css/style.css" text="Delete">
+                                             <styleClass>
+                                                <String fx:value="mouse-moved" />
+                                                <String fx:value="rect-round" />
+                                                <String fx:value="shadow" />
+                                             </styleClass>
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="addPersonToCategoryButton" mnemonicParsing="false" onMouseClicked="#addPersonToCategoryButtonAction" prefHeight="40.0" prefWidth="78.0" stylesheets="@../css/style.css" text="Add">
+                                             <styleClass>
+                                                <String fx:value="mouse-moved" />
+                                                <String fx:value="rect-round" />
+                                                <String fx:value="shadow" />
+                                             </styleClass>
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="removePersonFromCategoryButton" mnemonicParsing="false" onMouseClicked="#removePersonFromCategoryButtonAction" prefHeight="40.0" prefWidth="114.0" stylesheets="@../css/style.css" text="Remove">
+                                             <styleClass>
+                                                <String fx:value="mouse-moved" />
+                                                <String fx:value="rect-round" />
+                                                <String fx:value="shadow" />
+                                             </styleClass>
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="messageSendingButton" mnemonicParsing="false" onMouseClicked="#messageSendingButtonAction" prefHeight="40.0" prefWidth="177.0" stylesheets="@../css/style.css" text="Send Message">
+                                             <styleClass>
+                                                <String fx:value="mouse-moved" />
+                                                <String fx:value="rect-round" />
+                                                <String fx:value="shadow" />
+                                             </styleClass>
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets left="5.0" right="5.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane expanded="false" prefWidth="900.0" text="Profile">
+                     <content>
+                        <AnchorPane prefHeight="445.0" prefWidth="898.0">
+                           <children>
+                              <VBox layoutX="-2.0" spacing="1.0">
+                                 <children>
+                                    <Label prefHeight="37.0" prefWidth="639.0" text="Change profile:">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="System Bold" size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="800.0" spacing="30.0">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="118.0" text="first name:">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="firstNameFiled" prefHeight="24.0" prefWidth="186.0" />
+                                          <Label alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="118.0" text="last name:">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="lastNameField" prefHeight="24.0" prefWidth="186.0" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="800.0" spacing="30.0">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="118.0" text="user name:">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="userNameField" prefHeight="24.0" prefWidth="186.0" />
+                                          <Label alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="118.0" text="email:">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="emailField" prefHeight="24.0" prefWidth="186.0" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="800.0" spacing="30.0">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="118.0" text="pasword:">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <PasswordField fx:id="passwordField" prefHeight="24.0" prefWidth="187.0" />
+                                          <HBox alignment="CENTER" prefHeight="57.0" prefWidth="393.0" spacing="5.0">
+                                             <children>
+                                                <CheckBox fx:id="showEmailCheckBox" mnemonicParsing="false" prefHeight="39.0" prefWidth="135.0" text="show email">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="privateAccountField" mnemonicParsing="false" prefHeight="39.0" prefWidth="177.0" text="private account">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </CheckBox>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets left="10.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="118.0" prefWidth="800.0">
+                                       <children>
+                                          <VBox onMouseClicked="#changeProfileImageAction" prefHeight="120.0" prefWidth="114.0" stylesheets="@../css/style.css">
+                                             <children>
+                                                <ImageView fx:id="profileImage" fitHeight="120.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../icons/user-icon.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </children>
+                                             <styleClass>
+                                                <String fx:value="mouse-moved" />
+                                                <String fx:value="rect-round" />
+                                                <String fx:value="shadow" />
+                                             </styleClass>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="73.0" prefWidth="800.0">
+                                       <children>
+                                          <Button fx:id="updateProfileButton" mnemonicParsing="false" onMouseClicked="#updateProfileButtonAction" prefHeight="46.0" prefWidth="135.0" stylesheets="@../css/style.css" text="Update">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                             <styleClass>
+                                                <String fx:value="mouse-moved" />
+                                                <String fx:value="rect-round" />
+                                                <String fx:value="shadow" />
+                                             </styleClass>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane expanded="false" text="Account">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <VBox alignment="TOP_CENTER" layoutX="-2.0">
+                                 <children>
+                                    <Label prefHeight="37.0" prefWidth="639.0" text="Last seen type:">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="System Bold" size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="9.0" prefWidth="600.0" spacing="57.0">
+                                       <children>
+                                          <Label alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="85.0" text="Type:">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                          <ChoiceBox fx:id="lastSeenTypeChoiceBox" prefHeight="32.0" prefWidth="189.0" />
+                                          <Button fx:id="LastSeenTypeUpdateButton" mnemonicParsing="false" onMouseClicked="#LastSeenTypeUpdateButtonAction" prefHeight="46.0" prefWidth="118.0" stylesheets="@../css/style.css" text="Update">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                             <styleClass>
+                                                <String fx:value="mouse-moved" />
+                                                <String fx:value="rect-round" />
+                                                <String fx:value="shadow" />
+                                             </styleClass>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" right="5.0" />
+                                       </padding>
+                                    </HBox>
+                                    <Label prefHeight="37.0" prefWidth="639.0" text="Privacy:">
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                       <font>
+                                          <Font name="System Bold" size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox alignment="CENTER" prefHeight="76.0" prefWidth="639.0" spacing="30.0">
+                                       <padding>
+                                          <Insets left="20.0" right="5.0" />
+                                       </padding>
+                                       <children>
+                                          <Button fx:id="deleteAccountButton" mnemonicParsing="false" onMouseClicked="#deleteAccountAction" stylesheets="@../css/style.css" text="Delete Account">
+                                             <styleClass>
+                                                <String fx:value="mouse-moved" />
+                                                <String fx:value="rect-round" />
+                                                <String fx:value="shadow" />
+                                             </styleClass>
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="deactivateButton" mnemonicParsing="false" onMouseClicked="#deactivateButtonAction" stylesheets="@../css/style.css" text="Deactivate">
+                                             <styleClass>
+                                                <String fx:value="mouse-moved" />
+                                                <String fx:value="rect-round" />
+                                                <String fx:value="shadow" />
+                                             </styleClass>
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="logOutButton" mnemonicParsing="false" onMouseClicked="#logOutButtonAction" prefHeight="39.0" prefWidth="122.0" stylesheets="@../css/style.css" text="Logout">
+                                             <styleClass>
+                                                <String fx:value="mouse-moved" />
+                                                <String fx:value="rect-round" />
+                                                <String fx:value="shadow" />
+                                             </styleClass>
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </TitledPane>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

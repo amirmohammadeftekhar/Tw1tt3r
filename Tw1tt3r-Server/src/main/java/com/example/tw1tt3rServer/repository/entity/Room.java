@@ -1,11 +1,10 @@
 package com.example.tw1tt3rServer.repository.entity;
 
-import com.example.tw1tt3rServer.repository.entity.enums.RoomType;
+import entities.enums.RoomType;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,6 +12,11 @@ import java.util.Set;
 @Getter
 @Setter
 public class Room {
+
+    public Room(){
+
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
@@ -48,13 +52,4 @@ public class Room {
         return getClass().hashCode();
     }
 
-    public Timestamp getLastMessageTimeStamp(){
-        Timestamp timestamp = new Timestamp(0);
-        for(Message message:messages){
-            if(timestamp.compareTo(message.getTimestamp()) < 0){
-                timestamp = message.getTimestamp();
-            }
-        }
-        return(timestamp);
-    }
 }

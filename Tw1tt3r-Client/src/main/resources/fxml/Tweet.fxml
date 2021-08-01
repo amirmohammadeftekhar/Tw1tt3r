@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<VBox fx:id="tweetArea" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#tweetAreaAction" spacing="10.0" styleClass="border" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TweetController">
+   <children>
+      <HBox spacing="10.0">
+         <children>
+            <ImageView fx:id="profileImage" fitHeight="108.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/user-icon.png" />
+               </image>
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </ImageView>
+            <TextArea fx:id="textArea" prefHeight="130.0" prefWidth="1100.0" text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book" wrapText="true" />
+         </children>
+      </HBox>
+      <VBox alignment="CENTER">
+         <children>
+            <ImageView fx:id="tweetImage" fitHeight="393.0" fitWidth="701.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </VBox>
+      <Pane fx:id="tweetImagePane" maxHeight="-Infinity" VBox.vgrow="ALWAYS">
+         <children>
+            <HBox alignment="TOP_CENTER" layoutX="-9.0" spacing="37.0">
+               <children>
+                  <HBox fx:id="saveTweetButton" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#saveTweetButtonAction" prefHeight="54.0" prefWidth="80.0" stylesheets="@../css/style.css">
+                     <children>
+                        <ImageView fitHeight="54.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/save-icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <styleClass>
+                        <String fx:value="mouse-moved" />
+                        <String fx:value="rect-round" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                  </HBox>
+                  <HBox fx:id="retweetButton" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#reTweetButtonAction" prefHeight="54.0" prefWidth="80.0" stylesheets="@../css/style.css">
+                     <children>
+                        <ImageView fitHeight="54.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/retweet-icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <styleClass>
+                        <String fx:value="mouse-moved" />
+                        <String fx:value="rect-round" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                  </HBox>
+                  <HBox prefHeight="54.0" prefWidth="147.0">
+                     <children>
+                        <HBox fx:id="choosingButton" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#choosingButtonAction" prefHeight="54.0" prefWidth="80.0" stylesheets="@../css/style.css">
+                           <children>
+                              <ImageView fitHeight="54.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/choosing-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <styleClass>
+                              <String fx:value="mouse-moved" />
+                              <String fx:value="rect-round" />
+                              <String fx:value="shadow" />
+                           </styleClass>
+                        </HBox>
+                        <HBox fx:id="forwardButton" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#forwardButtonAction" prefHeight="54.0" prefWidth="80.0" stylesheets="@../css/style.css">
+                           <children>
+                              <ImageView fitHeight="54.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/forward-icon.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <styleClass>
+                              <String fx:value="mouse-moved" />
+                              <String fx:value="rect-round" />
+                              <String fx:value="shadow" />
+                           </styleClass>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="blockWriterButton" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#blockWriterButtonAction" prefHeight="54.0" prefWidth="80.0" stylesheets="@../css/style.css">
+                     <children>
+                        <ImageView fitHeight="54.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/block-icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <styleClass>
+                        <String fx:value="mouse-moved" />
+                        <String fx:value="rect-round" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                  </HBox>
+                  <HBox fx:id="muteWriterButton" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#muteWriterButtonAction" prefHeight="54.0" prefWidth="80.0" stylesheets="@../css/style.css">
+                     <children>
+                        <ImageView fitHeight="54.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/mute-icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <styleClass>
+                        <String fx:value="mouse-moved" />
+                        <String fx:value="rect-round" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                  </HBox>
+                  <HBox fx:id="reportButton" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#reportButtonAction" prefHeight="54.0" prefWidth="80.0" stylesheets="@../css/style.css">
+                     <children>
+                        <ImageView fitHeight="54.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/report-icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <styleClass>
+                        <String fx:value="mouse-moved" />
+                        <String fx:value="rect-round" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                  </HBox>
+                  <HBox fx:id="personalPageButton" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#personalPageButtonAction" prefHeight="54.0" prefWidth="80.0" stylesheets="@../css/style.css">
+                     <children>
+                        <ImageView fitHeight="54.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/user-icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <styleClass>
+                        <String fx:value="mouse-moved" />
+                        <String fx:value="rect-round" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                  </HBox>
+                  <HBox fx:id="commentButton" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#commentButtonAction" prefHeight="54.0" prefWidth="80.0" stylesheets="@../css/style.css">
+                     <children>
+                        <ImageView fitHeight="54.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/comment-icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <styleClass>
+                        <String fx:value="mouse-moved" />
+                        <String fx:value="rect-round" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                  </HBox>
+                  <HBox fx:id="commentsButton" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#commentsButtonAction" prefHeight="54.0" prefWidth="80.0" stylesheets="@../css/style.css">
+                     <children>
+                        <ImageView fitHeight="54.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/comments-icon.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <styleClass>
+                        <String fx:value="mouse-moved" />
+                        <String fx:value="rect-round" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                  </HBox>
+                  <HBox fx:id="likeButton" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#likeButtonAction" prefHeight="54.0" prefWidth="130.0" spacing="8.0" stylesheets="@../css/style.css">
+                     <children>
+                        <ImageView fx:id="likeImage" fitHeight="54.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/like-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="numberOfLikeLabel" prefHeight="58.0" prefWidth="117.0" text="100">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <styleClass>
+                        <String fx:value="mouse-moved" />
+                        <String fx:value="rect-round" />
+                        <String fx:value="shadow" />
+                     </styleClass>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+         </children></Pane>
+   </children>
+</VBox>

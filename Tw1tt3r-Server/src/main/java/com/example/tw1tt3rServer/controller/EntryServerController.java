@@ -1,10 +1,12 @@
 package com.example.tw1tt3rServer.controller;
 
 import com.example.tw1tt3rServer.repository.entity.Person;
-import com.example.tw1tt3rServer.repository.entity.enums.LastSeenType;
 import com.example.tw1tt3rServer.service.PersonService;
+import dtos.PersonDto;
 import dtos.PersonIniDto;
 import dtos.StringDto;
+import entities.enums.LastSeenType;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +17,7 @@ import web.ResponseHeader;
 
 @RestController
 
-public class EntryController extends AbstractController{
+public class EntryServerController extends AbstractServerController {
     @Autowired
     PersonService personService;
 
@@ -30,7 +32,10 @@ public class EntryController extends AbstractController{
         }
         person.setActiveState(true);
         person = personService.save(person);
-        return(new BaseResponse(ResponseHeader.OK, new StringDto(personService.login(userName, password))));
+        ModelMapper modelMapper = new ModelMapper();
+//        PersonDto personDto = ModelMapperInstance.getInstance().getModelMapper().map(person, PersonDto.class);
+        PersonDto personDto = modelMapper.map(person, PersonDto.class);
+        return(new BaseResponse(ResponseHeader.OK, personDto));
     }
 
     @PostMapping(value = "signup")

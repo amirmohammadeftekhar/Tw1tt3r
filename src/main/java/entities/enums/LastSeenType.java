@@ -1,4 +1,4 @@
-package com.example.tw1tt3rServer.repository.entity.enums;
+package entities.enums;
 
 public enum LastSeenType {
     NOBODY, MYCONTACTS, EVERYBODY;

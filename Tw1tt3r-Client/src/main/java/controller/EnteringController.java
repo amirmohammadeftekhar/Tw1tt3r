@@ -38,4 +38,8 @@ public class EnteringController extends AbstractController implements Initializa
     public void initialize(URL location, ResourceBundle resources) {
     }
 
+    @Override
+    protected void reload() {
+
+    }
 }

@@ -74,6 +74,11 @@ public class SignInController extends AbstractController implements Initializabl
     public void initialize(URL location, ResourceBundle resources) {
 
     }
+
+    @Override
+    protected void reload() {
+
+    }
 }
 
 

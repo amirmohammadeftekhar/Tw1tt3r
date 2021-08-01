@@ -2,6 +2,7 @@ package controller;
 
 import config.ConfigInstance;
 import dtos.PersonDto;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import lombok.SneakyThrows;
-import retrofit2.Call;
 import retrofit2.Response;
 import web.BaseResponse;
 import web.TransactionCallBack;
@@ -42,12 +42,11 @@ public class SignInController extends AbstractController implements Initializabl
         TransactionServiceGenerator.getInstance().createService(EntryControllerService.class)
                 .signin(userName, password).enqueue(new TransactionCallBack<BaseResponse>() {
             @Override
-            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
-                super.onResponse(call, response);
+            public void DoOnResponse(Response<BaseResponse> response) {
                 BaseResponse baseResponse = response.body();
                 switch (baseResponse.getResponseHeader()){
                     case USERNAME_NOT_EXISTS: {
-                        infoLabel.setText(ConfigInstance.getInstance().getProperty("userNameNotAvailable"));
+                        Platform.runLater(() -> infoLabel.setText(ConfigInstance.getInstance().getProperty("userNameNotAvailable")));
                         break;
                     }
                     case WRONG_PASSWORD: {

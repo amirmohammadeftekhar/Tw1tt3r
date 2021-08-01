@@ -6,7 +6,6 @@ import com.example.tw1tt3rServer.repository.entity.Picture;
 import com.example.tw1tt3rServer.repository.entity.Room;
 import entities.enums.LastSeenType;
 import entities.enums.RoomType;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -127,17 +126,16 @@ public class PersonService {
         return(save(person));
     }
 
-    public String login(String userName, String password) {
-        Optional personOptional = personRepository.login(userName,password);
+    public void login(String userName, String password) {
+        Optional<Person> personOptional = personRepository.login(userName,password);
         if(personOptional.isPresent()){
             String token = UUID.randomUUID().toString();
             Person person = (Person) personOptional.get();
             person.setToken(token);
             personRepository.save(person);
-            return(token);
         }
 
-        return(StringUtils.EMPTY);
+        return;
     }
 
     public Optional<User> findByToken(String token){

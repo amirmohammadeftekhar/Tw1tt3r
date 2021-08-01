@@ -4,14 +4,13 @@ import com.example.tw1tt3rServer.repository.entity.Person;
 import com.example.tw1tt3rServer.service.PersonService;
 import dtos.PersonDto;
 import dtos.PersonIniDto;
-import dtos.StringDto;
 import entities.enums.LastSeenType;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import utility.ModelMapperInstance;
 import web.BaseResponse;
 import web.ResponseHeader;
 
@@ -32,9 +31,8 @@ public class EntryServerController extends AbstractServerController {
         }
         person.setActiveState(true);
         person = personService.save(person);
-        ModelMapper modelMapper = new ModelMapper();
-//        PersonDto personDto = ModelMapperInstance.getInstance().getModelMapper().map(person, PersonDto.class);
-        PersonDto personDto = modelMapper.map(person, PersonDto.class);
+        personService.login(person.getUserName(), person.getPassword());
+        PersonDto personDto = ModelMapperInstance.getModelMapper().map(person, PersonDto.class);
         return(new BaseResponse(ResponseHeader.OK, personDto));
     }
 
@@ -50,7 +48,9 @@ public class EntryServerController extends AbstractServerController {
         Person person = personService.makePerson(personIniDto.getFirstname(), personIniDto.getLastName(),
                 personIniDto.getUserName(), personIniDto.getPassword(), personIniDto.getEmailAddress(), true,
                 getTimeStamp(), personIniDto.isPrivate(), LastSeenType.NOBODY, personIniDto.isToShowEmail());
-        return(new BaseResponse(ResponseHeader.OK, new StringDto(personService.login(person.getUserName(), person.getPassword()))));
+        personService.login(person.getUserName(), person.getPassword());
+        PersonDto personDto = ModelMapperInstance.getModelMapper().map(person, PersonDto.class);
+        return(new BaseResponse(ResponseHeader.OK, personDto));
     }
 
 

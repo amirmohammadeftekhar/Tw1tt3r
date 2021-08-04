@@ -1,11 +1,9 @@
 package com.example.tw1tt3rServer.controller;
 
 import com.example.tw1tt3rServer.repository.entity.Person;
-import com.example.tw1tt3rServer.service.PersonService;
 import dtos.PersonDto;
 import dtos.PersonIniDto;
 import entities.enums.LastSeenType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,8 +15,6 @@ import web.ResponseHeader;
 @RestController
 
 public class EntryServerController extends AbstractServerController {
-    @Autowired
-    PersonService personService;
 
     @PostMapping(value = "signin")
     public BaseResponse signin(@RequestParam String userName, @RequestParam String password){

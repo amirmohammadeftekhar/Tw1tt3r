@@ -1,6 +1,7 @@
 package controller;
 
 import config.ConfigInstance;
+import controller.utility.ModelAccess;
 import dtos.PersonDto;
 import dtos.PersonIniDto;
 import javafx.event.ActionEvent;
@@ -15,7 +16,7 @@ import retrofit2.Response;
 import web.BaseResponse;
 import web.TransactionCallBack;
 import web.TransactionServiceGenerator;
-import web.services.EntryControllerService;
+import web.serviceinterfaces.EntryControllerService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -78,29 +79,12 @@ public class SignUpController extends AbstractController implements Initializabl
                     }
                     case OK: {
                         PersonDto person = (PersonDto) baseResponse.getDto();
-                        System.out.println(person.getToken());
+                        ModelAccess.currentPersonId = person.getId();
+                        ModelAccess.currentPerson = person;
                     }
                 }
             }
         });
-/*
-        if (personService.existsPersonByUserName(userName)) {
-            infoLabel.setText(uiStringConstConfig.getUserNameNotAvailable());
-            return;
-        }
-
-        if (personService.existsPersonByEmailAddress(emailAddr)) {
-            infoLabel.setText(uiStringConstConfig.getAddressNotAvailable());
-            return;
-        }
-        Person person = personService.makePerson(firstName, lastName, userName, password, emailAddr, true,
-                getTimeStamp(), toBePrivate, LastSeenType.NOBODY, toShowEmail);
-        ModelAccess.currentPersonId = person.getId();
-        Scene scene = ViewFactory.viewFactory.getMainMenuScene();
-        Stage stage = ViewFactory.viewFactory.getStage();
-        stage.setTitle("Main window");
-        stage.setScene(scene);
-*/
     }
 
     @Override

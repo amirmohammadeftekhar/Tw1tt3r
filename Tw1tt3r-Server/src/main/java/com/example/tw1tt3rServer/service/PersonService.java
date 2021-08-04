@@ -53,9 +53,10 @@ public class PersonService {
         return (personRepository.existsPersonByEmailAddressAndDeletedIsFalse(emailAddress));
     }
 
-    public Person updateLastSeen(Person person) {
+    public void updateLastSeen(int id) {
+        Person person = findById(id);
         person.setLastSeen(new Timestamp(System.currentTimeMillis()));
-        return(personRepository.save(person));
+        save(person);
     }
 
     public Person makePerson(String firstName, String lastName, String userName, String password, String emailAddress,

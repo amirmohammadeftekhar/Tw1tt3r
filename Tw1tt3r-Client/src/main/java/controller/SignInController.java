@@ -1,6 +1,7 @@
 package controller;
 
 import config.ConfigInstance;
+import controller.utility.ModelAccess;
 import dtos.PersonDto;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -14,7 +15,7 @@ import retrofit2.Response;
 import web.BaseResponse;
 import web.TransactionCallBack;
 import web.TransactionServiceGenerator;
-import web.services.EntryControllerService;
+import web.serviceinterfaces.EntryControllerService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -56,6 +57,8 @@ public class SignInController extends AbstractController implements Initializabl
                     case OK: {
                         PersonDto person = (PersonDto) baseResponse.getDto();
                         TransactionServiceGenerator.setToken(person.getToken());
+                        ModelAccess.currentPersonId = person.getId();
+                        ModelAccess.currentPerson = person;
                         System.out.println(person.getToken());
 /*
                         ModelAccess.currentPersonId = person.getId();

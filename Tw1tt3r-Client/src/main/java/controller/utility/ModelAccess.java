@@ -9,6 +9,7 @@ import dtos.TweetDto;
 import java.util.List;
 
 public class ModelAccess {
+    public static PersonDto currentPerson;
     public static int currentPersonId;
     public static TweetDto tweetToTweetController;
     public static PersonDto personToPersonalPageController;

@@ -1,4 +1,4 @@
-package web.services;
+package web.serviceinterfaces;
 
 import dtos.PersonIniDto;
 import retrofit2.Call;

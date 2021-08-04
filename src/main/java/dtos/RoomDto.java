@@ -13,7 +13,9 @@ import java.util.Set;
 
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "Id")
+        property = "Id",
+        scope = RoomDto.class
+)
 @Getter
 @Setter
 @AllArgsConstructor

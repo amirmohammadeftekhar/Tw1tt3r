@@ -1,4 +1,4 @@
-package controller.utility.enums;
+package utility.enums;
 
 public enum TimeLineParents {
     PERSON, TWEET;

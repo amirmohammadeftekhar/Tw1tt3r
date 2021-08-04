@@ -28,6 +28,10 @@ public class TweetService {
         return (tweetRepository.save(tweet));
     }
 
+    public Tweet findById(int id){
+        return(tweetRepository.findById(id).get());
+    }
+
     //------------------------------------------------------------------------------------------------------------
 
     public List<Tweet> findByPersonWhoMadeThis(Person person) {

@@ -12,7 +12,9 @@ import java.util.Set;
 
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "Id")
+        property = "Id",
+        scope = CategoryDto.class
+)
 @Getter
 @Setter
 @AllArgsConstructor

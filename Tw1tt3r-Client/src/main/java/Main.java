@@ -1,8 +1,8 @@
-import database.DataBaseUtil;
+import controller.utility.WebUtil;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
-import org.hibernate.Session;
+import web.TransactionServiceGenerator;
 
 public class Main extends Application {
     @SneakyThrows
@@ -12,9 +12,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Session session = DataBaseUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.close();
+        TransactionServiceGenerator.setToken("c96cae99-9ba9-4e8d-bfd1-a0eb71950d8e");
+        System.out.println(WebUtil.getPerson(4).getToken());
 /*
         primaryStage.setTitle("Entering");
         ViewFactory viewFactory = ViewFactory.viewFactory;

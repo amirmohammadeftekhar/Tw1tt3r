@@ -11,12 +11,7 @@ public abstract class TransactionCallBack<T extends BaseResponse> implements Cal
 
         @Override
         public void onResponse(Call<T> call, Response<T> response) {
-                Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                                DoOnResponse(response);
-                        }
-                });
+                Platform.runLater(() -> DoOnResponse(response));
         }
 
         @Override

@@ -1,10 +1,8 @@
-import controller.utility.Worker;
+import database.DataBaseUtil;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
-import view.ViewFactory;
-import view.ViewUtility;
+import org.hibernate.Session;
 
 public class Main extends Application {
     @SneakyThrows
@@ -14,6 +12,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Session session = DataBaseUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.close();
+/*
         primaryStage.setTitle("Entering");
         ViewFactory viewFactory = ViewFactory.viewFactory;
         viewFactory.setStage(primaryStage);
@@ -22,6 +24,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         Worker.begin();
+*/
     }
 }
 

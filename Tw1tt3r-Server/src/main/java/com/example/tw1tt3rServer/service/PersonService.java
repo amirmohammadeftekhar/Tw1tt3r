@@ -1,5 +1,6 @@
 package com.example.tw1tt3rServer.service;
 
+import com.example.tw1tt3rServer.aspects.NoLogging;
 import com.example.tw1tt3rServer.repository.PersonRepository;
 import com.example.tw1tt3rServer.repository.entity.Person;
 import com.example.tw1tt3rServer.repository.entity.Picture;
@@ -139,6 +140,7 @@ public class PersonService {
         return;
     }
 
+    @NoLogging
     public Optional<User> findByToken(String token){
         Optional personOptional = personRepository.findByToken(token);
         if(personOptional.isPresent()){

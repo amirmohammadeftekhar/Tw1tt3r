@@ -9,16 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import utility.ModelMapperInstance;
-import web.BaseResponse;
-import web.ResponseHeader;
 
 @RestController
 public class PersonServiceServerController extends AbstractServerController {
 
     @PostMapping(value = "api/personservice/getperson")
-    public BaseResponse getPerson(@RequestParam int id){
+    public PersonDto getPerson(@RequestParam int id){
         Person person = personService.findById(id);
-        return(new BaseResponse(ResponseHeader.OK, ModelMapperInstance.getModelMapper().map(person, PersonDto.class)));
+        return(ModelMapperInstance.getModelMapper().map(person, PersonDto.class));
     }
 
     @PostMapping(value = "api/personservice/updatelastseen")

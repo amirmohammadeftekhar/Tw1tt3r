@@ -4,6 +4,7 @@ import com.example.tw1tt3rServer.controller.AbstractServerController;
 import com.example.tw1tt3rServer.repository.entity.Person;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,4 +23,42 @@ public class ActionServiceServerController extends AbstractServerController {
         }
         return(new ResponseEntity<Void>(HttpStatus.OK));
     }
+
+    @GetMapping(value = "api/actionservice/isblocking")
+    public Boolean isBLocking(@RequestParam int currentPersonId, @RequestParam int personId){
+        return(actionService.isBlocking(personService.findById(currentPersonId), personService.findById(personId)));
+    }
+
+    @GetMapping(value = "api/actionservice/isfollowing")
+    public Boolean isFollowing(@RequestParam int currentPersonId, @RequestParam int personId){
+        return(actionService.isFollowing(personService.findById(currentPersonId), personService.findById(personId)));
+    }
+
+    @GetMapping(value = "api/actionservice/issourcemuting")
+    public Boolean isSourceMuting(@RequestParam int source, @RequestParam int destination){
+        return(actionService.isSourceMuting(personService.findById(source), personService.findById(destination)));
+    }
+
+    @GetMapping(value = "api/actionservice/getfollowerspersonscount")
+    public int getFollowersPersonsCount(@RequestParam int personId){
+        return(actionService.getFollowersPersons(personService.findById(personId)).size());
+    }
+
+    @GetMapping(value = "api/actionservice/getfollowingspersonscount")
+    public int getFollowingsPersonsCount(@RequestParam int personId){
+        return(actionService.getFollowingsPersons(personService.findById(personId)).size());
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

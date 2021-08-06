@@ -1,8 +1,10 @@
-import controller.utility.WebUtil;
+import controller.utility.Worker;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
-import web.TransactionServiceGenerator;
+import view.ViewFactory;
+import view.ViewUtility;
 
 public class Main extends Application {
     @SneakyThrows
@@ -12,9 +14,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        TransactionServiceGenerator.setToken("c96cae99-9ba9-4e8d-bfd1-a0eb71950d8e");
-        System.out.println(WebUtil.getPerson(4).getToken());
-/*
         primaryStage.setTitle("Entering");
         ViewFactory viewFactory = ViewFactory.viewFactory;
         viewFactory.setStage(primaryStage);
@@ -23,7 +22,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         Worker.begin();
-*/
     }
 }
 

@@ -90,4 +90,8 @@ public class RoomService {
         return(null);
     }
 
+    public Room findById(int id){
+        return(roomRepository.findById(id).get());
+    }
+
 }

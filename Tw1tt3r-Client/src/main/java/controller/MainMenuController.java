@@ -1,5 +1,6 @@
 package controller;
 
+import controller.utility.ModelAccess;
 import controller.utility.WebUtil;
 import controller.utility.enums.MainMenuItems;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import view.ViewFactory;
+import view.ViewObjects;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -89,9 +91,15 @@ public class MainMenuController extends AbstractController implements Initializa
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // TODO
         currentPerson = WebUtil.getPerson(currentPersonId);
+        ViewObjects viewObjects;
         items.put(MainMenuItems.TIMELINE, ViewFactory.viewFactory.getTimeLineParent());
-        items.put(MainMenuItems.MESSAGING, ViewFactory.viewFactory.getMessagingMainMenuParent());
+
+        viewObjects = ViewFactory.viewFactory.getMessagingMainMenuViewObjects();
+        ModelAccess.messagingMainMenuController = (MessagingMainMenuController) viewObjects.getAbstractController();
+        items.put(MainMenuItems.MESSAGING, viewObjects.getParent());
+
         items.put(MainMenuItems.PROFILE, ViewFactory.viewFactory.getProfileParent());
         items.put(MainMenuItems.EXPLORE, ViewFactory.viewFactory.getExploreParent());
         items.put(MainMenuItems.SETTING, ViewFactory.viewFactory.getSettingParent());

@@ -1,6 +1,7 @@
 package view;
 
 import config.ConfigInstance;
+import dtos.PictureDto;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -8,10 +9,13 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import lombok.SneakyThrows;
+import web.TransactionServiceGenerator;
+import web.serviceinterfaces.services.PictureServiceControllerService;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 
 public class ViewUtility {
 
@@ -60,5 +64,15 @@ public class ViewUtility {
         catch (Exception e){
             return(false);
         }
+    }
+
+    @SneakyThrows
+    public static PictureDto makePicture(File file){
+        PictureDto picture = new PictureDto();
+        byte[] bt = new byte[(int) file.length()];
+        FileInputStream fileInputStream = new FileInputStream(file);
+        fileInputStream.read(bt);
+        picture.setContent(bt);
+        return(TransactionServiceGenerator.getInstance().createService(PictureServiceControllerService.class).makePicture(picture).execute().body());
     }
 }

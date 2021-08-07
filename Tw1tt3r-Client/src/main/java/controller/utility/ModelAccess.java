@@ -1,5 +1,7 @@
 package controller.utility;
 
+import controller.MainMenuController;
+import controller.MessagingMainMenuController;
 import controller.utility.enums.ShowListChoices;
 import dtos.CategoryDto;
 import dtos.PersonDto;
@@ -18,4 +20,6 @@ public class ModelAccess {
     public static List<PersonDto> peopleListToShow;
     public static TweetDto parentTweetToTweetMakingController;
     public static CategoryDto categoryToCategoryMessaging;
+    public static MainMenuController mainMenuController;
+    public static MessagingMainMenuController messagingMainMenuController;
 }

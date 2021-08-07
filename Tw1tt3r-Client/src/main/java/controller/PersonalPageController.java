@@ -3,6 +3,7 @@ package controller;
 import config.ConfigInstance;
 import controller.utility.ModelAccess;
 import dtos.PersonDto;
+import dtos.RoomDto;
 import entities.enums.LastSeenType;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -17,8 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import view.ViewFactory;
 import view.ViewUtility;
 import web.BaseResponse;
+import web.ResponseHeader;
 import web.TransactionCallBack;
 import web.TransactionServiceGenerator;
 import web.serviceinterfaces.PersonalPageControllerService;
@@ -29,7 +32,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import static controller.utility.ModelAccess.currentPersonId;
+import static controller.utility.ModelAccess.*;
 
 public class PersonalPageController extends AbstractController implements Initializable {
 
@@ -153,18 +156,18 @@ public class PersonalPageController extends AbstractController implements Initia
     @FXML
     @Transactional
     void messageButtonAction(MouseEvent event) {
-        // TODO
-/*
         mainMenuController.messageButtonAction(null);
-        if(roomService.existsPv(currentPerson, person)){
-            messagingMainMenuController.openChatBox(roomService.findPv(currentPerson, person));
-        }
-        else{
-            Room room = roomService.makePv(currentPerson, person);
-            messagingMainMenuController.addRoomToChatsWindow(room);
-            messagingMainMenuController.openChatBox(room);
-        }
-*/
+        TransactionServiceGenerator.getInstance().createService(PersonalPageControllerService.class).messageButtonAction(currentPersonId, person.getId()).enqueue(new TransactionCallBack<BaseResponse>() {
+            @Override
+            public void DoOnResponse(Response<BaseResponse> response) {
+                RoomDto room = (RoomDto) response.body().getDto();
+                if(response.body().getResponseHeader() == ResponseHeader.ROOM_NOT_EXISTS){
+
+                    messagingMainMenuController.addRoomToChatsWindow(room);
+                }
+                messagingMainMenuController.openChatBox(room);
+            }
+        });
     }
 
     @FXML
@@ -219,8 +222,7 @@ public class PersonalPageController extends AbstractController implements Initia
         userNameLabel.setText("@" + person.getUserName());
         nameLabel.setText(person.getFirstname() + person.getLastName());
         if(person.getPicture() != null){
-            // TODO
-//            profileImage.setImage(pictureService.getImageType(person.getPicture()));
+            profileImage.setImage(ViewFactory.getImageType(person.getPicture()));
         }
         followerCount.setText(TransactionServiceGenerator.getInstance().createService(ActionServiceControllerService.class).getFollowersPersonsCount(person.getId()).execute().body().toString());
         followingCount.setText(TransactionServiceGenerator.getInstance().createService(ActionServiceControllerService.class).getFollowingsPersonsCount(person.getId()).execute().body().toString());

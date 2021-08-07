@@ -1,11 +1,14 @@
 package com.example.tw1tt3rServer.controller;
 
 import com.example.tw1tt3rServer.repository.entity.Person;
+import com.example.tw1tt3rServer.repository.entity.Room;
+import dtos.RoomDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import utility.ModelMapperInstance;
 import web.BaseResponse;
 import web.ResponseHeader;
 
@@ -66,6 +69,21 @@ public class PersonalPageServerController extends AbstractServerController{
             actionService.makeMute(currentPerson, person);
         }
         return(new ResponseEntity<Void>(HttpStatus.OK));
+    }
+
+    @GetMapping("api/personalpage/messagebuttonaction")
+    public BaseResponse messageButtonAction(@RequestParam int currentPersonId, @RequestParam int personId){
+        Person currentPerson = personService.findById(currentPersonId);
+        Person person = personService.findById(personId);
+        Room room;
+        if(roomService.existsPv(currentPerson, person)){
+            room = roomService.findPv(currentPerson, person);
+            return(new BaseResponse(ResponseHeader.ROOM_EXISTS, ModelMapperInstance.getModelMapper().map(room, RoomDto.class)));
+        }
+        else{
+            room = roomService.makePv(currentPerson, person);
+            return(new BaseResponse(ResponseHeader.ROOM_NOT_EXISTS, ModelMapperInstance.getModelMapper().map(room, RoomDto.class)));
+        }
     }
 }
 

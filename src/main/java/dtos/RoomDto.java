@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,6 +56,16 @@ public class RoomDto extends Dto{
 
     public RoomDto(){
 
+    }
+
+    public Timestamp getLastMessageTimeStamp(){
+        Timestamp timestamp = new Timestamp(0);
+        for(MessageDto message:messages){
+            if(timestamp.compareTo(message.getTimestamp()) < 0){
+                timestamp = message.getTimestamp();
+            }
+        }
+        return(timestamp);
     }
 
 }

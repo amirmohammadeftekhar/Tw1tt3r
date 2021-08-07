@@ -2,15 +2,13 @@ package view;
 
 import config.ConfigInstance;
 import controller.AbstractController;
-import dtos.CategoryDto;
-import dtos.MessageDto;
-import dtos.PersonDto;
-import dtos.RoomDto;
+import dtos.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -19,6 +17,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 
+import java.io.ByteArrayInputStream;
 import java.util.Date;
 
 public class ViewFactory{
@@ -47,9 +46,9 @@ public class ViewFactory{
         return (viewObjects.getScene());
     }
 
-    public Scene getMainMenuScene() {
+    public ViewObjects getMainMenuViewObjects() {
         ViewObjects viewObjects = initializeScene(ConfigInstance.getInstance().getProperty("mainmenu_fxml"));
-        return (viewObjects.getScene());
+        return(viewObjects);
     }
 
     public Parent getTweetParent() {
@@ -72,9 +71,9 @@ public class ViewFactory{
         return(viewObjects.getParent());
     }
 
-    public Parent getMessagingMainMenuParent(){
+    public ViewObjects getMessagingMainMenuViewObjects(){
         ViewObjects viewObjects = initializeScene(ConfigInstance.getInstance().getProperty("messagingmainmenu_fxml"));
-        return(viewObjects.getParent());
+        return(viewObjects);
     }
 
     private void loadMessageParent(Parent messageParent, MessageDto message){
@@ -87,8 +86,7 @@ public class ViewFactory{
         timeLabel.setText(date.toString());
         messageTextArea.setText(message.getText());
         if(message.getPicture()!=null){
-            // TODO
-//            imageView.setImage(pictureService.getImageType(message.getPicture()));
+            imageView.setImage(getImageType(message.getPicture()));
         }
         else{
             imageView.setFitHeight(0);
@@ -157,10 +155,7 @@ public class ViewFactory{
         ImageView imageView = (ImageView) imageVBox.getChildrenUnmodifiable().get(0);
         userNameLabel.setText(personDto.getUserName());
         if(personDto.getPicture() != null){
-            // TODO
-/*
-            imageView.setImage(pictureService.getImageType(personDto.getPicture()));
-*/
+            imageView.setImage(getImageType(personDto.getPicture()));
         }
     }
 
@@ -195,6 +190,17 @@ public class ViewFactory{
         Scene scene = new Scene(parent);
         return (new ViewObjects(abstractController, scene, parent));
 
+    }
+
+    @SneakyThrows
+    static public Image getImageType(PictureDto picture){
+        if(picture==null){
+            return(null);
+        }
+        if(picture.getContent()==null){
+            return(null);
+        }
+        return(new Image(new ByteArrayInputStream(picture.getContent())));
     }
 
 }

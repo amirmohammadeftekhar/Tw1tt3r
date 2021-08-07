@@ -19,4 +19,7 @@ public interface PersonalPageControllerService {
     @POST(value = "api/personalpage/mutebuttonaction")
     public Call<Void> muteButtonAction(@Query("currentPersonId") int currentPersonId, @Query("personId") int personId);
 
+    @GET(value = "api/personalpage/messagebuttonaction")
+    public Call<BaseResponse> messageButtonAction(@Query("currentPersonId") int currentPersonId, @Query("personId") int personId);
+
 }

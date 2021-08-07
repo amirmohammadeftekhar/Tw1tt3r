@@ -7,12 +7,16 @@ import dtos.PersonIniDto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import retrofit2.Response;
+import view.ViewFactory;
+import view.ViewObjects;
 import web.BaseResponse;
 import web.TransactionCallBack;
 import web.TransactionServiceGenerator;
@@ -79,8 +83,15 @@ public class SignUpController extends AbstractController implements Initializabl
                     }
                     case OK: {
                         PersonDto person = (PersonDto) baseResponse.getDto();
+                        TransactionServiceGenerator.setToken(person.getToken());
                         ModelAccess.currentPersonId = person.getId();
                         ModelAccess.currentPerson = person;
+                        ViewObjects viewObjects = ViewFactory.viewFactory.getMainMenuViewObjects();
+                        Scene scene = viewObjects.getScene();
+                        ModelAccess.mainMenuController = (MainMenuController) viewObjects.getAbstractController();
+                        Stage stage = ViewFactory.viewFactory.getStage();
+                        stage.setTitle("Main window");
+                        stage.setScene(scene);
                     }
                 }
             }

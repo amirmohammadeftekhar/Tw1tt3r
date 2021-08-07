@@ -12,7 +12,7 @@ import web.serviceinterfaces.services.PersonServiceControllerService;
 public class WebUtil {
     @SneakyThrows
     public static PersonDto getPerson(int id){
-        return((PersonDto)TransactionServiceGenerator.getInstance().createService(PersonServiceControllerService.class).getPerson(id).execute().body().getDto());
+        return(TransactionServiceGenerator.getInstance().createService(PersonServiceControllerService.class).getPerson(id).execute().body());
     }
 
     public static void updateLastSeen(int id){

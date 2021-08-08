@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
-<VBox alignment="TOP_CENTER" minHeight="1008.0" minWidth="1300.0" prefHeight="1008.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProfileController">
+<VBox alignment="TOP_CENTER" minHeight="1008.0" minWidth="1300.0" prefHeight="1008.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.ProfileController">
    <children>
       <VBox alignment="CENTER" prefHeight="112.0" prefWidth="1296.0" stylesheets="@../css/style.css">
          <children>

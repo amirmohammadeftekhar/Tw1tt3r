@@ -1,7 +1,9 @@
 package controller.utility;
 
+import controller.ExploreController;
 import controller.MainMenuController;
 import controller.MessagingMainMenuController;
+import controller.TimeLineController;
 import controller.utility.enums.ShowListChoices;
 import dtos.CategoryDto;
 import dtos.PersonDto;
@@ -11,7 +13,6 @@ import dtos.TweetDto;
 import java.util.List;
 
 public class ModelAccess {
-    public static PersonDto currentPerson;
     public static int currentPersonId;
     public static TweetDto tweetToTweetController;
     public static PersonDto personToPersonalPageController;
@@ -22,4 +23,6 @@ public class ModelAccess {
     public static CategoryDto categoryToCategoryMessaging;
     public static MainMenuController mainMenuController;
     public static MessagingMainMenuController messagingMainMenuController;
+    public static ExploreController exploreController;
+    public static TimeLineController timeLineController;
 }

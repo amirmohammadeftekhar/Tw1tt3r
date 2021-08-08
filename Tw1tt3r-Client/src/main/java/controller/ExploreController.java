@@ -75,10 +75,10 @@ public class ExploreController extends AbstractController implements Initializab
 
 
     @Override
-    protected void reload() {
+    public void reload() {
         tweetGridPane.getChildren().clear();
         TransactionServiceGenerator.getInstance().createService(ExploreControllerService.class)
-                .getTweetList(currentPersonId, parents.peek()).enqueue(new TransactionCallBack<BaseResponse>() {
+                .getTweetList(currentPersonId, parents.empty()?new TimeLineParent():parents.peek()).enqueue(new TransactionCallBack<BaseResponse>() {
             @Override
             public void DoOnResponse(Response<BaseResponse> response) {
                 BaseResponse baseResponse = response.body();
@@ -97,5 +97,6 @@ public class ExploreController extends AbstractController implements Initializab
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        super.initialize(location, resources);
     }
 }

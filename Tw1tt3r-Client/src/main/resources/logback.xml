@@ -1,5 +1,6 @@
 <configuration>
     <logger name="org.apache" level="WARN" />
+    <logger name="com.sun.javafx" level="OFF" />
 <!--
     <logger name="httpclient" level="WARN" />
 -->

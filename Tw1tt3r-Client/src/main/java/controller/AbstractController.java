@@ -1,17 +1,33 @@
 package controller;
 
 import dtos.PersonDto;
+import javafx.application.Platform;
+import javafx.fxml.Initializable;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 
+import java.net.URL;
 import java.sql.Timestamp;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ResourceBundle;
 
 @Getter
-public abstract class AbstractController {
-
-    private static final List<AbstractController> controllers = new LinkedList<AbstractController>();
+public abstract class AbstractController implements Initializable {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Thread thread = new Thread(new Runnable() {
+            @SneakyThrows
+            @Override
+            public void run() {
+                while (true){
+                    Thread.sleep(1000);
+                    Platform.runLater(() -> reload());
+                }
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
+    }
 
     @Setter
     protected PersonDto personDto;
@@ -20,13 +36,9 @@ public abstract class AbstractController {
         return (new Timestamp(System.currentTimeMillis()));
     }
 
-    protected abstract void reload();
+    public abstract void reload();
 
     public AbstractController(){
-        controllers.add(this);
     }
 
-    public static void reloadAll(){
-        controllers.forEach(AbstractController::reload);
-    }
 }

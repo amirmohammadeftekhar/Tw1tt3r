@@ -1,7 +1,9 @@
 package controller;
 
 import controller.utility.ModelAccess;
+import controller.utility.WebUtil;
 import dtos.MessageDto;
+import dtos.PersonDto;
 import dtos.RoomDto;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,7 +22,6 @@ import web.serviceinterfaces.MessagingMainMenuControllerService;
 import java.net.URL;
 import java.util.*;
 
-import static controller.utility.ModelAccess.currentPerson;
 import static controller.utility.ModelAccess.currentPersonId;
 
 public class MessagingMainMenuController extends AbstractController implements Initializable {
@@ -37,6 +38,7 @@ public class MessagingMainMenuController extends AbstractController implements I
     private GridPane chatsGridPane;
 
     public void addRoomToChatsWindow(RoomDto room){
+        PersonDto currentPerson = WebUtil.getPerson(currentPersonId);
         int unreadMessageCount = 0;
         for(MessageDto message:room.getMessages()){
             if(message.getSourcePerson().getId() == currentPersonId){
@@ -60,12 +62,12 @@ public class MessagingMainMenuController extends AbstractController implements I
 
 
     @Override
-    protected void reload() {
-
+    public void reload() {
+        PersonDto currentPerson = WebUtil.getPerson(currentPersonId);
         chatsGridPane.getChildren().clear();
         chatsPointer = 0;
         List<RoomDto> rooms = new LinkedList<RoomDto>(currentPerson.getRooms());
-        rooms.sort((a, b) -> b.getLastMessageTimeStamp().compareTo(a.getLastMessageTimeStamp()));
+        rooms.sort((a, b) -> b.lastMessageTimeStamp().compareTo(a.lastMessageTimeStamp()));
         for(RoomDto room:rooms){
             addRoomToChatsWindow(room);
         }
@@ -87,5 +89,6 @@ public class MessagingMainMenuController extends AbstractController implements I
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        super.initialize(location, resources);
     }
 }

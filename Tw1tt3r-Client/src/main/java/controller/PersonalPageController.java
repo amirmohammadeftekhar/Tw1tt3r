@@ -209,12 +209,12 @@ public class PersonalPageController extends AbstractController implements Initia
     public void initialize(URL location, ResourceBundle resources) {
 
         person = ModelAccess.personToPersonalPageController;
-        reload();
+        super.initialize(location, resources);
     }
 
     @SneakyThrows
     @Override
-    protected void reload() {
+    public void reload() {
         PersonDto currentPerson = (PersonDto) TransactionServiceGenerator.getInstance().createService(PersonServiceControllerService.class).getPerson(currentPersonId).execute().body();
         reloadFollowButton();
         reloadBlockButton();

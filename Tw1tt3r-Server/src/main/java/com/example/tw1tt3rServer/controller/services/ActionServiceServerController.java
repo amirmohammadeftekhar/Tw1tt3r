@@ -1,6 +1,7 @@
 package com.example.tw1tt3rServer.controller.services;
 
 import com.example.tw1tt3rServer.controller.AbstractServerController;
+import com.example.tw1tt3rServer.repository.entity.Action;
 import com.example.tw1tt3rServer.repository.entity.Person;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +48,29 @@ public class ActionServiceServerController extends AbstractServerController {
     @GetMapping(value = "api/actionservice/getfollowingspersonscount")
     public int getFollowingsPersonsCount(@RequestParam int personId){
         return(actionService.getFollowingsPersons(personService.findById(personId)).size());
+    }
+
+    @PostMapping("api/actionservice/makefollow")
+    public ResponseEntity<Void> makeFollow(@RequestParam int currentPersonId, @RequestParam int personId){
+        Person currentPerson = personService.findById(currentPersonId);
+        Person person = personService.findById(personId);
+        actionService.makeFollow(currentPerson, person);
+        return(new ResponseEntity<Void>(HttpStatus.OK));
+    }
+
+    @PostMapping("api/actionservice/makereject")
+    public ResponseEntity<Void> makeReject(@RequestParam int currentPersonId, @RequestParam int personId){
+        Person currentPerson = personService.findById(currentPersonId);
+        Person person = personService.findById(personId);
+        actionService.makeReject(currentPerson, person);
+        return(new ResponseEntity<Void>(HttpStatus.OK));
+    }
+
+    @PostMapping("api/actionservice/deleteaction")
+    public ResponseEntity<Void> deleteAction(@RequestParam int actionId){
+        Action action = actionService.findById(actionId);
+        actionService.deleteAction(action);
+        return(new ResponseEntity<Void>(HttpStatus.OK));
     }
 }
 

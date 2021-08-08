@@ -8,10 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import utility.ModelMapperInstance;
 import web.BaseResponse;
 import web.ResponseHeader;
 
+@RestController
 public class PersonalPageServerController extends AbstractServerController{
     @PostMapping("api/personalpage/blockbuttonaction")
     public ResponseEntity<Void> blockButtonAction(@RequestParam int currentPersonId, @RequestParam int personId){
@@ -39,6 +41,7 @@ public class PersonalPageServerController extends AbstractServerController{
         if(!actionService.isFollowing(currentPerson, person) && !actionService.isFollowRequesting(currentPerson, person)){
             return(new BaseResponse(ResponseHeader.FOLLOW_STATUS, null));
         }
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!");
         return(null);
     }
 

@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.*?>
-<BorderPane fx:id="chatRoomPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MessagingMainMenuController">
+<BorderPane fx:id="chatRoomPane" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.MessagingMainMenuController">
    <left>
       <BorderPane prefHeight="400.0" prefWidth="144.0" BorderPane.alignment="CENTER">
          <center>

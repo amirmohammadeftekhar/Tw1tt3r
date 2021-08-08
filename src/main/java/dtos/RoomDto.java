@@ -58,7 +58,8 @@ public class RoomDto extends Dto{
 
     }
 
-    public Timestamp getLastMessageTimeStamp(){
+
+    public Timestamp lastMessageTimeStamp(){
         Timestamp timestamp = new Timestamp(0);
         for(MessageDto message:messages){
             if(timestamp.compareTo(message.getTimestamp()) < 0){

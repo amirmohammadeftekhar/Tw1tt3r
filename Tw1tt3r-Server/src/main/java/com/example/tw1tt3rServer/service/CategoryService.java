@@ -79,4 +79,8 @@ public class CategoryService {
         }
     }
 
+    public Category findById(int id){
+        return(categoryRepository.findById(id).get());
+    }
+
 }

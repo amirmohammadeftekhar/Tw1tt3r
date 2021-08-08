@@ -23,4 +23,14 @@ public interface ActionServiceControllerService {
 
     @GET(value = "api/actionservice/getfollowingspersonscount")
     public Call<Integer> getFollowingsPersonsCount(@Query("personId") int personId);
+
+    @POST(value = "api/actionservice/makefollow")
+    public Call<Void> makeFollow(@Query("currentPersonId") int currentPersonId, @Query("personId") int personId);
+
+    @POST(value = "api/actionservice/makereject")
+    public Call<Void> makeReject(@Query("currentPersonId") int currentPersonId, @Query("personId") int personId);
+
+
+    @POST(value = "api/actionservice/deleteaction")
+    public Call<Void> deleteAction(@Query("actionId") int actionId);
 }

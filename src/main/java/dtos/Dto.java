@@ -17,6 +17,7 @@ import lombok.Setter;
         @JsonSubTypes.Type(value = PersonDto.class, name = "PersonDto"),
         @JsonSubTypes.Type(value = RoomDto.class, name = "RoomDto"),
         @JsonSubTypes.Type(value = TweetListDto.class, name = "TweetListDto"),
+        @JsonSubTypes.Type(value = ProfileReloadDto.class, name = "ProfileReloadDto"),
         @JsonSubTypes.Type(value = TweetDto.class, name = "TweetDto"),
         @JsonSubTypes.Type(value = CategoryDto.class, name = "CategoryDto"),
         @JsonSubTypes.Type(value = PictureDto.class, name = "PictureDto"),

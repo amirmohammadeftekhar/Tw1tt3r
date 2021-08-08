@@ -84,7 +84,7 @@ public class RoomChatBoxController extends AbstractController implements Initial
     }
 
     @Override
-    protected void reload() {
+    public void reload() {
         // TODO get room message
         messagesGridPane.getChildren().clear();
         int t = 0;
@@ -145,5 +145,6 @@ public class RoomChatBoxController extends AbstractController implements Initial
     public void initialize(URL location, ResourceBundle resources) {
 
         room = ModelAccess.roomToChatBox;
+        super.initialize(location, resources);
     }
 }

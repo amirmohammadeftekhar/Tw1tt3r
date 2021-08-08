@@ -1,5 +1,5 @@
 package utility.enums;
 
 public enum TimeLineParents {
-    PERSON, TWEET;
+    PERSON, TWEET, HEAD;
 }

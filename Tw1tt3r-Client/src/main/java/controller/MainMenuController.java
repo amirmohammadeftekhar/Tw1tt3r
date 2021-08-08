@@ -3,6 +3,7 @@ package controller;
 import controller.utility.ModelAccess;
 import controller.utility.WebUtil;
 import controller.utility.enums.MainMenuItems;
+import dtos.PersonDto;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -18,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import static controller.utility.ModelAccess.currentPerson;
 import static controller.utility.ModelAccess.currentPersonId;
 
 public class MainMenuController extends AbstractController implements Initializable {
@@ -54,7 +54,8 @@ public class MainMenuController extends AbstractController implements Initializa
     private BorderPane MainWindowPane;
 
     @Override
-    protected void reload() {
+    public void reload() {
+        PersonDto currentPerson = WebUtil.getPerson(currentPersonId);
         nameLabel.setText(currentPerson.getFirstname() + " " + currentPerson.getLastName());
         userNameLabel.setText("@" + currentPerson.getUserName());
     }
@@ -92,17 +93,25 @@ public class MainMenuController extends AbstractController implements Initializa
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO
-        currentPerson = WebUtil.getPerson(currentPersonId);
         ViewObjects viewObjects;
-        items.put(MainMenuItems.TIMELINE, ViewFactory.viewFactory.getTimeLineParent());
+
+        viewObjects = ViewFactory.viewFactory.getTimeLineViewObjects();
+        ModelAccess.timeLineController = (TimeLineController) viewObjects.getAbstractController();
+        items.put(MainMenuItems.TIMELINE, viewObjects.getParent());
 
         viewObjects = ViewFactory.viewFactory.getMessagingMainMenuViewObjects();
         ModelAccess.messagingMainMenuController = (MessagingMainMenuController) viewObjects.getAbstractController();
         items.put(MainMenuItems.MESSAGING, viewObjects.getParent());
 
         items.put(MainMenuItems.PROFILE, ViewFactory.viewFactory.getProfileParent());
-        items.put(MainMenuItems.EXPLORE, ViewFactory.viewFactory.getExploreParent());
+
+        viewObjects = ViewFactory.viewFactory.getExploreViewObjects();
+        ModelAccess.exploreController = (ExploreController) viewObjects.getAbstractController();
+        items.put(MainMenuItems.EXPLORE, viewObjects.getParent());
+
+/*
         items.put(MainMenuItems.SETTING, ViewFactory.viewFactory.getSettingParent());
-        reload();
+*/
+        super.initialize(location, resources);
     }
 }

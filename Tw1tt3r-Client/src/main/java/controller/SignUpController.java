@@ -85,7 +85,6 @@ public class SignUpController extends AbstractController implements Initializabl
                         PersonDto person = (PersonDto) baseResponse.getDto();
                         TransactionServiceGenerator.setToken(person.getToken());
                         ModelAccess.currentPersonId = person.getId();
-                        ModelAccess.currentPerson = person;
                         ViewObjects viewObjects = ViewFactory.viewFactory.getMainMenuViewObjects();
                         Scene scene = viewObjects.getScene();
                         ModelAccess.mainMenuController = (MainMenuController) viewObjects.getAbstractController();
@@ -101,10 +100,11 @@ public class SignUpController extends AbstractController implements Initializabl
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        super.initialize(location, resources);
     }
 
     @Override
-    protected void reload() {
+    public void reload() {
 
     }
 }

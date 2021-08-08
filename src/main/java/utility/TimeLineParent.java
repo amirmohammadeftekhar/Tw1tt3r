@@ -19,13 +19,13 @@ public class TimeLineParent {
         if(timeLineParents == TimeLineParents.PERSON){
             personId = id;
         }
-        else{
+        if(timeLineParents == TimeLineParents.TWEET){
             tweetId = id;
         }
         this.timeLineParents = timeLineParents;
     }
 
     public TimeLineParent(){
-
+        this.timeLineParents = TimeLineParents.HEAD;
     }
 }

@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
+import retrofit2.Call;
 import retrofit2.Response;
 import view.ViewFactory;
 import view.ViewObjects;
@@ -47,22 +48,29 @@ public class SignInController extends AbstractController implements Initializabl
         TransactionServiceGenerator.getInstance().createService(EntryControllerService.class)
                 .signin(userName, password).enqueue(new TransactionCallBack<BaseResponse>() {
             @Override
+            public void onFailure(Call<BaseResponse> call, Throwable throwable) {
+                super.onFailure(call, throwable);
+            }
+
+            @Override
             public void DoOnResponse(Response<BaseResponse> response) {
                 BaseResponse baseResponse = response.body();
                 switch (baseResponse.getResponseHeader()){
                     case USERNAME_NOT_EXISTS: {
+                        System.out.println(1111);
                         Platform.runLater(() -> infoLabel.setText(ConfigInstance.getInstance().getProperty("userNameNotAvailable")));
                         break;
                     }
                     case WRONG_PASSWORD: {
+                        System.out.println(2222);
                         infoLabel.setText(ConfigInstance.getInstance().getProperty("wrongPassword"));
                         break;
                     }
                     case OK: {
+                        System.out.println(3333);
                         PersonDto person = (PersonDto) baseResponse.getDto();
                         TransactionServiceGenerator.setToken(person.getToken());
                         ModelAccess.currentPersonId = person.getId();
-                        ModelAccess.currentPerson = person;
                         ViewObjects viewObjects = ViewFactory.viewFactory.getMainMenuViewObjects();
                         Scene scene = viewObjects.getScene();
                         ModelAccess.mainMenuController = (MainMenuController) viewObjects.getAbstractController();
@@ -78,10 +86,11 @@ public class SignInController extends AbstractController implements Initializabl
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        super.initialize(location, resources);
     }
 
     @Override
-    protected void reload() {
+    public void reload() {
 
     }
 }

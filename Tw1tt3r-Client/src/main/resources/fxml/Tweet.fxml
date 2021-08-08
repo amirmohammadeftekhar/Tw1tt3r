@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.lang.*?>
-<VBox fx:id="tweetArea" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#tweetAreaAction" spacing="10.0" styleClass="border" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TweetController">
+<VBox fx:id="tweetArea" maxWidth="-Infinity" minWidth="-Infinity" onMouseClicked="#tweetAreaAction" spacing="10.0" styleClass="border" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="controller.TweetController">
    <children>
       <HBox spacing="10.0">
          <children>

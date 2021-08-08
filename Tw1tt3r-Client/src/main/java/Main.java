@@ -1,4 +1,3 @@
-import controller.utility.Worker;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -21,7 +20,6 @@ public class Main extends Application {
         ViewUtility.makeStageAtCenter(primaryStage);
         primaryStage.setScene(scene);
         primaryStage.show();
-        Worker.begin();
     }
 }
 

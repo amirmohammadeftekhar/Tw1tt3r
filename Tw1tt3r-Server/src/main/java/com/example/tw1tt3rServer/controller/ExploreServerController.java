@@ -71,7 +71,7 @@ public class ExploreServerController extends AbstractServerController{
     public BaseResponse getTweetList(@RequestParam int currentPersonId, @RequestBody TimeLineParent timeLineParent){
         List<Tweet> tweetList;
         Person currentPerson = personService.findById(currentPersonId);
-        if (timeLineParent == null) {
+        if (timeLineParent.getTimeLineParents() == TimeLineParents.HEAD) {
             tweetList = new LinkedList<Tweet>();
             List<Tweet> allTweets = tweetService.findAllByPersonWhoMadeThisIsNotNullAndPersonIsPublicOrderByTimestamp();
             allTweets.removeIf(tweet -> actionService.isSourceMuting(currentPerson, tweet.getPersonWhoMadeThis()));
@@ -82,16 +82,15 @@ public class ExploreServerController extends AbstractServerController{
                 allTweets.remove(tweet);
             }
 
-        } else {
-            if(timeLineParent.getTimeLineParents() == TimeLineParents.TWEET){
-                Tweet parentTweet = tweetService.findById(timeLineParent.getTweetId());
-                System.out.println(parentTweet);
-                tweetList = tweetService.findAllByParentTweetOrderByTimestamp(parentTweet);
-            }
-            else{
-                Person person = personService.findById(timeLineParent.getPersonId());
-                tweetList = tweetService.findByPersonWhoMadeThis(person);
-            }
+        }
+        else if(timeLineParent.getTimeLineParents() == TimeLineParents.TWEET){
+            Tweet parentTweet = tweetService.findById(timeLineParent.getTweetId());
+            System.out.println(parentTweet);
+            tweetList = tweetService.findAllByParentTweetOrderByTimestamp(parentTweet);
+        }
+        else{
+            Person person = personService.findById(timeLineParent.getPersonId());
+            tweetList = tweetService.findByPersonWhoMadeThis(person);
         }
         tweetList.removeIf(tweet -> actionService.isSourceMuting(currentPerson, tweet.getPersonWhoMadeThis()));
         tweetList.removeIf(tweet -> !toShow(tweet, currentPerson));

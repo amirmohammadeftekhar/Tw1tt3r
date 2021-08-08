@@ -56,14 +56,14 @@ public class ViewFactory{
         return (viewObjects.getParent());
     }
 
-    public Parent getTimeLineParent(){
+    public ViewObjects getTimeLineViewObjects(){
         ViewObjects viewObjects = initializeScene(ConfigInstance.getInstance().getProperty("timeline_fxml"));
-        return(viewObjects.getParent());
+        return(viewObjects);
     }
 
-    public Parent getExploreParent(){
+    public ViewObjects getExploreViewObjects(){
         ViewObjects viewObjects = initializeScene(ConfigInstance.getInstance().getProperty("explore_fxml"));
-        return(viewObjects.getParent());
+        return(viewObjects);
     }
 
     public Parent getProfileParent(){

@@ -237,5 +237,9 @@ public class ActionService {
         return (actionRepository.findByActionTypeAndDestinationPerson(ActionType.FOLLOW_REQUEST, person));
     }
 
+    public Action findById(int id){
+        return(actionRepository.findById(id).get());
+    }
+
 
 }

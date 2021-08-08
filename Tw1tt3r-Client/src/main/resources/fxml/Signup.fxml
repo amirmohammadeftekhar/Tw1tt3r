@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import java.lang.String?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="SignupPane" maxHeight="-Infinity" maxWidth="-Infinity"
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:id="SignupPane" maxHeight="-Infinity" maxWidth="-Infinity"
             minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="348.0"
-            xmlns="http://javafx.com/javafx/16" fx:controller="controller.SignUpController">
+            xmlns="http://javafx.com/javafx" fx:controller="controller.SignUpController">
    <children>
       <Label layoutX="55.0" layoutY="55.0" text="first name:"/>
       <Label layoutX="55.0" layoutY="98.0" text="last name:"/>

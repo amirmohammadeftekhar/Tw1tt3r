@@ -1,5 +1,6 @@
 package com.example.tw1tt3rServer.service;
 
+import com.example.tw1tt3rServer.aspects.NoLogging;
 import com.example.tw1tt3rServer.repository.ActionRepository;
 import com.example.tw1tt3rServer.repository.entity.Action;
 import com.example.tw1tt3rServer.repository.entity.Person;
@@ -33,56 +34,69 @@ public class ActionService {
 
     //------------------------------------------------------------------------------------------------------------
 
+    @NoLogging
     public List<Action> getFollowers(Person person) {
         return (actionRepository.findByActionTypeAndDestinationPerson(ActionType.FOLLOW, person));
     }
 
+    @NoLogging
     public List<Person> getFollowersPersons(Person person) {
         return (getFollowers(person).stream().map(Action::getSourcePerson).collect(Collectors.toList()));
     }
 
+    @NoLogging
     public List<Action> getFollowings(Person person) {
         return (actionRepository.findByActionTypeAndSourcePerson(ActionType.FOLLOW, person));
     }
 
+    @NoLogging
     public List<Person> getFollowingsPersons(Person person) {
         return (getFollowings(person).stream().map(Action::getDestinationPerson).collect(Collectors.toList()));
     }
 
+    @NoLogging
     public List<Action> getBlockings(Person person) {
         return (actionRepository.findByActionTypeAndSourcePerson(ActionType.BLOCK, person));
     }
 
+    @NoLogging
     public List<Person> getBlockingsPersons(Person person) {
         return (getBlockings(person).stream().map(Action::getDestinationPerson).collect(Collectors.toList()));
     }
 
+    @NoLogging
     public List<Action> getUnfollowers(Person person) {
         return (actionRepository.findByActionTypeAndDestinationPerson(ActionType.UNFOLLOW, person));
     }
 
+    @NoLogging
     public List<Action> getRejecters(Person person) {
         return (actionRepository.findByActionTypeAndDestinationPerson(ActionType.REJECTFOLLOW, person));
     }
 
+    @NoLogging
     public List<Action> getFollowRequestings(Person person) {
         return (actionRepository.findByActionTypeAndSourcePerson(ActionType.FOLLOW_REQUEST, person));
     }
 
+    @NoLogging
     public List<Person> getFollowRequestingsPerson(Person person) {
         return (getFollowRequestings(person).stream().map(Action::getDestinationPerson).collect(Collectors.toList()));
     }
 
+    @NoLogging
     public List<Action> getMutings(Person person) {
         return (actionRepository.findByActionTypeAndSourcePerson(ActionType.MUTE, person));
     }
 
+    @NoLogging
     public List<Person> getMutingsPersons(Person person) {
         return (getMutings(person).stream().map(Action::getDestinationPerson).collect(Collectors.toList()));
     }
 
     //------------------------------------------------------------------------------------------------------------
 
+    @NoLogging
     public boolean exist(ActionType actionType, Person source, Person destination) {
         return (actionRepository.existsActionByActionTypeAndSourcePersonAndDestinationPerson(actionType, source,
                 destination));
@@ -210,33 +224,42 @@ public class ActionService {
 
     //------------------------------------------------------------------------------------------------------------
 
+    @NoLogging
     public boolean isFollowing(Person source, Person destination) {
         return (getFollowingsPersons(source).contains(destination));
     }
 
+    @NoLogging
     public boolean isBlocking(Person source, Person destination){
         return(getBlockingsPersons(source).contains(destination));
     }
 
+    @NoLogging
     public boolean isSourceMuting(Person source, Person destination) {
         return (getMutingsPersons(source).contains(destination));
     }
 
+    @NoLogging
     public boolean isFollowRequesting(Person source, Person destination){
         return(getFollowRequestingsPerson(source).contains(destination));
     }
 
+    @NoLogging
     public boolean isBlockState(Person person1, Person person2) {
         return (getBlockingsPersons(person1).contains(person2) || getBlockingsPersons(person2).contains(person1));
     }
 
+    @NoLogging
     public boolean isMessagingAllowed(Person person1, Person person2) {
         return (isFollowing(person1, person2) || isFollowing(person2, person1));
     }
+
+    @NoLogging
     public List<Action> getFollowRequesters(Person person) {
         return (actionRepository.findByActionTypeAndDestinationPerson(ActionType.FOLLOW_REQUEST, person));
     }
 
+    @NoLogging
     public Action findById(int id){
         return(actionRepository.findById(id).get());
     }

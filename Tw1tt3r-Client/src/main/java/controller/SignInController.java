@@ -50,6 +50,7 @@ public class SignInController extends AbstractController implements Initializabl
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable throwable) {
                 super.onFailure(call, throwable);
+                System.out.println(throwable);
             }
 
             @Override

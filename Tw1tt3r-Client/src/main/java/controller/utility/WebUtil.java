@@ -1,6 +1,7 @@
 package controller.utility;
 
 import dtos.PersonDto;
+import dtos.RoomDto;
 import lombok.SneakyThrows;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -9,6 +10,7 @@ import web.TransactionServiceGenerator;
 import web.serviceinterfaces.ServicesControllerService;
 import web.serviceinterfaces.services.ActionServiceControllerService;
 import web.serviceinterfaces.services.PersonServiceControllerService;
+import web.serviceinterfaces.services.RoomServiceControllerService;
 
 public class WebUtil {
     @SneakyThrows
@@ -74,5 +76,10 @@ public class WebUtil {
             public void onFailure(Call<Void> call, Throwable throwable) {
             }
         });
+    }
+
+    @SneakyThrows
+    public static RoomDto getRoom(int roomId){
+        return(TransactionServiceGenerator.getInstance().createService(RoomServiceControllerService.class).getRoom(roomId).execute().body());
     }
 }

@@ -1,5 +1,6 @@
 package com.example.tw1tt3rServer.service;
 
+import com.example.tw1tt3rServer.aspects.NoLogging;
 import com.example.tw1tt3rServer.repository.RoomRepository;
 import com.example.tw1tt3rServer.repository.entity.Message;
 import com.example.tw1tt3rServer.repository.entity.Person;
@@ -54,10 +55,12 @@ public class RoomService {
         return(save(room));
     }
 
+    @NoLogging
     public Room findByName(String name){
         return(roomRepository.findByName(name));
     }
 
+    @NoLogging
     public boolean existsByName(String name){
         return(roomRepository.existsByName(name));
     }
@@ -69,6 +72,7 @@ public class RoomService {
 
     }
 
+    @NoLogging
     public boolean existsPv(Person person1, Person person2){
         return(findPv(person1, person2) != null);
     }
@@ -80,6 +84,7 @@ public class RoomService {
         return(room);
     }
 
+    @NoLogging
     public Room findPv(Person person1, Person person2){
         List<Room> rooms = roomRepository.findAllByRoomType(RoomType.PRIVATE);
         for(Room room:rooms){
@@ -90,6 +95,7 @@ public class RoomService {
         return(null);
     }
 
+    @NoLogging
     public Room findById(int id){
         return(roomRepository.findById(id).get());
     }

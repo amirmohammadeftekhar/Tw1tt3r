@@ -20,7 +20,7 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PersonDto extends Dto{
+public class PersonDto extends Dto {
     @JsonProperty("Id")
     private int Id;
 
@@ -57,17 +57,24 @@ public class PersonDto extends Dto{
     @JsonProperty("savedTweets")
     private Set<TweetDto> savedTweets = new HashSet<TweetDto>();
 
+/*
     @JsonProperty("savedMessageRoom")
     private RoomDto savedMessageRoom;
+*/
 
+/*
     @JsonProperty("readMessages")
     private Set<MessageDto> readMessages = new HashSet<MessageDto>();
+*/
 
     @JsonProperty("rooms")
     private Set<RoomDto> rooms = new HashSet<RoomDto>();
 
     @JsonProperty("whichTweetLiking")
     private Set<TweetDto> whichTweetLiking = new HashSet<TweetDto>();
+
+    @JsonProperty("ownedCategories")
+    private Set<CategoryDto> ownedCategories = new HashSet<CategoryDto>();
 
 
     @Override

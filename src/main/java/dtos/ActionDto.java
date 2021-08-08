@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ActionDto extends Dto{
+public class ActionDto extends Dto  {
     @JsonProperty("Id")
     private int Id;
 

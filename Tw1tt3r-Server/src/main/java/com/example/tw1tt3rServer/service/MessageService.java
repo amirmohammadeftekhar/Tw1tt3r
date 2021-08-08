@@ -1,5 +1,6 @@
 package com.example.tw1tt3rServer.service;
 
+import com.example.tw1tt3rServer.aspects.NoLogging;
 import com.example.tw1tt3rServer.repository.MessageRepository;
 import com.example.tw1tt3rServer.repository.entity.Message;
 import com.example.tw1tt3rServer.repository.entity.Person;
@@ -21,6 +22,7 @@ public class MessageService {
         return (messageRepository.save(message));
     }
 
+    @NoLogging
     public Message findById(int id){
         return(messageRepository.findById(id).get());
     }

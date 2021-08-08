@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class TweetListDto extends Dto{
+public class TweetListDto extends Dto  {
     @JsonProperty("tweetList")
     private List<TweetDto> tweetList = new LinkedList<TweetDto>();
 

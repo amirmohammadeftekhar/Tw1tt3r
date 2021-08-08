@@ -1,9 +1,6 @@
 package controller.utility;
 
-import controller.ExploreController;
-import controller.MainMenuController;
-import controller.MessagingMainMenuController;
-import controller.TimeLineController;
+import controller.*;
 import controller.utility.enums.ShowListChoices;
 import dtos.CategoryDto;
 import dtos.PersonDto;
@@ -25,4 +22,6 @@ public class ModelAccess {
     public static MessagingMainMenuController messagingMainMenuController;
     public static ExploreController exploreController;
     public static TimeLineController timeLineController;
+    public static SettingController settingController;
+    public static ProfileController profileController;
 }

@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PersonIniDto extends Dto{
+public class PersonIniDto extends Dto {
     @JsonProperty("firstname")
     private String firstname;
 

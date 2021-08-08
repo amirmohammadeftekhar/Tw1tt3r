@@ -2,6 +2,7 @@ package controller;
 
 import config.ConfigInstance;
 import controller.utility.ModelAccess;
+import controller.utility.WebUtil;
 import dtos.MessageDto;
 import dtos.PictureDto;
 import dtos.RoomDto;
@@ -16,7 +17,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
-import org.springframework.transaction.annotation.Transactional;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,17 +55,17 @@ public class RoomChatBoxController extends AbstractController implements Initial
 
 
     @FXML
-    @Transactional
     void sendButtonAction(MouseEvent event) {
         String toSend = messageToSendArea.getText();
         messageToSendArea.clear();
-        TransactionServiceGenerator.getInstance().createService(RoomChatBoxControllerService.class).sendButtonAction(toSend, currentPersonId, room.getId(), pictureToSend).enqueue(new Callback<Void>() {
+        TransactionServiceGenerator.getInstance().createService(RoomChatBoxControllerService.class).sendButtonAction(toSend, currentPersonId, room.getId(), pictureToSend==null?new PictureDto():pictureToSend).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable throwable) {
+                System.out.println(throwable);
             }
         });
     }
@@ -85,7 +85,7 @@ public class RoomChatBoxController extends AbstractController implements Initial
 
     @Override
     public void reload() {
-        // TODO get room message
+        room = WebUtil.getRoom(room.getId());
         messagesGridPane.getChildren().clear();
         int t = 0;
         for(MessageDto message:room.getMessages()){
@@ -147,4 +147,6 @@ public class RoomChatBoxController extends AbstractController implements Initial
         room = ModelAccess.roomToChatBox;
         super.initialize(location, resources);
     }
+
+
 }

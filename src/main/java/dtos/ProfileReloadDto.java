@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ProfileReloadDto extends Dto{
+public class ProfileReloadDto extends Dto {
     @JsonProperty("blockingsCount")
     private int blockingsCount;
     

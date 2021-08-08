@@ -32,28 +32,34 @@ public class PersonService {
         return (personRepository.save(person));
     }
 
+    @NoLogging
     public Person findById(int id){
         return(personRepository.findById(id).get());
     }
 
     //------------------------------------------------------------------------------------------------------------
 
+    @NoLogging
     public Person findPersonByUserName(String userName) {
         return (personRepository.findPersonByUserNameAndActiveStateIsTrueAndDeletedIsFalse(userName));
     }
 
+    @NoLogging
     public Person findPersonByUserNameNotCheckingActiveState(String userName) {
         return (personRepository.findPersonByUserNameAndDeletedIsFalse(userName));
     }
 
+    @NoLogging
     public boolean existsPersonByUserName(String userName) {
         return (personRepository.existsPersonByUserNameAndDeletedIsFalse(userName));
     }
 
+    @NoLogging
     public boolean existsPersonByEmailAddress(String emailAddress) {
         return (personRepository.existsPersonByEmailAddressAndDeletedIsFalse(emailAddress));
     }
 
+    @NoLogging
     public void updateLastSeen(int id) {
         Person person = findById(id);
         person.setLastSeen(new Timestamp(System.currentTimeMillis()));
@@ -119,6 +125,7 @@ public class PersonService {
         save(person);
     }
 
+    @NoLogging
     public List<Person> findAllByActiveStateIsTrueAndDeletedIsFalse() {
         return (personRepository.findAllByActiveStateIsTrueAndDeletedIsFalse());
     }

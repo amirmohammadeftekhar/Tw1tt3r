@@ -66,9 +66,9 @@ public class ViewFactory{
         return(viewObjects);
     }
 
-    public Parent getProfileParent(){
+    public ViewObjects getProfileViewObjects(){
         ViewObjects viewObjects = initializeScene(ConfigInstance.getInstance().getProperty("profile_fxml"));
-        return(viewObjects.getParent());
+        return(viewObjects);
     }
 
     public ViewObjects getMessagingMainMenuViewObjects(){
@@ -100,9 +100,9 @@ public class ViewFactory{
         return(viewObjects.getParent());
     }
 
-    public Parent getSettingParent(){
+    public ViewObjects getSettingViewObjects(){
         ViewObjects viewObjects = initializeScene(ConfigInstance.getInstance().getProperty("setting_fxml"));
-        return(viewObjects.getParent());
+        return(viewObjects);
     }
 
     private void loadRoomOutViewParent(RoomDto room, Parent parent, int unreadCount){

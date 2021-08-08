@@ -13,7 +13,7 @@ import lombok.Setter;
 )
 @Getter
 @Setter
-public class PictureDto extends Dto{
+public class PictureDto extends Dto {
     @JsonProperty("Id")
     private int Id;
 

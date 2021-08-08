@@ -3,12 +3,17 @@ package com.example.tw1tt3rServer.controller.services;
 import com.example.tw1tt3rServer.controller.AbstractServerController;
 import com.example.tw1tt3rServer.repository.entity.Action;
 import com.example.tw1tt3rServer.repository.entity.Person;
+import dtos.PersonDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import utility.ModelMapperInstance;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @RestController
 public class ActionServiceServerController extends AbstractServerController {
@@ -71,6 +76,14 @@ public class ActionServiceServerController extends AbstractServerController {
         Action action = actionService.findById(actionId);
         actionService.deleteAction(action);
         return(new ResponseEntity<Void>(HttpStatus.OK));
+    }
+
+    @GetMapping("api/actionservice/getfollowingspersons")
+    public List<PersonDto> getFollowingsPersons(@RequestParam int currentPersonId){
+        List<Person> people = actionService.getFollowingsPersons(personService.findById(currentPersonId));
+        List<PersonDto> newList = new LinkedList<PersonDto>();
+        for(Person person:people) newList.add(ModelMapperInstance.getModelMapper().map(person, PersonDto.class));
+        return(newList);
     }
 }
 

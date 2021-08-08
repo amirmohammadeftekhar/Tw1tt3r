@@ -1,9 +1,12 @@
 package web.serviceinterfaces.services;
 
+import dtos.PersonDto;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+
+import java.util.List;
 
 public interface ActionServiceControllerService {
     @POST(value = "api/actionservice/block")
@@ -30,7 +33,9 @@ public interface ActionServiceControllerService {
     @POST(value = "api/actionservice/makereject")
     public Call<Void> makeReject(@Query("currentPersonId") int currentPersonId, @Query("personId") int personId);
 
-
     @POST(value = "api/actionservice/deleteaction")
     public Call<Void> deleteAction(@Query("actionId") int actionId);
+
+    @GET(value = "api/actionservice/getfollowingspersons")
+    public Call<List<PersonDto>> getFollowingsPersons(@Query("currentPersonId") int currentPersonId);
 }

@@ -1,5 +1,6 @@
 package com.example.tw1tt3rServer.service;
 
+import com.example.tw1tt3rServer.aspects.NoLogging;
 import com.example.tw1tt3rServer.repository.CategoryRepository;
 import com.example.tw1tt3rServer.repository.entity.Category;
 import com.example.tw1tt3rServer.repository.entity.Person;
@@ -27,6 +28,7 @@ public class CategoryService {
         categoryRepository.delete(category);
     }
 
+    @NoLogging
     public Category findByNameAndSourcePerson(String name, Person sourcePerson) {
         return (categoryRepository.findByNameAndSourcePerson(name, sourcePerson));
     }
@@ -50,6 +52,7 @@ public class CategoryService {
         return(category);
     }
 
+    @NoLogging
     public boolean existsByName(String name){
         return(categoryRepository.existsByName(name));
     }
@@ -79,6 +82,7 @@ public class CategoryService {
         }
     }
 
+    @NoLogging
     public Category findById(int id){
         return(categoryRepository.findById(id).get());
     }

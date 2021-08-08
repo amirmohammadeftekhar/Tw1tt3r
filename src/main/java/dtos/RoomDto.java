@@ -20,7 +20,7 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
-public class RoomDto extends Dto{
+public class RoomDto extends Dto {
 
     @JsonProperty("Id")
     private int Id;

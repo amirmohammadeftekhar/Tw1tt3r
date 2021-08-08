@@ -14,8 +14,9 @@ import utility.ModelMapperInstance;
 public class RoomChatBoxServerController extends AbstractServerController{
     @PostMapping("api/roomchatbox/sendbuttonaction")
     public ResponseEntity<Void> sendButtonAction(@RequestParam String toSend, @RequestParam int currentPersonId, @RequestParam int roomId, @RequestBody PictureDto pictureToSend){
-        roomService.sendMessage(toSend, personService.findById(currentPersonId), roomService.findById(roomId),
-                ModelMapperInstance.getModelMapper().map(pictureToSend, Picture.class));
+        Picture picture = null;
+        if(pictureToSend.getContent()!=null) picture = ModelMapperInstance.getModelMapper().map(pictureToSend, Picture.class);
+        roomService.sendMessage(toSend, personService.findById(currentPersonId), roomService.findById(roomId), picture);
         return(new ResponseEntity<Void>(HttpStatus.OK));
     }
 }

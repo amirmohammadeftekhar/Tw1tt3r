@@ -19,7 +19,7 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
-public class TweetDto extends Dto{
+public class TweetDto extends Dto {
     @JsonProperty("Id")
     private int Id;
 

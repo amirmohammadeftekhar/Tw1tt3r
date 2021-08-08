@@ -1,5 +1,6 @@
 package com.example.tw1tt3rServer.service;
 
+import com.example.tw1tt3rServer.aspects.NoLogging;
 import com.example.tw1tt3rServer.configs.NumberConstConfig;
 import com.example.tw1tt3rServer.repository.TweetRepository;
 import com.example.tw1tt3rServer.repository.entity.Person;
@@ -34,18 +35,22 @@ public class TweetService {
 
     //------------------------------------------------------------------------------------------------------------
 
+    @NoLogging
     public List<Tweet> findByPersonWhoMadeThis(Person person) {
         return (tweetRepository.findByPersonWhoMadeThisOrderByTimestamp(person, numberConstConfig.getReportLimit()));
     }
 
+    @NoLogging
     public List<Tweet> findAllByPersonWhoMadeThisIsNotNullOrderByTimestamp() {
         return (tweetRepository.findAllByPersonWhoMadeThisIsNotNullOrderByTimestamp(numberConstConfig.getReportLimit()));
     }
 
+    @NoLogging
     public List<Tweet> findAllByPersonWhoMadeThisIsNotNullAndPersonIsPublicOrderByTimestamp() {
         return (tweetRepository.findAllByPersonWhoMadeThisIsNotNullAndPersonIsPublicOrderByTimestamp(numberConstConfig.getReportLimit()));
     }
 
+    @NoLogging
     public List<Tweet> findAllByParentTweetOrderByTimestamp(Tweet parentTweet) {
         return (tweetRepository.findAllByParentTweetOrderByTimestamp(parentTweet, numberConstConfig.getReportLimit()));
     }

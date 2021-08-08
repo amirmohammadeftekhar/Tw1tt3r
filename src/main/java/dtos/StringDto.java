@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class StringDto extends Dto{
+public class StringDto extends Dto {
     @JsonProperty("string")
     String string;
 

@@ -18,7 +18,7 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CategoryDto extends Dto{
+public class CategoryDto extends Dto {
     @JsonProperty("Id")
     private int Id;
 

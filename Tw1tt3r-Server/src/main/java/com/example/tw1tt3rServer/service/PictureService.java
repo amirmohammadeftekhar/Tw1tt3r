@@ -1,15 +1,12 @@
 package com.example.tw1tt3rServer.service;
 
+import com.example.tw1tt3rServer.aspects.NoLogging;
 import com.example.tw1tt3rServer.repository.PictureRepository;
 import com.example.tw1tt3rServer.repository.entity.Picture;
-import dtos.PictureDto;
-import javafx.scene.image.Image;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import utility.ModelMapperInstance;
-
-import java.io.ByteArrayInputStream;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class PictureService {
@@ -25,24 +22,20 @@ public class PictureService {
     }
 
     @SneakyThrows
-    public Picture makePicture(PictureDto pictureDto){
-        if(pictureDto.getContent()==null){
-            return(null);
-        }
-        Picture picture = ModelMapperInstance.getModelMapper().map(pictureDto, Picture.class);
+    public Picture makePicture(MultipartFile multipartFile){
+        Picture picture = new Picture();
+        picture.setContent(multipartFile.getBytes());
         return(save(picture));
     }
 
-    @SneakyThrows
-    public Image getImageType(Picture picture){
-        if(picture==null){
+    @NoLogging
+    public Picture findById(int id){
+        if(!pictureRepository.existsById(id)){
             return(null);
         }
-        if(picture.getContent()==null){
-            return(null);
-        }
-        return(new Image(new ByteArrayInputStream(picture.getContent())));
+        return(pictureRepository.findById(id).get());
     }
+
 }
 
 

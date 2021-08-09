@@ -58,7 +58,11 @@ public class RoomChatBoxController extends AbstractController implements Initial
     void sendButtonAction(MouseEvent event) {
         String toSend = messageToSendArea.getText();
         messageToSendArea.clear();
-        TransactionServiceGenerator.getInstance().createService(RoomChatBoxControllerService.class).sendButtonAction(toSend, currentPersonId, room.getId(), pictureToSend==null?new PictureDto():pictureToSend).enqueue(new Callback<Void>() {
+        int pictureId=-1;
+        if(pictureToSend!=null && pictureToSend.getId()>0){
+            pictureId = pictureToSend.getId();
+        }
+        TransactionServiceGenerator.getInstance().createService(RoomChatBoxControllerService.class).sendButtonAction(toSend, currentPersonId, room.getId(), pictureId).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
             }

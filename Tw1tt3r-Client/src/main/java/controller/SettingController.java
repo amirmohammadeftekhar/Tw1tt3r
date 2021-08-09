@@ -36,7 +36,6 @@ import java.util.*;
 
 import static controller.utility.ModelAccess.currentPersonId;
 import static controller.utility.ModelAccess.mainMenuController;
-import static view.ViewFactory.getImageType;
 import static view.ViewUtility.isImage;
 import static view.ViewUtility.makePicture;
 
@@ -429,7 +428,7 @@ public class SettingController extends AbstractController implements Initializab
 //        passwordField.setText(currentPerson.getPassword());
         emailField.setText(currentPerson.getEmailAddress());
         if(currentPerson.getPicture() != null){
-            profileImage.setImage(getImageType(currentPerson.getPicture()));
+            profileImage.setImage(ViewUtility.getPicture(currentPerson.getPicture().getId()));
         }
         privateAccountField.setSelected(currentPerson.isPrivate());
         showEmailCheckBox.setSelected(currentPerson.isToShowEmail());

@@ -2,13 +2,15 @@ package view;
 
 import config.ConfigInstance;
 import controller.AbstractController;
-import dtos.*;
+import dtos.CategoryDto;
+import dtos.MessageDto;
+import dtos.PersonDto;
+import dtos.RoomDto;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -17,7 +19,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 
-import java.io.ByteArrayInputStream;
 import java.util.Date;
 
 public class ViewFactory{
@@ -84,8 +85,8 @@ public class ViewFactory{
         Date date = new Date(message.getTimestamp().getTime());
         timeLabel.setText(date.toString());
         messageTextArea.setText(message.getText());
-        if(message.getPicture()!=null){
-            imageView.setImage(getImageType(message.getPicture()));
+        if(message.getPicture()!=null && message.getPicture().getId()>0){
+            imageView.setImage(ViewUtility.getPicture(message.getPicture().getId()));
         }
         else{
             imageView.setFitHeight(0);
@@ -153,8 +154,8 @@ public class ViewFactory{
         Label userNameLabel = (Label) parent.getChildrenUnmodifiable().get(1);
         ImageView imageView = (ImageView) imageVBox.getChildrenUnmodifiable().get(0);
         userNameLabel.setText(personDto.getUserName());
-        if(personDto.getPicture() != null){
-            imageView.setImage(getImageType(personDto.getPicture()));
+        if(personDto.getPicture()!=null && personDto.getPicture().getId()>0){
+            imageView.setImage(ViewUtility.getPicture(personDto.getPicture().getId()));
         }
     }
 
@@ -189,17 +190,6 @@ public class ViewFactory{
         Scene scene = new Scene(parent);
         return (new ViewObjects(abstractController, scene, parent));
 
-    }
-
-    @SneakyThrows
-    static public Image getImageType(PictureDto picture){
-        if(picture==null){
-            return(null);
-        }
-        if(picture.getContent()==null){
-            return(null);
-        }
-        return(new Image(new ByteArrayInputStream(picture.getContent())));
     }
 
 }

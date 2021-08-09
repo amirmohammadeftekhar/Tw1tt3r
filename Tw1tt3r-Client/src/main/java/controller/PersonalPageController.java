@@ -17,7 +17,6 @@ import lombok.SneakyThrows;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import view.ViewFactory;
 import view.ViewUtility;
 import web.BaseResponse;
 import web.ResponseHeader;
@@ -219,7 +218,7 @@ public class PersonalPageController extends AbstractController implements Initia
         userNameLabel.setText("@" + person.getUserName());
         nameLabel.setText(person.getFirstname() + person.getLastName());
         if(person.getPicture() != null){
-            profileImage.setImage(ViewFactory.getImageType(person.getPicture()));
+            profileImage.setImage(ViewUtility.getPicture(person.getPicture().getId()));
         }
         followerCount.setText(TransactionServiceGenerator.getInstance().createService(ActionServiceControllerService.class).getFollowersPersonsCount(person.getId()).execute().body().toString());
         followingCount.setText(TransactionServiceGenerator.getInstance().createService(ActionServiceControllerService.class).getFollowingsPersonsCount(person.getId()).execute().body().toString());

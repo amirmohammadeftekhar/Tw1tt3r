@@ -36,7 +36,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static controller.utility.ModelAccess.*;
-import static view.ViewFactory.getImageType;
 
 public class ProfileController extends AbstractController implements Initializable {
 
@@ -170,7 +169,7 @@ public class ProfileController extends AbstractController implements Initializab
                 followingCount.setText(Integer.toString(dto.getFollowingsCount()));
                 tweetCount.setText(Integer.toString(dto.getTweetsCount()));
                 if(currentPerson.getPicture() != null){
-                    profileImage.setImage(getImageType(currentPerson.getPicture()));
+                    profileImage.setImage(ViewUtility.getPicture(currentPerson.getPicture().getId()));
                 }
                 int t_followers = 0;
                 for(PersonDto person:dto.getNewFollowers()) {

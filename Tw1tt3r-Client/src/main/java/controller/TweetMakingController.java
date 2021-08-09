@@ -42,7 +42,7 @@ public class TweetMakingController extends AbstractController implements Initial
     @FXML
     void createButtonAction(MouseEvent event) {
         TransactionServiceGenerator.getInstance().createService(TweetServiceControllerService.class).makeTweet(
-                tweetTextArea.getText(), parentTweet==null?-1:parentTweet.getId(), currentPersonId, picture==null?new PictureDto():picture).enqueue(new Callback<Void>() {
+                tweetTextArea.getText(), parentTweet==null?-1:parentTweet.getId(), currentPersonId, picture==null?-1:picture.getId()).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
             }

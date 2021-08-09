@@ -3,7 +3,10 @@ package controller;
 import config.ConfigInstance;
 import controller.utility.ModelAccess;
 import controller.utility.WebUtil;
-import dtos.*;
+import dtos.CategoryDto;
+import dtos.PersonDto;
+import dtos.RoomDto;
+import dtos.TweetDto;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -41,7 +44,6 @@ import java.util.Set;
 
 import static controller.utility.ModelAccess.currentPersonId;
 import static controller.utility.ModelAccess.timeLineController;
-import static view.ViewFactory.getImageType;
 
 public class TweetController extends AbstractController implements Initializable {
 
@@ -201,7 +203,7 @@ public class TweetController extends AbstractController implements Initializable
 
     @FXML
     void reTweetButtonAction(MouseEvent event) {
-        TransactionServiceGenerator.getInstance().createService(TweetServiceControllerService.class).makeTweet(tweet.getText(), tweet.getId(), currentPersonId, tweet.getPicture()==null?new PictureDto():tweet.getPicture()).enqueue(new Callback<Void>() {
+        TransactionServiceGenerator.getInstance().createService(TweetServiceControllerService.class).makeTweet(tweet.getText(), tweet.getId(), currentPersonId, tweet.getPicture()==null?-1:tweet.getPicture().getId()).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
             }
@@ -276,10 +278,10 @@ public class TweetController extends AbstractController implements Initializable
         tweet = WebUtil.getTweet(ModelAccess.tweetIdToTweetController);
         PersonDto currentPerson = WebUtil.getPerson(currentPersonId);
         if(tweet.getPersonWhoMadeThis().getPicture() != null){
-            profileImage.setImage(getImageType(tweet.getPersonWhoMadeThis().getPicture()));
+            profileImage.setImage(ViewUtility.getPicture(tweet.getPersonWhoMadeThis().getPicture().getId()));
         }
         if(tweet.getPicture() != null){
-            tweetImage.setImage(getImageType(tweet.getPicture()));
+            tweetImage.setImage(ViewUtility.getPicture(tweet.getPicture().getId()));
         }
         else{
             tweetImage.setFitWidth(0);

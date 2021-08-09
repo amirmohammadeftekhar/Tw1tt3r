@@ -11,5 +11,5 @@ import java.util.List;
 
 public interface TimeLineControllerService {
     @POST(value = "api/timeline/gettweetlist")
-    public Call<List<TweetDto>> getTweetList(@Query("currentPersonId") int currentPersonId, @Body TimeLineParent timeLineParent);
+    public Call<List<TweetDto>> getTweetList(@Query("currentPersonId") int currentPersonId, @Body TimeLineParent timeLineParent, @Query("t") int t);
 }

@@ -27,10 +27,7 @@ public class TweetDto extends Dto {
     @JsonProperty("text")
     private String text;
 
-    @JsonProperty("parentTweet")
-    private TweetDto parentTweet;
-
-    @JsonProperty("personWhoMageThis")
+    @JsonProperty("personWhoMadeThis")
     private PersonDto personWhoMadeThis;
 
     @JsonProperty("picture")
@@ -41,16 +38,6 @@ public class TweetDto extends Dto {
 
     @JsonProperty("timestamp")
     private Timestamp timestamp;
-
-    @JsonProperty("rootPerson")
-    private PersonDto rootPerson;
-
-    @JsonProperty("whoReports")
-    private Set<PersonDto> whoReports = new HashSet<PersonDto>();
-
-    @JsonProperty("peopleWhoSaved")
-    private Set<PersonDto> peopleWhoSaved = new HashSet<PersonDto>();
-
 
     @Override
     public String toString() {

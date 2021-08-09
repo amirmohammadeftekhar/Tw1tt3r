@@ -29,11 +29,6 @@ public class RoomDto extends Dto {
     @JsonProperty("name")
     private String name;
 
-/*
-    @JsonProperty("members")
-    private Set<PersonDto> members = new HashSet<PersonDto>();
-*/
-
     @JsonProperty("messages")
     private List<MessageDto> messages = new LinkedList<MessageDto>();
 

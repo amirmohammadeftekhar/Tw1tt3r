@@ -37,19 +37,23 @@ public class TimeLineController extends AbstractController implements Initializa
     @FXML
     private GridPane tweetGridPane;
 
+    @Setter
+    public int t = 0;
+
     @SneakyThrows
     @Override
     public void reload(){
 
-        tweetGridPane.getChildren().clear();
+        if(t==0){
+            tweetGridPane.getChildren().clear();
+        }
         List<TweetDto> tweetList;
         if(parents.empty()){
-            tweetList = TransactionServiceGenerator.getInstance().createService(TimeLineControllerService.class).getTweetList(currentPersonId, new TimeLineParent()).execute().body();
+            tweetList = TransactionServiceGenerator.getInstance().createService(TimeLineControllerService.class).getTweetList(currentPersonId, new TimeLineParent(), t).execute().body();
         }
         else{
-            tweetList = TransactionServiceGenerator.getInstance().createService(TimeLineControllerService.class).getTweetList(currentPersonId, parents.peek()).execute().body();
+            tweetList = TransactionServiceGenerator.getInstance().createService(TimeLineControllerService.class).getTweetList(currentPersonId, parents.peek(), t).execute().body();
         }
-        int t = 0;
         for(TweetDto tweet:tweetList){
             ModelAccess.tweetIdToTweetController = tweet.getId();
             Parent parent = ViewFactory.viewFactory.getTweetParent();
@@ -62,13 +66,14 @@ public class TimeLineController extends AbstractController implements Initializa
     void backButtonAction(MouseEvent event) {
         if(parents.size()>0){
             parents.pop();
+            setT(0);
             reload();
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+//        reload();
         super.initialize(location, resources);
     }
 }

@@ -139,13 +139,14 @@ public class TweetController extends AbstractController implements Initializable
             });
         }
         for(RoomDto room:selectedRooms){
-            TransactionServiceGenerator.getInstance().createService(RoomServiceControllerService.class).sendMessage(room.getId(), currentPersonId, tweet.getText(), tweet.getPicture()).enqueue(new Callback<Void>() {
+            TransactionServiceGenerator.getInstance().createService(RoomServiceControllerService.class).sendMessage(room.getId(), currentPersonId, tweet.getText(), tweet.getPicture()==null?-1:tweet.getPicture().getId()).enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                 }
 
                 @Override
                 public void onFailure(Call<Void> call, Throwable throwable) {
+                    System.out.println(throwable);
                 }
             });
         }
@@ -166,6 +167,7 @@ public class TweetController extends AbstractController implements Initializable
     @FXML
     void commentsButtonAction(MouseEvent event) {
         timeLineController.getParents().add(new TimeLineParent(tweet.getId(), TimeLineParents.TWEET));
+        timeLineController.setT(0);
         timeLineController.reload();
     }
 
@@ -239,13 +241,14 @@ public class TweetController extends AbstractController implements Initializable
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        tweet = WebUtil.getTweet(ModelAccess.tweetIdToTweetController);
         Thread thread = new Thread(new Runnable() {
             @SneakyThrows
             @Override
             public void run() {
                 while (true){
-                    Thread.sleep(5000);
                     Platform.runLater(() -> reload());
+                    Thread.sleep(5000);
                 }
             }
         });
@@ -253,7 +256,6 @@ public class TweetController extends AbstractController implements Initializable
         thread.start();
 //        super.initialize(location, resources);
         textArea.setEditable(false);
-        reload();
     }
 
     @SneakyThrows
@@ -275,8 +277,7 @@ public class TweetController extends AbstractController implements Initializable
 
     @Override
     public void reload() {
-        tweet = WebUtil.getTweet(ModelAccess.tweetIdToTweetController);
-        PersonDto currentPerson = WebUtil.getPerson(currentPersonId);
+        tweet = WebUtil.getTweet(tweet.getId());
         if(tweet.getPersonWhoMadeThis().getPicture() != null){
             profileImage.setImage(ViewUtility.getPicture(tweet.getPersonWhoMadeThis().getPicture().getId()));
         }
@@ -288,7 +289,13 @@ public class TweetController extends AbstractController implements Initializable
             tweetImage.setFitHeight(0);
         }
         textArea.setText(tweet.getPersonWhoMadeThis().getUserName() + ": " + tweet.getText());
-        if(tweet.getWhoLiked().contains(currentPerson)){
+        boolean isLiked = false;
+        for(PersonDto personDto:tweet.getWhoLiked()){
+            if(personDto.getId() == currentPersonId){
+                isLiked = true;
+            }
+        }
+        if(isLiked){
             setLiked();
         }
         else{

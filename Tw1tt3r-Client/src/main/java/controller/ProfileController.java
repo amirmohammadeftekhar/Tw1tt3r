@@ -142,6 +142,7 @@ public class ProfileController extends AbstractController implements Initializab
     @FXML
     void tweetButtonAction(MouseEvent event) {
         timeLineController.getParents().add(new TimeLineParent(currentPersonId, TimeLineParents.PERSON));
+        timeLineController.setT(0);
         timeLineController.reload();
         mainMenuController.homeButtonAction(null);
         reload();
@@ -197,7 +198,6 @@ public class ProfileController extends AbstractController implements Initializab
                     yourRequestsGridPane.add(parent, 0, ++t_your_requests);
                 }
                 int t_others_requests = 0;
-                System.out.println(dto.getOtherRequests().size());
                 for(ActionDto action:dto.getOtherRequests()) {
                     PersonDto person = action.getSourcePerson();
                     Parent parent = ViewFactory.viewFactory.GetPersonOutViewParent(person);
@@ -229,7 +229,7 @@ public class ProfileController extends AbstractController implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        reload();
-//        super.initialize(location, resources);
+        reload();
+        super.initialize(location, resources);
     }
 }

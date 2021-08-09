@@ -28,7 +28,8 @@ public class TweetServiceServerController extends AbstractServerController {
     @GetMapping("api/tweetservice/gettweet")
     public TweetDto getTweet(@RequestParam int tweetId){
         Tweet tweet = tweetService.findById(tweetId);
-        return(ModelMapperInstance.getModelMapper().map(tweet, TweetDto.class));
+        TweetDto tweetDto = ModelMapperInstance.getModelMapper().map(tweet, TweetDto.class);
+        return(tweetDto);
     }
 
     @PostMapping("api/tweetservice/report")

@@ -37,7 +37,7 @@ public class TimeLineServerController extends AbstractServerController{
     }
 
     @PostMapping("api/timeline/gettweetlist")
-    public List<TweetDto> getTweetList(@RequestParam int currentPersonId, @RequestBody TimeLineParent timeLineParent){
+    public List<TweetDto> getTweetList(@RequestParam int currentPersonId, @RequestBody TimeLineParent timeLineParent, @RequestParam int t){
         List<Tweet> tweetList;
         if (timeLineParent.getTimeLineParents() == TimeLineParents.HEAD) {
             tweetList = tweetService.findAllByPersonWhoMadeThisIsNotNullOrderByTimestamp();
@@ -53,8 +53,8 @@ public class TimeLineServerController extends AbstractServerController{
         tweetList.removeIf(tweet -> actionService.isSourceMuting(personService.findById(currentPersonId), tweet.getPersonWhoMadeThis()));
         tweetList.removeIf(tweet -> !toShow(tweet, currentPersonId));
         List<TweetDto> newList = new LinkedList<TweetDto>();
-        for(Tweet tweet:tweetList){
-            newList.add(ModelMapperInstance.getModelMapper().map(tweet, TweetDto.class));
+        for(int i=t;i<tweetList.size();i++){
+            newList.add(ModelMapperInstance.getModelMapper().map(tweetList.get(i), TweetDto.class));
         }
         return(newList);
     }

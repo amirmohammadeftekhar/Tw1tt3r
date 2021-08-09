@@ -69,7 +69,7 @@ public class ExploreServerController extends AbstractServerController{
 
     @PostMapping(value = "api/explore/gettweetlist")
     public BaseResponse getTweetList(@RequestParam int currentPersonId, @RequestBody TimeLineParent timeLineParent){
-        List<Tweet> tweetList;
+        List<Tweet> tweetList = new LinkedList<Tweet>();
         Person currentPerson = personService.findById(currentPersonId);
         if (timeLineParent.getTimeLineParents() == TimeLineParents.HEAD) {
             tweetList = new LinkedList<Tweet>();

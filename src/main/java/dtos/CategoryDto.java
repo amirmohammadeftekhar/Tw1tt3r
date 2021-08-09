@@ -7,9 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "Id",
@@ -25,12 +22,6 @@ public class CategoryDto extends Dto {
 
     @JsonProperty("name")
     private String name;
-
-    @JsonProperty("sourcePerson")
-    private PersonDto sourcePerson;
-
-    @JsonProperty("destPeopleList")
-    private Set<PersonDto> destPeopleList = new HashSet<PersonDto>();
 
     @Override
     public boolean equals(Object o) {

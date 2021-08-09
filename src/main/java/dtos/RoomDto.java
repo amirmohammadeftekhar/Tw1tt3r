@@ -9,8 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -35,7 +35,7 @@ public class RoomDto extends Dto {
 */
 
     @JsonProperty("messages")
-    private Set<MessageDto> messages = new HashSet<MessageDto>();
+    private List<MessageDto> messages = new LinkedList<MessageDto>();
 
     @JsonProperty("roomType")
     private RoomType roomType;

@@ -446,6 +446,9 @@ public class SettingController extends AbstractController implements Initializab
                 return null;
             }
         });
+        if(mainMenuController!=null){
+            mainMenuController.reload();
+        }
     }
 
     @Override

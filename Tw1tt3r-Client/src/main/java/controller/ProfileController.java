@@ -103,6 +103,7 @@ public class ProfileController extends AbstractController implements Initializab
         Stage stage = ViewUtility.getNewStage(blackListButton.getScene().getWindow(), ConfigInstance.getInstance().getProperty("blackList"));
         stage.setScene(scene);
         stage.show();
+        reload();
     }
 
     @SneakyThrows
@@ -114,6 +115,7 @@ public class ProfileController extends AbstractController implements Initializab
         Stage stage = ViewUtility.getNewStage(followerButton.getScene().getWindow(), ConfigInstance.getInstance().getProperty("followers"));
         stage.setScene(scene);
         stage.show();
+        reload();
     }
 
     @SneakyThrows
@@ -125,6 +127,7 @@ public class ProfileController extends AbstractController implements Initializab
         Stage stage = ViewUtility.getNewStage(followingButton.getScene().getWindow(), ConfigInstance.getInstance().getProperty("following"));
         stage.setScene(scene);
         stage.show();
+        reload();
     }
 
     @FXML
@@ -133,6 +136,7 @@ public class ProfileController extends AbstractController implements Initializab
         Stage stage = ViewUtility.getNewStage(tweetButton.getScene().getWindow(), ConfigInstance.getInstance().getProperty("tweetmaking"));
         stage.setScene(scene);
         stage.show();
+        reload();
     }
 
     @FXML
@@ -140,6 +144,7 @@ public class ProfileController extends AbstractController implements Initializab
         timeLineController.getParents().add(new TimeLineParent(currentPersonId, TimeLineParents.PERSON));
         timeLineController.reload();
         mainMenuController.homeButtonAction(null);
+        reload();
     }
 
     @Override
@@ -224,6 +229,7 @@ public class ProfileController extends AbstractController implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        super.initialize(location, resources);
+//        reload();
+//        super.initialize(location, resources);
     }
 }

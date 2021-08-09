@@ -75,6 +75,7 @@ public class PersonalPageController extends AbstractController implements Initia
     private Label followerCount;
 
 
+    @SneakyThrows
     @FXML
     void blockButtonAction(MouseEvent event) {
         TransactionServiceGenerator.getInstance().createService(PersonalPageControllerService.class).blockButtonAction(currentPersonId, person.getId()).enqueue(new Callback<Void>() {
@@ -87,6 +88,8 @@ public class PersonalPageController extends AbstractController implements Initia
 
             }
         });
+        Thread.sleep(1000);
+        reload();
     }
 
     private void reloadFollowButton(){
@@ -137,6 +140,7 @@ public class PersonalPageController extends AbstractController implements Initia
 
     }
 
+    @SneakyThrows
     @FXML
     void followButtonAction(MouseEvent event) {
         TransactionServiceGenerator.getInstance().createService(PersonalPageControllerService.class).followButtonAction(currentPersonId, person.getId()).enqueue(new Callback<Void>() {
@@ -148,6 +152,8 @@ public class PersonalPageController extends AbstractController implements Initia
             public void onFailure(Call<Void> call, Throwable throwable) {
             }
         });
+        Thread.sleep(1000);
+        reload();
     }
 
     @FXML
@@ -164,8 +170,10 @@ public class PersonalPageController extends AbstractController implements Initia
                 messagingMainMenuController.openChatBox(room);
             }
         });
+        reload();
     }
 
+    @SneakyThrows
     @FXML
     void muteButtonAction(MouseEvent event) {
         TransactionServiceGenerator.getInstance().createService(PersonalPageControllerService.class).muteButtonAction(currentPersonId, person.getId()).enqueue(new Callback<Void>() {
@@ -177,6 +185,8 @@ public class PersonalPageController extends AbstractController implements Initia
             public void onFailure(Call<Void> call, Throwable throwable) {
             }
         });
+        Thread.sleep(1000);
+        reload();
     }
 
     private void reloadMuteButton(){
@@ -203,9 +213,9 @@ public class PersonalPageController extends AbstractController implements Initia
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         person = ModelAccess.personToPersonalPageController;
-        super.initialize(location, resources);
+        reload();
+//        super.initialize(location, resources);
     }
 
     @SneakyThrows

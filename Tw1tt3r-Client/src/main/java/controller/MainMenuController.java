@@ -120,6 +120,7 @@ public class MainMenuController extends AbstractController implements Initializa
         ModelAccess.settingController = (SettingController) viewObjects.getAbstractController();
         items.put(MainMenuItems.SETTING, viewObjects.getParent());
 
-        super.initialize(location, resources);
+//        super.initialize(location, resources);
+        reload();
     }
 }

@@ -100,7 +100,7 @@ public class SignUpController extends AbstractController implements Initializabl
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        super.initialize(location, resources);
+//        super.initialize(location, resources);
     }
 
     @Override

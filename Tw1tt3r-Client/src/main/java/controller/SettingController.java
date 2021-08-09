@@ -20,7 +20,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import lombok.SneakyThrows;
-import org.springframework.transaction.annotation.Transactional;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -143,7 +142,6 @@ public class SettingController extends AbstractController implements Initializab
 
     @SneakyThrows
     @FXML
-    @Transactional
     void categoryCreateButtonAction(MouseEvent event) {
         List<Integer> peopleToAdd = new LinkedList<Integer>();
         for(PersonDto person:selectedPeopleFromCategoryCreating) peopleToAdd.add(person.getId());
@@ -182,7 +180,6 @@ public class SettingController extends AbstractController implements Initializab
 
     @SneakyThrows
     @FXML
-    @Transactional
     void roomCreateButtonAction(MouseEvent event) {
         List<Integer> peopleToAdd = new LinkedList<Integer>();
         for(PersonDto person:selectedPeopleFromRoomCreating) peopleToAdd.add(person.getId());

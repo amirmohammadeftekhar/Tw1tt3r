@@ -31,7 +31,6 @@ public class ViewFactory{
     private Stage stage;
 
     public Scene getEnteringScene() {
-        System.out.println(ConfigInstance.getInstance().getProperty("entering_fxml"));
         ViewObjects viewObjects = initializeScene(ConfigInstance.getInstance().getProperty("entering_fxml"));
         return (viewObjects.getScene());
     }

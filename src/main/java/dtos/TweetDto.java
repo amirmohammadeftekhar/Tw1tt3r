@@ -14,6 +14,7 @@ import java.util.Set;
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "Id",
+        resolver = Resolver.class,
         scope = TweetDto.class
 )
 @Getter
@@ -66,11 +67,6 @@ public class TweetDto extends Dto {
         TweetDto other = (TweetDto) o;
 
         return (Id == other.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
     }
 
     public TweetDto(){

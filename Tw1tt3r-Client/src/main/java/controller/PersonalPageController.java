@@ -14,7 +14,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import lombok.SneakyThrows;
-import org.springframework.transaction.annotation.Transactional;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -140,7 +139,6 @@ public class PersonalPageController extends AbstractController implements Initia
     }
 
     @FXML
-    @Transactional
     void followButtonAction(MouseEvent event) {
         TransactionServiceGenerator.getInstance().createService(PersonalPageControllerService.class).followButtonAction(currentPersonId, person.getId()).enqueue(new Callback<Void>() {
             @Override
@@ -154,7 +152,6 @@ public class PersonalPageController extends AbstractController implements Initia
     }
 
     @FXML
-    @Transactional
     void messageButtonAction(MouseEvent event) {
         mainMenuController.messageButtonAction(null);
         TransactionServiceGenerator.getInstance().createService(PersonalPageControllerService.class).messageButtonAction(currentPersonId, person.getId()).enqueue(new TransactionCallBack<BaseResponse>() {

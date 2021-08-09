@@ -15,6 +15,7 @@ import java.util.Set;
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "Id",
+        resolver = Resolver.class,
         scope = RoomDto.class
 )
 @Getter
@@ -28,8 +29,10 @@ public class RoomDto extends Dto {
     @JsonProperty("name")
     private String name;
 
+/*
     @JsonProperty("members")
     private Set<PersonDto> members = new HashSet<PersonDto>();
+*/
 
     @JsonProperty("messages")
     private Set<MessageDto> messages = new HashSet<MessageDto>();
@@ -47,11 +50,6 @@ public class RoomDto extends Dto {
         RoomDto other = (RoomDto) o;
 
         return (Id == other.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
     }
 
     public RoomDto(){

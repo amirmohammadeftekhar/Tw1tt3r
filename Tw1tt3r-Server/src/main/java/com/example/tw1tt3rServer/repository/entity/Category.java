@@ -52,7 +52,6 @@ public class Category {
         for(Person person:destPeopleList){
             person.getIncludedCategories().remove(this);
         }
-        System.out.println("!!!!!!!!!!!");
         destPeopleList.clear();
     }
 }

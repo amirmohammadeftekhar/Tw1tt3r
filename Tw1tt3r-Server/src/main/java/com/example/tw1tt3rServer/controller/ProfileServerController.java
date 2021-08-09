@@ -86,7 +86,7 @@ public class ProfileServerController extends AbstractServerController{
             if(action.isNotified()){
                 continue;
             }
-            actionService.changeNotified(action, true);
+//            actionService.changeNotified(action, true);
             Person person = action.getSourcePerson();
             dto.getYourRequests().add(ModelMapperInstance.getModelMapper().map(person, PersonDto.class));
         }

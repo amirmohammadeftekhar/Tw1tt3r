@@ -85,7 +85,6 @@ public class ExploreServerController extends AbstractServerController{
         }
         else if(timeLineParent.getTimeLineParents() == TimeLineParents.TWEET){
             Tweet parentTweet = tweetService.findById(timeLineParent.getTweetId());
-            System.out.println(parentTweet);
             tweetList = tweetService.findAllByParentTweetOrderByTimestamp(parentTweet);
         }
         else{

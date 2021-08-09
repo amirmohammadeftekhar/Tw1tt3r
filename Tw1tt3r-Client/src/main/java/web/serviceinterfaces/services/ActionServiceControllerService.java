@@ -33,6 +33,9 @@ public interface ActionServiceControllerService {
     @POST(value = "api/actionservice/makereject")
     public Call<Void> makeReject(@Query("currentPersonId") int currentPersonId, @Query("personId") int personId);
 
+    @POST(value = "api/actionservice/makemute")
+    public Call<Void> makeMute(@Query("currentPersonId") int currentPersonId, @Query("personId") int personId);
+
     @POST(value = "api/actionservice/deleteaction")
     public Call<Void> deleteAction(@Query("actionId") int actionId);
 

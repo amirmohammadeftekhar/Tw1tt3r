@@ -88,7 +88,6 @@ public class MessagingMainMenuController extends AbstractController implements I
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         super.initialize(location, resources);
     }
 }

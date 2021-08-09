@@ -51,7 +51,7 @@ public class TimeLineController extends AbstractController implements Initializa
         }
         int t = 0;
         for(TweetDto tweet:tweetList){
-            ModelAccess.tweetToTweetController = tweet;
+            ModelAccess.tweetIdToTweetController = tweet.getId();
             Parent parent = ViewFactory.viewFactory.getTweetParent();
             tweetGridPane.add(parent, 0, ++t);
             GridPane.setMargin(parent, new Insets(10));

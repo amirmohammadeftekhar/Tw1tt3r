@@ -71,6 +71,14 @@ public class ActionServiceServerController extends AbstractServerController {
         return(new ResponseEntity<Void>(HttpStatus.OK));
     }
 
+    @PostMapping("api/actionservice/makemute")
+    public ResponseEntity<Void> makeMute(@RequestParam int currentPersonId, @RequestParam int personId){
+        Person currentPerson = personService.findById(currentPersonId);
+        Person person = personService.findById(personId);
+        actionService.makeMute(currentPerson, person);
+        return(new ResponseEntity<Void>(HttpStatus.OK));
+    }
+
     @PostMapping("api/actionservice/deleteaction")
     public ResponseEntity<Void> deleteAction(@RequestParam int actionId){
         Action action = actionService.findById(actionId);

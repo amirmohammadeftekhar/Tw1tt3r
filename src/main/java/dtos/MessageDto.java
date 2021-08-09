@@ -14,6 +14,7 @@ import java.util.Set;
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "Id",
+        resolver = Resolver.class,
         scope = MessageDto.class
 )
 @Getter
@@ -59,11 +60,6 @@ public class MessageDto extends Dto{
         MessageDto other = (MessageDto) o;
 
         return (Id == other.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
     }
 
     public MessageDto(){

@@ -20,12 +20,12 @@ public abstract class AbstractController implements Initializable {
             @Override
             public void run() {
                 while (true){
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
                     Platform.runLater(() -> reload());
                 }
             }
         });
-        thread.setDaemon(true);
+//        thread.setDaemon(true);
         thread.start();
     }
 

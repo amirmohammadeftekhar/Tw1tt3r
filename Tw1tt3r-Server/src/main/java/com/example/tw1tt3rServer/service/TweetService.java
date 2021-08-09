@@ -29,6 +29,7 @@ public class TweetService {
         return (tweetRepository.save(tweet));
     }
 
+    @NoLogging
     public Tweet findById(int id){
         return(tweetRepository.findById(id).get());
     }
@@ -56,13 +57,12 @@ public class TweetService {
     }
 
     public void makeTweet(String text, Tweet parentTweet, Person personWhoMadeThis, Timestamp timestamp,
-                          Person rootPerson, Picture picture) {
+                          Picture picture) {
         Tweet tweet = new Tweet();
         tweet.setText(text);
         tweet.setParentTweet(parentTweet);
         tweet.setPersonWhoMadeThis(personWhoMadeThis);
         tweet.setTimestamp(timestamp);
-        tweet.setRootPerson(rootPerson);
         tweet.setPicture(picture);
         save(tweet);
     }

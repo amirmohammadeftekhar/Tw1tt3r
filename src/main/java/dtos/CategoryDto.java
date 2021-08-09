@@ -13,6 +13,7 @@ import java.util.Set;
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "Id",
+        resolver = Resolver.class,
         scope = CategoryDto.class
 )
 @Getter
@@ -43,10 +44,6 @@ public class CategoryDto extends Dto {
         return (Id == other.getId());
     }
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 
     public CategoryDto(){
 

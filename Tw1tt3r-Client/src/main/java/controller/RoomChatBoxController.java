@@ -65,7 +65,6 @@ public class RoomChatBoxController extends AbstractController implements Initial
 
             @Override
             public void onFailure(Call<Void> call, Throwable throwable) {
-                System.out.println(throwable);
             }
         });
     }

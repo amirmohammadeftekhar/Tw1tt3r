@@ -26,6 +26,9 @@ public class PictureService {
 
     @SneakyThrows
     public Picture makePicture(PictureDto pictureDto){
+        if(pictureDto.getContent()==null){
+            return(null);
+        }
         Picture picture = ModelMapperInstance.getModelMapper().map(pictureDto, Picture.class);
         return(save(picture));
     }

@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import lombok.Setter;
 import view.ViewFactory;
 import view.ViewUtility;
@@ -40,6 +41,12 @@ public class ChoosingMenuController extends AbstractController implements Initia
 
     @FXML
     private Button doneButton;
+
+    @FXML
+    void doneButtonAction(MouseEvent event) {
+        Stage stage = (Stage)doneButton.getScene().getWindow();
+        stage.close();
+    }
 
     @Override
     public void reload() {
@@ -111,5 +118,6 @@ public class ChoosingMenuController extends AbstractController implements Initia
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 //        super.initialize(location, resources);
+        reload();
     }
 }

@@ -21,7 +21,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
-import org.springframework.transaction.annotation.Transactional;
+import retrofit2.Call;
 import retrofit2.Response;
 import utility.TimeLineParent;
 import utility.enums.TimeLineParents;
@@ -97,7 +97,6 @@ public class ProfileController extends AbstractController implements Initializab
 
     @SneakyThrows
     @FXML
-    @Transactional
     void blackListButtonAction(MouseEvent event) {
         ModelAccess.showListChoice = ShowListChoices.BLACKLIST;
         ModelAccess.peopleListToShow = TransactionServiceGenerator.getInstance().createService(ProfileControllerService.class).getBlockingPersons(currentPersonId).execute().body();
@@ -109,7 +108,6 @@ public class ProfileController extends AbstractController implements Initializab
 
     @SneakyThrows
     @FXML
-    @Transactional
     void followerButtonAction(MouseEvent event) {
         ModelAccess.showListChoice = ShowListChoices.FOLLOWER;
         ModelAccess.peopleListToShow = TransactionServiceGenerator.getInstance().createService(ProfileControllerService.class).getFollowersPersons(currentPersonId).execute().body();
@@ -121,7 +119,6 @@ public class ProfileController extends AbstractController implements Initializab
 
     @SneakyThrows
     @FXML
-    @Transactional
     void followingButtonAction(MouseEvent event) {
         ModelAccess.showListChoice = ShowListChoices.FOLLOWING;
         ModelAccess.peopleListToShow = TransactionServiceGenerator.getInstance().createService(ProfileControllerService.class).getFollowingspersons(currentPersonId).execute().body();
@@ -132,7 +129,6 @@ public class ProfileController extends AbstractController implements Initializab
     }
 
     @FXML
-    @Transactional
     void makeTweetButtonAction(MouseEvent event) {
         Scene scene = ViewFactory.viewFactory.getTweetMakingScene();
         Stage stage = ViewUtility.getNewStage(tweetButton.getScene().getWindow(), ConfigInstance.getInstance().getProperty("tweetmaking"));
@@ -149,10 +145,15 @@ public class ProfileController extends AbstractController implements Initializab
 
     @Override
     public void reload() {
-        System.out.println("!!!!!!!");
 
         PersonDto currentPerson = WebUtil.getPerson(currentPersonId);
         TransactionServiceGenerator.getInstance().createService(ProfileControllerService.class).reload(currentPersonId).enqueue(new TransactionCallBack<BaseResponse>() {
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable throwable) {
+                super.onFailure(call, throwable);
+                System.out.println(throwable);
+            }
+
             @Override
             public void DoOnResponse(Response<BaseResponse> response) {
                 ProfileReloadDto dto = (ProfileReloadDto) response.body().getDto();
@@ -192,6 +193,7 @@ public class ProfileController extends AbstractController implements Initializab
                     yourRequestsGridPane.add(parent, 0, ++t_your_requests);
                 }
                 int t_others_requests = 0;
+                System.out.println(dto.getOtherRequests().size());
                 for(ActionDto action:dto.getOtherRequests()) {
                     PersonDto person = action.getSourcePerson();
                     Parent parent = ViewFactory.viewFactory.GetPersonOutViewParent(person);
@@ -223,7 +225,6 @@ public class ProfileController extends AbstractController implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         super.initialize(location, resources);
     }
 }

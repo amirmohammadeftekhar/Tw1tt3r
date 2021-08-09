@@ -73,6 +73,7 @@ public class ViewUtility {
         FileInputStream fileInputStream = new FileInputStream(file);
         fileInputStream.read(bt);
         picture.setContent(bt);
+        System.out.println(picture==null);
         return(TransactionServiceGenerator.getInstance().createService(PictureServiceControllerService.class).makePicture(picture).execute().body());
     }
 }

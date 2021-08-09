@@ -1,6 +1,5 @@
-package com.example.tw1tt3rServer.controller.services;
+package com.example.tw1tt3rServer.controller;
 
-import com.example.tw1tt3rServer.controller.AbstractServerController;
 import com.example.tw1tt3rServer.repository.entity.Message;
 import com.example.tw1tt3rServer.repository.entity.Person;
 import com.example.tw1tt3rServer.repository.entity.Room;

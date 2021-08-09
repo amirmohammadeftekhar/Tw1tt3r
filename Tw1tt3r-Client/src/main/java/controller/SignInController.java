@@ -50,7 +50,6 @@ public class SignInController extends AbstractController implements Initializabl
             @Override
             public void onFailure(Call<BaseResponse> call, Throwable throwable) {
                 super.onFailure(call, throwable);
-                System.out.println(throwable);
             }
 
             @Override
@@ -58,17 +57,14 @@ public class SignInController extends AbstractController implements Initializabl
                 BaseResponse baseResponse = response.body();
                 switch (baseResponse.getResponseHeader()){
                     case USERNAME_NOT_EXISTS: {
-                        System.out.println(1111);
                         Platform.runLater(() -> infoLabel.setText(ConfigInstance.getInstance().getProperty("userNameNotAvailable")));
                         break;
                     }
                     case WRONG_PASSWORD: {
-                        System.out.println(2222);
                         infoLabel.setText(ConfigInstance.getInstance().getProperty("wrongPassword"));
                         break;
                     }
                     case OK: {
-                        System.out.println(3333);
                         PersonDto person = (PersonDto) baseResponse.getDto();
                         TransactionServiceGenerator.setToken(person.getToken());
                         ModelAccess.currentPersonId = person.getId();

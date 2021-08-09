@@ -2,6 +2,7 @@ package controller.utility;
 
 import dtos.PersonDto;
 import dtos.RoomDto;
+import dtos.TweetDto;
 import lombok.SneakyThrows;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -11,6 +12,7 @@ import web.serviceinterfaces.ServicesControllerService;
 import web.serviceinterfaces.services.ActionServiceControllerService;
 import web.serviceinterfaces.services.PersonServiceControllerService;
 import web.serviceinterfaces.services.RoomServiceControllerService;
+import web.serviceinterfaces.services.TweetServiceControllerService;
 
 public class WebUtil {
     @SneakyThrows
@@ -78,8 +80,38 @@ public class WebUtil {
         });
     }
 
+    public static void report(int tweetId, int currentPersonId){
+        TransactionServiceGenerator.getInstance().createService(TweetServiceControllerService.class).report(tweetId, currentPersonId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable throwable) {
+            }
+        });
+    }
+
+    public static void makeMute(int currentPersonId, int personId){
+        TransactionServiceGenerator.getInstance().createService(ActionServiceControllerService.class).makeMute(currentPersonId, personId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable throwable) {
+            }
+        });
+    }
+
     @SneakyThrows
     public static RoomDto getRoom(int roomId){
         return(TransactionServiceGenerator.getInstance().createService(RoomServiceControllerService.class).getRoom(roomId).execute().body());
     }
+
+    @SneakyThrows
+    public static TweetDto getTweet(int tweetId){
+        return(TransactionServiceGenerator.getInstance().createService(TweetServiceControllerService.class).getTweet(tweetId).execute().body());
+    }
+
 }

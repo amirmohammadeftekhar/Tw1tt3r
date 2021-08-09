@@ -11,6 +11,7 @@ import lombok.Setter;
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "Id",
+        resolver = Resolver.class,
         scope = ActionDto.class
 )
 @Getter
@@ -54,8 +55,4 @@ public class ActionDto extends Dto  {
         return (Id == other.getId());
     }
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

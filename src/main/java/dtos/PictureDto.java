@@ -9,6 +9,7 @@ import lombok.Setter;
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "Id",
+        resolver = Resolver.class,
         scope = PictureDto.class
 )
 @Getter

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ModelAccess {
     public static int currentPersonId;
-    public static TweetDto tweetToTweetController;
+    public static int tweetIdToTweetController;
     public static PersonDto personToPersonalPageController;
     public static RoomDto roomToChatBox;
     public static ShowListChoices showListChoice;

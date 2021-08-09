@@ -41,7 +41,6 @@ public class PersonalPageServerController extends AbstractServerController{
         if(!actionService.isFollowing(currentPerson, person) && !actionService.isFollowRequesting(currentPerson, person)){
             return(new BaseResponse(ResponseHeader.FOLLOW_STATUS, null));
         }
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!");
         return(null);
     }
 

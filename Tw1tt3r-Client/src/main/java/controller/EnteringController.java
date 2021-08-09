@@ -36,7 +36,8 @@ public class EnteringController extends AbstractController implements Initializa
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        super.initialize(location, resources);
+        reload();
+//        super.initialize(location, resources);
     }
 
     @Override

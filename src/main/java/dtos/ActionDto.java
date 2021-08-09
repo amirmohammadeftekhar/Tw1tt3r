@@ -55,4 +55,9 @@ public class ActionDto extends Dto  {
         return (Id == other.getId());
     }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
 }

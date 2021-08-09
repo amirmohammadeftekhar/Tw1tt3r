@@ -66,5 +66,10 @@ public class MessageDto extends Dto{
 
     }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
 
 }

@@ -37,8 +37,12 @@ public class MessagingMainMenuController extends AbstractController implements I
     @FXML
     private GridPane chatsGridPane;
 
-    public void addRoomToChatsWindow(RoomDto room){
-        PersonDto currentPerson = WebUtil.getPerson(currentPersonId);
+    private RoomDto openedChat;
+
+    public void addRoomToChatsWindow(RoomDto room, PersonDto currentPerson){
+        if(currentPerson == null){
+            currentPerson = WebUtil.getPerson(currentPersonId);
+        }
         int unreadMessageCount = 0;
         for(MessageDto message:room.getMessages()){
             if(message.getSourcePerson().getId() == currentPersonId){
@@ -47,16 +51,20 @@ public class MessagingMainMenuController extends AbstractController implements I
             unreadMessageCount += message.getWhoHasRead().contains(currentPerson)?0:1;
         }
         Parent outViewParent = ViewFactory.viewFactory.GetRoomOutViewParent(room, unreadMessageCount);
+        outViewParent.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            openChatBox(room);
+            openedChat = room;
+        });
+        chatsGridPane.add(outViewParent, 0, ++chatsPointer);
+        if(roomToChatBoxParent.containsKey(room)){
+            return;
+        }
         ModelAccess.roomToChatBox = room;
         ViewObjects viewObjects = ViewFactory.viewFactory.getRoomChatBoxViewObjects();
         Parent parent = viewObjects.getParent();
         RoomChatBoxController controller = (RoomChatBoxController) viewObjects.getAbstractController();
         roomToChatBoxParent.put(room, parent);
         roomToController.put(room, controller);
-        outViewParent.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            openChatBox(room);
-        });
-        chatsGridPane.add(outViewParent, 0, ++chatsPointer);
         controller.reload();
     }
 
@@ -69,7 +77,12 @@ public class MessagingMainMenuController extends AbstractController implements I
         List<RoomDto> rooms = new LinkedList<RoomDto>(currentPerson.getRooms());
         rooms.sort((a, b) -> b.lastMessageTimeStamp().compareTo(a.lastMessageTimeStamp()));
         for(RoomDto room:rooms){
-            addRoomToChatsWindow(room);
+            addRoomToChatsWindow(room, currentPerson);
+        }
+        if(openedChat != null){
+            RoomChatBoxController controller = roomToController.get(openedChat);
+            controller.reload();
+            openChatBox(openedChat);
         }
     }
 

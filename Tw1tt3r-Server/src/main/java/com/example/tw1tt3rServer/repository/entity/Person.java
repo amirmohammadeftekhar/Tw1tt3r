@@ -85,7 +85,7 @@ public class Person {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "person_unreadmessages",
+            name = "person_readmessages",
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "message_id")
     )

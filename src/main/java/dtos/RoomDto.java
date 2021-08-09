@@ -67,4 +67,9 @@ public class RoomDto extends Dto {
         return(timestamp);
     }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
 }

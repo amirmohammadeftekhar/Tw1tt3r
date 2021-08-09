@@ -48,4 +48,9 @@ public class CategoryDto extends Dto {
     public CategoryDto(){
 
     }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

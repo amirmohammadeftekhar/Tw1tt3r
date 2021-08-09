@@ -73,6 +73,11 @@ public class TweetDto extends Dto {
 
     }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
 }
 
 

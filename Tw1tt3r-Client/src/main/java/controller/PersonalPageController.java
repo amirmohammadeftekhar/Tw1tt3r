@@ -165,7 +165,7 @@ public class PersonalPageController extends AbstractController implements Initia
                 RoomDto room = (RoomDto) response.body().getDto();
                 if(response.body().getResponseHeader() == ResponseHeader.ROOM_NOT_EXISTS){
 
-                    messagingMainMenuController.addRoomToChatsWindow(room);
+                    messagingMainMenuController.addRoomToChatsWindow(room, null);
                 }
                 messagingMainMenuController.openChatBox(room);
             }

@@ -148,7 +148,7 @@ public class RoomChatBoxController extends AbstractController implements Initial
     public void initialize(URL location, ResourceBundle resources) {
 
         room = ModelAccess.roomToChatBox;
-        super.initialize(location, resources);
+//        super.initialize(location, resources);
     }
 
 

@@ -99,4 +99,9 @@ public class PersonDto extends Dto {
 
     }
 
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
 }

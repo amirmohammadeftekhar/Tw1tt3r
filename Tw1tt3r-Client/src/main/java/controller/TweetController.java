@@ -191,6 +191,7 @@ public class TweetController extends AbstractController implements Initializable
 
     @FXML
     void muteWriterButtonAction(MouseEvent event) {
+        timeLineController.setT(0);
         WebUtil.makeMute(currentPersonId, tweet.getPersonWhoMadeThis().getId());
     }
 
@@ -218,6 +219,7 @@ public class TweetController extends AbstractController implements Initializable
 
     @FXML
     void reportButtonAction(MouseEvent event) {
+        timeLineController.setT(0);
         WebUtil.report(tweet.getId(), currentPersonId);
     }
 

@@ -229,7 +229,9 @@ public class ProfileController extends AbstractController implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+/*
         reload();
         super.initialize(location, resources);
+*/
     }
 }

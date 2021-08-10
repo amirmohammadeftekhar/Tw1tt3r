@@ -28,6 +28,7 @@ public class PersonService {
 
     //------------------------------------------------------------------------------------------------------------
 
+    @NoLogging
     public Person save(Person person) {
         return (personRepository.save(person));
     }

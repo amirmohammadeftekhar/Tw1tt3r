@@ -6,6 +6,7 @@ import com.example.tw1tt3rServer.repository.entity.Message;
 import com.example.tw1tt3rServer.repository.entity.Person;
 import com.example.tw1tt3rServer.repository.entity.Picture;
 import com.example.tw1tt3rServer.repository.entity.Room;
+import entities.enums.RoomType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class MessageService {
     @Autowired
     MessageRepository messageRepository;
     @Autowired PersonService personService;
+    @Autowired ActionService actionService;
 
     public Message save(Message message) {
         return (messageRepository.save(message));
@@ -27,7 +29,15 @@ public class MessageService {
         return(messageRepository.findById(id).get());
     }
 
+    private Person getPvRoomMember(Room room, Person ignoring){
+        for(Person person:room.getMembers()) if(!person.equals(ignoring)) return(person);
+        return(null);
+    }
+
     public Message makeMessage(Person sourcePerson, Room destinationRoom, Timestamp timestamp, String text, Picture picture) {
+        if(destinationRoom.getRoomType()== RoomType.PRIVATE && !actionService.isMessagingAllowed(sourcePerson, getPvRoomMember(destinationRoom, sourcePerson))){
+            return(null);
+        }
         Message message = new Message();
         message.setSourcePerson(sourcePerson);
         message.setDestinationRoom(destinationRoom);
@@ -39,6 +49,7 @@ public class MessageService {
         return(save(message));
     }
 
+    @NoLogging
     public Message addWhoRead(Person person, Message message){
         person = personService.findById(person.getId());
         message.getWhoHasRead().add(person);

@@ -55,7 +55,7 @@ public class PersonalPageServerController extends AbstractServerController{
             actionService.deleteFollowRequest(currentPerson, person);
         }
         else if(actionService.isFollowing(currentPerson, person)){
-            actionService.deleteFollow(currentPerson, person);
+            actionService.makeUnfollow(currentPerson, person);
         }
         return(new ResponseEntity<Void>(HttpStatus.OK));
     }

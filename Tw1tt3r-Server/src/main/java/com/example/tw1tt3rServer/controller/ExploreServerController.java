@@ -68,7 +68,7 @@ public class ExploreServerController extends AbstractServerController{
     }
 
     @PostMapping(value = "api/explore/gettweetlist")
-    public BaseResponse getTweetList(@RequestParam int currentPersonId, @RequestBody TimeLineParent timeLineParent){
+    public BaseResponse getTweetList(@RequestParam int currentPersonId, @RequestBody TimeLineParent timeLineParent, @RequestParam int t){
         List<Tweet> tweetList = new LinkedList<Tweet>();
         Person currentPerson = personService.findById(currentPersonId);
         if (timeLineParent.getTimeLineParents() == TimeLineParents.HEAD) {
@@ -94,8 +94,8 @@ public class ExploreServerController extends AbstractServerController{
         tweetList.removeIf(tweet -> actionService.isSourceMuting(currentPerson, tweet.getPersonWhoMadeThis()));
         tweetList.removeIf(tweet -> !toShow(tweet, currentPerson));
         List<TweetDto> newList = new LinkedList<TweetDto>();
-        for(Tweet tweet:tweetList){
-            newList.add(ModelMapperInstance.getModelMapper().map(tweet, TweetDto.class));
+        for(int i=t;i<tweetList.size();i++){
+            newList.add(ModelMapperInstance.getModelMapper().map(tweetList.get(i), TweetDto.class));
         }
         return(new BaseResponse(ResponseHeader.OK, new TweetListDto(newList)));
     }

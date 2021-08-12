@@ -31,6 +31,7 @@ import web.serviceinterfaces.SettingControllerService;
 import web.serviceinterfaces.services.ActionServiceControllerService;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -139,9 +140,8 @@ public class SettingController extends AbstractController implements Initializab
         reload();
     }
 
-    @SneakyThrows
     @FXML
-    void categoryCreateButtonAction(MouseEvent event) {
+    void categoryCreateButtonAction(MouseEvent event) throws InterruptedException {
         List<Integer> peopleToAdd = new LinkedList<Integer>();
         for(PersonDto person:selectedPeopleFromCategoryCreating) peopleToAdd.add(person.getId());
         TransactionServiceGenerator.getInstance().createService(SettingControllerService.class).categoryCreateButtonAction(categoryMakingNameField.getText(), currentPersonId, peopleToAdd).enqueue(new Callback<Void>() {
@@ -158,15 +158,18 @@ public class SettingController extends AbstractController implements Initializab
         reload();
     }
 
-    @SneakyThrows
     @FXML
-    void categoryCreateChoosingButtonAction(MouseEvent event) {
+    void categoryCreateChoosingButtonAction(MouseEvent event) throws InterruptedException {
         Stage stage = ViewUtility.getNewStage(categoryCreateButton.getScene().getWindow(), ConfigInstance.getInstance().getProperty("choosingWindow"));
         ViewObjects viewObjects = ViewFactory.viewFactory.getChoosingMenuViewObjects();
         ChoosingMenuController controller = (ChoosingMenuController) viewObjects.getAbstractController();
-        ((ChoosingMenuController)controller).setPeopleToChoose(new HashSet<>(
-                TransactionServiceGenerator.getInstance().createService(ActionServiceControllerService.class).getFollowingsPersons(currentPersonId).execute().body()
-        ));
+        try {
+            ((ChoosingMenuController)controller).setPeopleToChoose(new HashSet<>(
+                    TransactionServiceGenerator.getInstance().createService(ActionServiceControllerService.class).getFollowingsPersons(currentPersonId).execute().body()
+            ));
+        } catch (IOException e) {
+            return;
+        }
         ((ChoosingMenuController)controller).setSelectedPeople(selectedPeopleFromCategoryCreating);
         ((ChoosingMenuController)controller).reload();
         Scene scene = viewObjects.getScene();
@@ -177,9 +180,8 @@ public class SettingController extends AbstractController implements Initializab
 
     }
 
-    @SneakyThrows
     @FXML
-    void roomCreateButtonAction(MouseEvent event) {
+    void roomCreateButtonAction(MouseEvent event) throws InterruptedException {
         List<Integer> peopleToAdd = new LinkedList<Integer>();
         for(PersonDto person:selectedPeopleFromRoomCreating) peopleToAdd.add(person.getId());
         TransactionServiceGenerator.getInstance().createService(SettingControllerService.class).roomCreateButtonAction(roomMakingNameField.getText(), currentPersonId, pvCheckBox.isSelected(), peopleToAdd).enqueue(new Callback<Void>() {
@@ -196,15 +198,18 @@ public class SettingController extends AbstractController implements Initializab
         reload();
     }
 
-    @SneakyThrows
     @FXML
-    void roomCreateChoosingButtonAction(MouseEvent event) {
+    void roomCreateChoosingButtonAction(MouseEvent event) throws InterruptedException {
         Stage stage = ViewUtility.getNewStage(roomCreateButton.getScene().getWindow(), ConfigInstance.getInstance().getProperty("choosingWindow"));
         ViewObjects viewObjects = ViewFactory.viewFactory.getChoosingMenuViewObjects();
         ChoosingMenuController controller = (ChoosingMenuController) viewObjects.getAbstractController();
-        ((ChoosingMenuController)controller).setPeopleToChoose(new HashSet<>(
-                TransactionServiceGenerator.getInstance().createService(ActionServiceControllerService.class).getFollowingsPersons(currentPersonId).execute().body()
-        ));
+        try {
+            ((ChoosingMenuController)controller).setPeopleToChoose(new HashSet<>(
+                    TransactionServiceGenerator.getInstance().createService(ActionServiceControllerService.class).getFollowingsPersons(currentPersonId).execute().body()
+            ));
+        } catch (IOException e) {
+            return;
+        }
         ((ChoosingMenuController)controller).setSelectedPeople(selectedPeopleFromRoomCreating);
         ((ChoosingMenuController)controller).reload();
         Scene scene = viewObjects.getScene();
@@ -217,9 +222,8 @@ public class SettingController extends AbstractController implements Initializab
     private final FileChooser fileChooser = new FileChooser();
 
 
-    @SneakyThrows
     @FXML
-    void changeProfileImageAction(MouseEvent event) {
+    void changeProfileImageAction(MouseEvent event) throws InterruptedException {
         File file = fileChooser.showOpenDialog(updateProfileButton.getScene().getWindow());
         if(!isImage(file)){
             return;
@@ -239,9 +243,8 @@ public class SettingController extends AbstractController implements Initializab
 
     }
 
-    @SneakyThrows
     @FXML
-    void updateProfileButtonAction(MouseEvent event) {
+    void updateProfileButtonAction(MouseEvent event) throws InterruptedException {
         PersonIniDto person = new PersonIniDto();
         person.setFirstname(firstNameFiled.getText());
         person.setLastName(lastNameField.getText());
@@ -264,9 +267,8 @@ public class SettingController extends AbstractController implements Initializab
 
     }
 
-    @SneakyThrows
     @FXML
-    void LastSeenTypeUpdateButtonAction(MouseEvent event) {
+    void LastSeenTypeUpdateButtonAction(MouseEvent event) throws InterruptedException {
         TransactionServiceGenerator.getInstance().createService(SettingControllerService.class).lastSeenTypeUpdateButtonAction(currentPersonId, lastSeenTypeChoiceBox.getValue()).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -280,9 +282,8 @@ public class SettingController extends AbstractController implements Initializab
         reload();
     }
 
-    @SneakyThrows
     @FXML
-    void deactivateButtonAction(MouseEvent event) {
+    void deactivateButtonAction(MouseEvent event) throws InterruptedException {
         TransactionServiceGenerator.getInstance().createService(SettingControllerService.class).deactivateButtonAction(currentPersonId).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -297,9 +298,8 @@ public class SettingController extends AbstractController implements Initializab
         reload();
     }
 
-    @SneakyThrows
     @FXML
-    void messageSendingButtonAction(MouseEvent event) {
+    void messageSendingButtonAction(MouseEvent event) throws InterruptedException {
         CategoryDto category = choosingCategoryComboBox.getValue();
         if(category==null){
             return;
@@ -313,9 +313,8 @@ public class SettingController extends AbstractController implements Initializab
         reload();
     }
 
-    @SneakyThrows
     @FXML
-    void deleteAccountAction(MouseEvent event) {
+    void deleteAccountAction(MouseEvent event) throws InterruptedException {
         TransactionServiceGenerator.getInstance().createService(SettingControllerService.class).deleteAccountAction(currentPersonId).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -331,9 +330,8 @@ public class SettingController extends AbstractController implements Initializab
 
     }
 
-    @SneakyThrows
     @FXML
-    void logOutButtonAction(MouseEvent event) {
+    void logOutButtonAction(MouseEvent event) throws InterruptedException {
         Scene scene = ViewFactory.viewFactory.getEnteringScene();
         Stage stage = ViewFactory.viewFactory.getStage();
         stage.setScene(scene);
@@ -342,9 +340,8 @@ public class SettingController extends AbstractController implements Initializab
 
     }
 
-    @SneakyThrows
     @FXML
-    void addPersonToCategoryButtonAction(MouseEvent event) {
+    void addPersonToCategoryButtonAction(MouseEvent event) throws InterruptedException {
         if(choosingCategoryComboBox.getValue()==null){
             return;
         }
@@ -384,9 +381,8 @@ public class SettingController extends AbstractController implements Initializab
         reload();
     }
 
-    @SneakyThrows
     @FXML
-    void deleteCategoryButtonAction(MouseEvent event) {
+    void deleteCategoryButtonAction(MouseEvent event) throws InterruptedException {
         CategoryDto category = choosingCategoryComboBox.getValue();
         choosingCategoryComboBox.setValue(null);
         if(category==null){
@@ -405,9 +401,8 @@ public class SettingController extends AbstractController implements Initializab
         reload();
     }
 
-    @SneakyThrows
     @FXML
-    void removePersonFromCategoryButtonAction(MouseEvent event) {
+    void removePersonFromCategoryButtonAction(MouseEvent event) throws InterruptedException {
         CategoryDto category = choosingCategoryComboBox.getValue();
         if(category==null){
             return;
@@ -420,7 +415,12 @@ public class SettingController extends AbstractController implements Initializab
 
     @Override
     public void reload() {
-        PersonDto currentPerson = WebUtil.getPerson(currentPersonId);
+        PersonDto currentPerson = null;
+        try {
+            currentPerson = WebUtil.getPerson(currentPersonId);
+        } catch (IOException e) {
+            return;
+        }
 
         firstNameFiled.setText(currentPerson.getFirstname());
         lastNameField.setText(currentPerson.getLastName());

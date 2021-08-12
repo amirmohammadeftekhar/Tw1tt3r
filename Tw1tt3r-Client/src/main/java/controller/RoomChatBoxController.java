@@ -26,6 +26,7 @@ import web.serviceinterfaces.RoomChatBoxControllerService;
 import web.serviceinterfaces.services.MessageServiceControllerService;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -88,7 +89,11 @@ public class RoomChatBoxController extends AbstractController implements Initial
 
     @Override
     public void reload() {
-        room = WebUtil.getRoom(room.getId());
+        try {
+            room = WebUtil.getRoom(room.getId());
+        } catch (IOException e) {
+            return;
+        }
         messagesGridPane.getChildren().clear();
         int t = 0;
         for(MessageDto message:room.getMessages()){

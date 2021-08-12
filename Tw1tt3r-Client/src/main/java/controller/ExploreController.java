@@ -52,6 +52,7 @@ public class ExploreController extends AbstractController implements Initializab
     void backButtonAction(MouseEvent event) {
         if(parents.size()>0){
             parents.pop();
+            setT(0);
             reload();
         }
     }
@@ -73,17 +74,20 @@ public class ExploreController extends AbstractController implements Initializab
                 });
     }
 
+    @Setter
+    private int t;
 
     @Override
     public void reload() {
-        tweetGridPane.getChildren().clear();
+        if(t==0){
+            tweetGridPane.getChildren().clear();
+        }
         TransactionServiceGenerator.getInstance().createService(ExploreControllerService.class)
-                .getTweetList(currentPersonId, parents.empty()?new TimeLineParent():parents.peek()).enqueue(new TransactionCallBack<BaseResponse>() {
+                .getTweetList(currentPersonId, parents.empty()?new TimeLineParent():parents.peek(), t).enqueue(new TransactionCallBack<BaseResponse>() {
             @Override
             public void DoOnResponse(Response<BaseResponse> response) {
                 BaseResponse baseResponse = response.body();
                 List<TweetDto> tweetList = ((TweetListDto)baseResponse.getDto()).getTweetList();
-                int t = 0;
                 for(TweetDto tweet:tweetList){
                     ModelAccess.tweetIdToTweetController = tweet.getId();
                     Parent parent = ViewFactory.viewFactory.getTweetParent();

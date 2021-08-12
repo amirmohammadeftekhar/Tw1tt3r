@@ -37,13 +37,13 @@ import web.serviceinterfaces.services.RoomServiceControllerService;
 import web.serviceinterfaces.services.TweetServiceControllerService;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import static controller.utility.ModelAccess.currentPersonId;
-import static controller.utility.ModelAccess.timeLineController;
+import static controller.utility.ModelAccess.*;
 
 public class TweetController extends AbstractController implements Initializable {
 
@@ -111,7 +111,12 @@ public class TweetController extends AbstractController implements Initializable
 
     @FXML
     void choosingButtonAction(MouseEvent event) {
-        PersonDto currentPerson = WebUtil.getPerson(currentPersonId);
+        PersonDto currentPerson = null;
+        try {
+            currentPerson = WebUtil.getPerson(currentPersonId);
+        } catch (IOException e) {
+            return;
+        }
         Stage stage = ViewUtility.getNewStage(forwardButton.getScene().getWindow(), ConfigInstance.getInstance().getProperty("choosingWindow"));
         ViewObjects viewObjects = ViewFactory.viewFactory.getChoosingMenuViewObjects();
         ChoosingMenuController controller = (ChoosingMenuController) viewObjects.getAbstractController();
@@ -168,6 +173,7 @@ public class TweetController extends AbstractController implements Initializable
     void commentsButtonAction(MouseEvent event) {
         timeLineController.getParents().add(new TimeLineParent(tweet.getId(), TimeLineParents.TWEET));
         timeLineController.setT(0);
+        exploreController.setT(0);
         timeLineController.reload();
     }
 
@@ -192,6 +198,7 @@ public class TweetController extends AbstractController implements Initializable
     @FXML
     void muteWriterButtonAction(MouseEvent event) {
         timeLineController.setT(0);
+        exploreController.setT(0);
         WebUtil.makeMute(currentPersonId, tweet.getPersonWhoMadeThis().getId());
     }
 
@@ -220,6 +227,7 @@ public class TweetController extends AbstractController implements Initializable
     @FXML
     void reportButtonAction(MouseEvent event) {
         timeLineController.setT(0);
+        exploreController.setT(0);
         WebUtil.report(tweet.getId(), currentPersonId);
     }
 
@@ -243,7 +251,11 @@ public class TweetController extends AbstractController implements Initializable
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tweet = WebUtil.getTweet(ModelAccess.tweetIdToTweetController);
+        try {
+            tweet = WebUtil.getTweet(ModelAccess.tweetIdToTweetController);
+        } catch (IOException e) {
+            return;
+        }
         Thread thread = new Thread(new Runnable() {
             @SneakyThrows
             @Override
@@ -279,7 +291,11 @@ public class TweetController extends AbstractController implements Initializable
 
     @Override
     public void reload() {
-        tweet = WebUtil.getTweet(tweet.getId());
+        try {
+            tweet = WebUtil.getTweet(tweet.getId());
+        } catch (IOException e) {
+            return;
+        }
         if(tweet.getPersonWhoMadeThis().getPicture() != null){
             profileImage.setImage(ViewUtility.getPicture(tweet.getPersonWhoMadeThis().getPicture().getId()));
         }

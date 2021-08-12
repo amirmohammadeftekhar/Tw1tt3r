@@ -19,6 +19,7 @@ import view.ViewObjects;
 import web.TransactionServiceGenerator;
 import web.serviceinterfaces.MessagingMainMenuControllerService;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -41,7 +42,11 @@ public class MessagingMainMenuController extends AbstractController implements I
 
     public void addRoomToChatsWindow(RoomDto room, PersonDto currentPerson){
         if(currentPerson == null){
-            currentPerson = WebUtil.getPerson(currentPersonId);
+            try {
+                currentPerson = WebUtil.getPerson(currentPersonId);
+            } catch (IOException e) {
+                return;
+            }
         }
         int unreadMessageCount = 0;
         for(MessageDto message:room.getMessages()){
@@ -71,7 +76,12 @@ public class MessagingMainMenuController extends AbstractController implements I
 
     @Override
     public void reload() {
-        PersonDto currentPerson = WebUtil.getPerson(currentPersonId);
+        PersonDto currentPerson = null;
+        try {
+            currentPerson = WebUtil.getPerson(currentPersonId);
+        } catch (IOException e) {
+            return;
+        }
         chatsGridPane.getChildren().clear();
         chatsPointer = 0;
         List<RoomDto> rooms = new LinkedList<RoomDto>(currentPerson.getRooms());

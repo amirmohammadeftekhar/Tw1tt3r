@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import view.ViewFactory;
 import view.ViewObjects;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,7 +56,12 @@ public class MainMenuController extends AbstractController implements Initializa
 
     @Override
     public void reload() {
-        PersonDto currentPerson = WebUtil.getPerson(currentPersonId);
+        PersonDto currentPerson = null;
+        try {
+            currentPerson = WebUtil.getPerson(currentPersonId);
+        } catch (IOException e) {
+            return;
+        }
         WebUtil.updateLastSeen(currentPersonId);
         nameLabel.setText(currentPerson.getFirstname() + " " + currentPerson.getLastName());
         userNameLabel.setText("@" + currentPerson.getUserName());

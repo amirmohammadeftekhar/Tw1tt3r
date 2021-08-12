@@ -11,12 +11,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.SneakyThrows;
 import utility.TimeLineParent;
 import view.ViewFactory;
 import web.TransactionServiceGenerator;
 import web.serviceinterfaces.TimeLineControllerService;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -38,9 +38,8 @@ public class TimeLineController extends AbstractController implements Initializa
     private GridPane tweetGridPane;
 
     @Setter
-    public int t = 0;
+    private int t = 0;
 
-    @SneakyThrows
     @Override
     public void reload(){
 
@@ -49,10 +48,18 @@ public class TimeLineController extends AbstractController implements Initializa
         }
         List<TweetDto> tweetList;
         if(parents.empty()){
-            tweetList = TransactionServiceGenerator.getInstance().createService(TimeLineControllerService.class).getTweetList(currentPersonId, new TimeLineParent(), t).execute().body();
+            try {
+                tweetList = TransactionServiceGenerator.getInstance().createService(TimeLineControllerService.class).getTweetList(currentPersonId, new TimeLineParent(), t).execute().body();
+            } catch (IOException e) {
+                return;
+            }
         }
         else{
-            tweetList = TransactionServiceGenerator.getInstance().createService(TimeLineControllerService.class).getTweetList(currentPersonId, parents.peek(), t).execute().body();
+            try {
+                tweetList = TransactionServiceGenerator.getInstance().createService(TimeLineControllerService.class).getTweetList(currentPersonId, parents.peek(), t).execute().body();
+            } catch (IOException e) {
+                return;
+            }
         }
         for(TweetDto tweet:tweetList){
             ModelAccess.tweetIdToTweetController = tweet.getId();

@@ -3,7 +3,6 @@ package controller.utility;
 import dtos.PersonDto;
 import dtos.RoomDto;
 import dtos.TweetDto;
-import lombok.SneakyThrows;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -14,9 +13,10 @@ import web.serviceinterfaces.services.PersonServiceControllerService;
 import web.serviceinterfaces.services.RoomServiceControllerService;
 import web.serviceinterfaces.services.TweetServiceControllerService;
 
+import java.io.IOException;
+
 public class WebUtil {
-    @SneakyThrows
-    public static PersonDto getPerson(int id){
+    public static PersonDto getPerson(int id) throws IOException {
         return(TransactionServiceGenerator.getInstance().createService(PersonServiceControllerService.class).getPerson(id).execute().body());
     }
 
@@ -104,13 +104,11 @@ public class WebUtil {
         });
     }
 
-    @SneakyThrows
-    public static RoomDto getRoom(int roomId){
+    public static RoomDto getRoom(int roomId) throws IOException {
         return(TransactionServiceGenerator.getInstance().createService(RoomServiceControllerService.class).getRoom(roomId).execute().body());
     }
 
-    @SneakyThrows
-    public static TweetDto getTweet(int tweetId){
+    public static TweetDto getTweet(int tweetId) throws IOException {
         return(TransactionServiceGenerator.getInstance().createService(TweetServiceControllerService.class).getTweet(tweetId).execute().body());
     }
 

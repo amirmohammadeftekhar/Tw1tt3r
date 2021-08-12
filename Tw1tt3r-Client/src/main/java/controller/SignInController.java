@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import lombok.SneakyThrows;
 import retrofit2.Call;
 import retrofit2.Response;
 import view.ViewFactory;
@@ -40,7 +39,6 @@ public class SignInController extends AbstractController implements Initializabl
     private Button signinButton;
 
 
-    @SneakyThrows
     @FXML
     void signinAction(ActionEvent event) {
         String userName = userNameField.getText();

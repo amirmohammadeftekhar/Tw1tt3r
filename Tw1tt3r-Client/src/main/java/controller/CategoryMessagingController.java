@@ -8,12 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import web.TransactionServiceGenerator;
 import web.serviceinterfaces.CategoryMessagingControllerService;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -39,15 +37,11 @@ public class CategoryMessagingController extends AbstractController implements I
     @FXML
     void sendButtonAction(MouseEvent event) {
         String toSend = messageTextArea.getText();
-        TransactionServiceGenerator.getInstance().createService(CategoryMessagingControllerService.class).sendMessage(category.getId(), currentPersonId, toSend).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable throwable) {
-            }
-        });
+        try {
+            TransactionServiceGenerator.getInstance().createService(CategoryMessagingControllerService.class).sendMessage(category.getId(), currentPersonId, toSend).execute();
+        } catch (IOException e) {
+            return;
+        }
         Stage stage = (Stage) sendButton.getScene().getWindow();
         stage.close();
 

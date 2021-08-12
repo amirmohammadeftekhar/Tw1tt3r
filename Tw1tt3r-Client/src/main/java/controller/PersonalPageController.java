@@ -26,6 +26,7 @@ import web.serviceinterfaces.PersonalPageControllerService;
 import web.serviceinterfaces.services.ActionServiceControllerService;
 import web.serviceinterfaces.services.PersonServiceControllerService;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -218,10 +219,14 @@ public class PersonalPageController extends AbstractController implements Initia
 //        super.initialize(location, resources);
     }
 
-    @SneakyThrows
     @Override
     public void reload() {
-        PersonDto currentPerson = (PersonDto) TransactionServiceGenerator.getInstance().createService(PersonServiceControllerService.class).getPerson(currentPersonId).execute().body();
+        PersonDto currentPerson = null;
+        try {
+            currentPerson = (PersonDto) TransactionServiceGenerator.getInstance().createService(PersonServiceControllerService.class).getPerson(currentPersonId).execute().body();
+        } catch (IOException e) {
+            return;
+        }
         reloadFollowButton();
         reloadBlockButton();
         reloadMuteButton();
@@ -230,8 +235,14 @@ public class PersonalPageController extends AbstractController implements Initia
         if(person.getPicture() != null){
             profileImage.setImage(ViewUtility.getPicture(person.getPicture().getId()));
         }
-        followerCount.setText(TransactionServiceGenerator.getInstance().createService(ActionServiceControllerService.class).getFollowersPersonsCount(person.getId()).execute().body().toString());
-        followingCount.setText(TransactionServiceGenerator.getInstance().createService(ActionServiceControllerService.class).getFollowingsPersonsCount(person.getId()).execute().body().toString());
+        try {
+            followerCount.setText(TransactionServiceGenerator.getInstance().createService(ActionServiceControllerService.class).getFollowersPersonsCount(person.getId()).execute().body().toString());
+        } catch (IOException ignored) {
+        }
+        try {
+            followingCount.setText(TransactionServiceGenerator.getInstance().createService(ActionServiceControllerService.class).getFollowingsPersonsCount(person.getId()).execute().body().toString());
+        } catch (IOException ignored) {
+        }
         if(currentPerson.isToShowEmail()){
             emailLabel.setText(currentPerson.getEmailAddress());
         }
@@ -239,8 +250,11 @@ public class PersonalPageController extends AbstractController implements Initia
         if(person.getLastSeenType() == LastSeenType.EVERYBODY){
             lastSeenLabel.setText("last seen: " + date.toString());
         }
-        if(person.getLastSeenType() == LastSeenType.MYCONTACTS && TransactionServiceGenerator.getInstance().createService(ActionServiceControllerService.class).isFollowing(currentPersonId, person.getId()).execute().body()){
-            lastSeenLabel.setText("last seen: " + date.toString());
+        try {
+            if(person.getLastSeenType() == LastSeenType.MYCONTACTS && TransactionServiceGenerator.getInstance().createService(ActionServiceControllerService.class).isFollowing(currentPersonId, person.getId()).execute().body()){
+                lastSeenLabel.setText("last seen: " + date.toString());
+            }
+        } catch (IOException ignored) {
         }
     }
 }

@@ -12,5 +12,5 @@ public interface ExploreControllerService {
     public Call<BaseResponse> searchButtonAction(@Query("userName") String userName, @Query("currentPersonId") int currentPersonId);
 
     @POST(value = "api/explore/gettweetlist")
-    public Call<BaseResponse> getTweetList(@Query("currentPersonId") int currentPersonId, @Body TimeLineParent timeLineParent);
+    public Call<BaseResponse> getTweetList(@Query("currentPersonId") int currentPersonId, @Body TimeLineParent timeLineParent, @Query("t") int t);
 }

@@ -1,11 +1,11 @@
 package web;
 
+import config.ConfigInstance;
 import lombok.Getter;
 import lombok.Setter;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.util.concurrent.TimeUnit;
@@ -35,12 +35,13 @@ public class TransactionServiceGenerator {
 
     private void init() {
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("http://127.0.0.1:8080/")
+                .baseUrl(ConfigInstance.getInstance().getProperty("url"))
                 .addConverterFactory(JacksonConverterFactory.create());
 //                .addConverterFactory(GsonConverterFactory.create());
 
-        httpClient.connectTimeout(15, TimeUnit.SECONDS);
-        httpClient.readTimeout(50, TimeUnit.SECONDS);
+        httpClient.connectTimeout(2, TimeUnit.SECONDS);
+        httpClient.writeTimeout(2, TimeUnit.SECONDS);
+        httpClient.readTimeout(2, TimeUnit.SECONDS);
 
         httpClient.addInterceptor(chain -> {
             Request original = chain.request();

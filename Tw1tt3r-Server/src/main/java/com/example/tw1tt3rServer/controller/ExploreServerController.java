@@ -93,9 +93,12 @@ public class ExploreServerController extends AbstractServerController{
         }
         tweetList.removeIf(tweet -> actionService.isSourceMuting(currentPerson, tweet.getPersonWhoMadeThis()));
         tweetList.removeIf(tweet -> !toShow(tweet, currentPerson));
+        if(tweetList.size() == t){
+            return(new BaseResponse(ResponseHeader.OK, new TweetListDto(null)));
+        }
         List<TweetDto> newList = new LinkedList<TweetDto>();
-        for(int i=t;i<tweetList.size();i++){
-            newList.add(ModelMapperInstance.getModelMapper().map(tweetList.get(i), TweetDto.class));
+        for(Tweet tweet:tweetList){
+            newList.add(ModelMapperInstance.getModelMapper().map(tweet, TweetDto.class));
         }
         return(new BaseResponse(ResponseHeader.OK, new TweetListDto(newList)));
     }

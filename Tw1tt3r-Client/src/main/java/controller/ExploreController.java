@@ -88,11 +88,15 @@ public class ExploreController extends AbstractController implements Initializab
             public void DoOnResponse(Response<BaseResponse> response) {
                 BaseResponse baseResponse = response.body();
                 List<TweetDto> tweetList = ((TweetListDto)baseResponse.getDto()).getTweetList();
-                for(TweetDto tweet:tweetList){
-                    ModelAccess.tweetIdToTweetController = tweet.getId();
-                    Parent parent = ViewFactory.viewFactory.getTweetParent();
-                    tweetGridPane.add(parent, 0, ++t);
-                    GridPane.setMargin(parent, new Insets(10));
+                if(tweetList!=null){
+                    tweetGridPane.getChildren().clear();
+                    t=0;
+                    for(TweetDto tweet:tweetList){
+                        ModelAccess.tweetIdToTweetController = tweet.getId();
+                        Parent parent = ViewFactory.viewFactory.getTweetParent();
+                        tweetGridPane.add(parent, 0, ++t);
+                        GridPane.setMargin(parent, new Insets(10));
+                    }
                 }
             }
         });

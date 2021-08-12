@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -19,6 +20,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 
+import java.io.File;
 import java.util.Date;
 
 public class ViewFactory{
@@ -76,7 +78,7 @@ public class ViewFactory{
         return(viewObjects);
     }
 
-    private void loadMessageParent(Parent messageParent, MessageDto message){
+    private void loadMessageParent(Parent messageParent, MessageDto message, File file){
         VBox messageVBox = (VBox) messageParent.getChildrenUnmodifiable().get(0);
         ImageView imageView = (ImageView) messageVBox.getChildrenUnmodifiable().get(0);
         TextArea messageTextArea = (TextArea) messageParent.getChildrenUnmodifiable().get(1);
@@ -85,7 +87,10 @@ public class ViewFactory{
         Date date = new Date(message.getTimestamp().getTime());
         timeLabel.setText(date.toString());
         messageTextArea.setText(message.getText());
-        if(message.getPicture()!=null && message.getPicture().getId()>0){
+        if(file!=null){
+            imageView.setImage(new Image(file.toURI().toString()));
+        }
+        else if(message.getPicture()!=null && message.getPicture().getId()>0){
             imageView.setImage(ViewUtility.getPicture(message.getPicture().getId()));
         }
         else{
@@ -94,9 +99,9 @@ public class ViewFactory{
         }
     }
 
-    public Parent getMessageParent(MessageDto messageDto){
+    public Parent getMessageParent(MessageDto messageDto, File file){
         ViewObjects viewObjects = initializeScene(ConfigInstance.getInstance().getProperty("message_fxml"));
-        loadMessageParent(viewObjects.getParent(), messageDto);
+        loadMessageParent(viewObjects.getParent(), messageDto, file);
         return(viewObjects.getParent());
     }
 

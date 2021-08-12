@@ -1,12 +1,10 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import lombok.SneakyThrows;
 import view.ViewFactory;
 import view.ViewUtility;
 
 public class Main extends Application {
-    @SneakyThrows
     public static void main(String[] args) {
         Application.launch(args);
     }

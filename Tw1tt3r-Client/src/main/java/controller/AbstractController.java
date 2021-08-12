@@ -21,7 +21,7 @@ public abstract class AbstractController implements Initializable {
             public void run() {
                 while (true){
                     Platform.runLater(() -> reload());
-                    Thread.sleep(3000);
+                    Thread.sleep(4000);
                 }
             }
         });

@@ -21,6 +21,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 
 public class ViewUtility {
 
@@ -71,8 +72,7 @@ public class ViewUtility {
         }
     }
 
-    @SneakyThrows
-    public static PictureDto makePicture(File file){
+    public static PictureDto makePicture(File file) throws IOException {
         RequestBody fbody = RequestBody.create(file, MediaType.parse("image/*"));
         return(TransactionServiceGenerator.getInstance().createService(PictureServiceControllerService.class).makePicture(
                 MultipartBody.Part.createFormData("file", file.getName(), fbody)

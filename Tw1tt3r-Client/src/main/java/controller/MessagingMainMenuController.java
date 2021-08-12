@@ -2,15 +2,20 @@ package controller;
 
 import controller.utility.ModelAccess;
 import controller.utility.WebUtil;
+import database.DataBaseUtil;
 import dtos.MessageDto;
 import dtos.PersonDto;
+import dtos.PictureDto;
 import dtos.RoomDto;
+import entity.MessageToSendEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,12 +23,17 @@ import view.ViewFactory;
 import view.ViewObjects;
 import web.TransactionServiceGenerator;
 import web.serviceinterfaces.MessagingMainMenuControllerService;
+import web.serviceinterfaces.RoomChatBoxControllerService;
 
+import javax.persistence.Query;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
 import static controller.utility.ModelAccess.currentPersonId;
+import static view.ViewUtility.isImage;
+import static view.ViewUtility.makePicture;
 
 public class MessagingMainMenuController extends AbstractController implements Initializable {
 
@@ -73,9 +83,56 @@ public class MessagingMainMenuController extends AbstractController implements I
         controller.reload();
     }
 
+    void sendAll() {
+        Session session1 = DataBaseUtil.getSessionFactory().openSession();
+        String hql = "SELECT m FROM MessageToSendEntity m where m.personId="+Integer.toString(currentPersonId)+" order by m.timestamp asc";
+        Query query = session1.createQuery(hql);
+        List<MessageToSendEntity> list = query.getResultList();
+        session1.close();
+        for(MessageToSendEntity message:list){
+            try {
+                Thread.sleep(400);
+            } catch (InterruptedException ignored) {
+            }
+            int pictureId = -1;
+            File file = new File("/tmp/"+message.getFileName());
+            if(isImage(file)){
+                PictureDto pictureToSend = null;
+                try {
+                    pictureToSend = makePicture(file);
+                } catch (IOException e) {
+                    continue;
+                }
+                if(pictureToSend!=null && pictureToSend.getId()>0) pictureId = pictureToSend.getId();
+            }
+            TransactionServiceGenerator.getInstance().createService(RoomChatBoxControllerService.class).sendButtonAction(message.getText(), currentPersonId, message.getRoomId(), pictureId).enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    Session session2 = DataBaseUtil.getSessionFactory().openSession();
+                    Transaction transaction = session2.getTransaction();
+                    transaction.begin();
+                    session2.delete(message);
+                    transaction.commit();
+                    session2.close();
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable throwable) {
+                }
+            });
+        }
+
+    }
+
 
     @Override
     public void reload() {
+        sendAll();
+        if(openedChat != null){
+            RoomChatBoxController controller = roomToController.get(openedChat);
+            controller.reload();
+            openChatBox(openedChat);
+        }
         PersonDto currentPerson = null;
         try {
             currentPerson = WebUtil.getPerson(currentPersonId);
@@ -88,11 +145,6 @@ public class MessagingMainMenuController extends AbstractController implements I
         rooms.sort((a, b) -> b.lastMessageTimeStamp().compareTo(a.lastMessageTimeStamp()));
         for(RoomDto room:rooms){
             addRoomToChatsWindow(room, currentPerson);
-        }
-        if(openedChat != null){
-            RoomChatBoxController controller = roomToController.get(openedChat);
-            controller.reload();
-            openChatBox(openedChat);
         }
     }
 

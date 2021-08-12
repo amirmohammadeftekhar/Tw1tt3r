@@ -3,9 +3,10 @@ package controller;
 import config.ConfigInstance;
 import controller.utility.ModelAccess;
 import controller.utility.WebUtil;
+import database.DataBaseUtil;
 import dtos.MessageDto;
-import dtos.PictureDto;
 import dtos.RoomDto;
+import entity.MessageToSendEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -17,23 +18,28 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
+import lombok.SneakyThrows;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import view.ViewFactory;
 import web.TransactionServiceGenerator;
-import web.serviceinterfaces.RoomChatBoxControllerService;
 import web.serviceinterfaces.services.MessageServiceControllerService;
 
+import javax.persistence.Query;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static controller.utility.ModelAccess.currentPersonId;
 import static controller.utility.ModelAccess.messagingMainMenuController;
 import static view.ViewUtility.isImage;
-import static view.ViewUtility.makePicture;
 
 public class RoomChatBoxController extends AbstractController implements Initializable {
 
@@ -59,10 +65,22 @@ public class RoomChatBoxController extends AbstractController implements Initial
     void sendButtonAction(MouseEvent event) {
         String toSend = messageToSendArea.getText();
         messageToSendArea.clear();
-        int pictureId=-1;
-        if(pictureToSend!=null && pictureToSend.getId()>0){
-            pictureId = pictureToSend.getId();
+        Session session = DataBaseUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        MessageToSendEntity message = new MessageToSendEntity();
+        message.setRoomId(room.getId());
+        message.setText(toSend);
+        message.setPersonId(currentPersonId);
+        message.setTimestamp(getTimeStamp());
+        if(isImage(file)){
+            message.setFileName(file.getName());
         }
+        session.saveOrUpdate(message);
+//        session.save(message);
+        transaction.commit();
+        session.close();
+
+/*
         TransactionServiceGenerator.getInstance().createService(RoomChatBoxControllerService.class).sendButtonAction(toSend, currentPersonId, room.getId(), pictureId).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -72,32 +90,52 @@ public class RoomChatBoxController extends AbstractController implements Initial
             public void onFailure(Call<Void> call, Throwable throwable) {
             }
         });
+*/
     }
 
     private final FileChooser fileChooser = new FileChooser();
-    private PictureDto pictureToSend;
+    private File file = null;
 
 
+    @SneakyThrows
     @FXML
     void attachButtonAction(MouseEvent event) {
-        File file = fileChooser.showOpenDialog(attachButton.getScene().getWindow());
+        file = fileChooser.showOpenDialog(attachButton.getScene().getWindow());
+        Files.copy(file.toPath(), (new File("/tmp/"+file.getName()).toPath()), StandardCopyOption.REPLACE_EXISTING);
+/*
         if(!isImage(file)){
             return;
         }
         pictureToSend = makePicture(file);
+*/
     }
+    private int showedUnsent = 0;
+    private int t = 0;
 
     @Override
     public void reload() {
         try {
             room = WebUtil.getRoom(room.getId());
         } catch (IOException e) {
+            Session session = DataBaseUtil.getSessionFactory().openSession();
+            String hql = "SELECT m FROM MessageToSendEntity m where m.RoomId=" + room.getId() +" and m.personId="+ currentPersonId +" order by m.timestamp asc";
+            Query query = session.createQuery(hql);
+            List<MessageToSendEntity> list = query.getResultList();
+            for(int i=showedUnsent;i<list.size();i++){
+                MessageToSendEntity messageToSendEntity = list.get(i);
+                MessageDto message = new MessageDto();
+                message.setTimestamp(messageToSendEntity.getTimestamp());
+                message.setText(messageToSendEntity.getText());
+                Parent messageParent = ViewFactory.viewFactory.getMessageParent(message, null);
+                messagesGridPane.add(messageParent, 1, ++t);
+                showedUnsent++;
+            }
             return;
         }
         messagesGridPane.getChildren().clear();
-        int t = 0;
+        t = showedUnsent = 0;
         for(MessageDto message:room.getMessages()){
-            Parent messageParent = ViewFactory.viewFactory.getMessageParent(message);
+            Parent messageParent = ViewFactory.viewFactory.getMessageParent(message, null);
             ContextMenu contextMenu = new ContextMenu();
             MenuItem delete = new MenuItem(ConfigInstance.getInstance().getProperty("delete"));
             MenuItem edit = new MenuItem(ConfigInstance.getInstance().getProperty("edit"));

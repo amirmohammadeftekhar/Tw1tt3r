@@ -228,7 +228,12 @@ public class SettingController extends AbstractController implements Initializab
         if(!isImage(file)){
             return;
         }
-        PictureDto picture = makePicture(file);
+        PictureDto picture = null;
+        try {
+            picture = makePicture(file);
+        } catch (IOException e) {
+            return;
+        }
         TransactionServiceGenerator.getInstance().createService(SettingControllerService.class).changePicture(currentPersonId, picture).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

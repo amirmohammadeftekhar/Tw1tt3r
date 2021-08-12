@@ -17,6 +17,7 @@ import web.TransactionServiceGenerator;
 import web.serviceinterfaces.services.TweetServiceControllerService;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -63,7 +64,11 @@ public class TweetMakingController extends AbstractController implements Initial
         if(!isImage(file)){
             return;
         }
-        picture = makePicture(file);
+        try {
+            picture = makePicture(file);
+        } catch (IOException e) {
+            return;
+        }
     }
 
     @Override

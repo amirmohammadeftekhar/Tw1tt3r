@@ -2,9 +2,11 @@ package entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.sql.Timestamp;
 
 @Getter
@@ -16,19 +18,21 @@ public class MessageToSendEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
 
-    @ManyToOne
-    @JoinColumn(name = "destinationRoomToSend_ID")
-    private RoomEntity destinationRoomToSend;
-
     @Column
-    private Timestamp timestamp;
+    private int RoomId;
 
     @Column
     private String text;
 
-    @Lob
-    @Type(type = "org.hibernate.type.ImageType")
-    byte[] picture;
+    @Column
+    private String fileName;
+
+    @Column
+    private int personId;
+
+    @Column
+    private Timestamp timestamp;
+
 }
 
 

@@ -3,11 +3,11 @@ package controller;
 import config.ConfigInstance;
 import controller.utility.ModelAccess;
 import controller.utility.WebUtil;
-import dtos.CategoryDto;
-import dtos.PersonDto;
-import dtos.PersonIniDto;
-import dtos.PictureDto;
+import database.DataBaseUtil;
+import dtos.*;
 import entities.enums.LastSeenType;
+import entity.SettingEntity;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,9 +20,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import lombok.SneakyThrows;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import utility.ModelMapperInstance;
 import view.ViewFactory;
 import view.ViewObjects;
 import view.ViewUtility;
@@ -30,6 +33,7 @@ import web.TransactionServiceGenerator;
 import web.serviceinterfaces.SettingControllerService;
 import web.serviceinterfaces.services.ActionServiceControllerService;
 
+import javax.persistence.Query;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -116,7 +120,7 @@ public class SettingController extends AbstractController implements Initializab
     private Button messageSendingButton;
 
     @FXML
-    private Button LastSeenTypeUpdateButton;
+    private Button privacyUpdateButton;
 
     @FXML
     private Button deleteAccountButton;
@@ -131,13 +135,13 @@ public class SettingController extends AbstractController implements Initializab
         selectedPeopleFromRoomCreating.clear();
         pvCheckBox.setSelected(false);
         roomMakingNameField.clear();
-        reload();
+        reloadData();
     }
 
     private void clearCategoryMakingFields(){
         selectedPeopleFromCategoryCreating.clear();
         categoryMakingNameField.clear();
-        reload();
+        reloadData();
     }
 
     @FXML
@@ -155,7 +159,7 @@ public class SettingController extends AbstractController implements Initializab
         });
         clearCategoryMakingFields();
         Thread.sleep(1000);
-        reload();
+        reloadData();
     }
 
     @FXML
@@ -176,7 +180,7 @@ public class SettingController extends AbstractController implements Initializab
         stage.setScene(scene);
         stage.show();
         Thread.sleep(1000);
-        reload();
+        reloadData();
 
     }
 
@@ -195,7 +199,7 @@ public class SettingController extends AbstractController implements Initializab
         });
         clearGroupMakingFields();
         Thread.sleep(1000);
-        reload();
+        reloadData();
     }
 
     @FXML
@@ -216,7 +220,7 @@ public class SettingController extends AbstractController implements Initializab
         stage.setScene(scene);
         stage.show();
         Thread.sleep(1000);
-        reload();
+        reloadData();
     }
 
     private final FileChooser fileChooser = new FileChooser();
@@ -244,7 +248,7 @@ public class SettingController extends AbstractController implements Initializab
             }
         });
         Thread.sleep(1000);
-        reload();
+        reloadData();
 
     }
 
@@ -254,9 +258,7 @@ public class SettingController extends AbstractController implements Initializab
         person.setFirstname(firstNameFiled.getText());
         person.setLastName(lastNameField.getText());
         person.setUserName(userNameField.getText());
-        person.setPassword(passwordField.getText());
         person.setEmailAddress(emailField.getText());
-        person.setPrivate(privateAccountField.isSelected());
         person.setToShowEmail(showEmailCheckBox.isSelected());
         TransactionServiceGenerator.getInstance().createService(SettingControllerService.class).updateProfileButtonAction(currentPersonId, person).enqueue(new Callback<Void>() {
             @Override
@@ -268,39 +270,59 @@ public class SettingController extends AbstractController implements Initializab
             }
         });
         Thread.sleep(1000);
-        reload();
+        reloadData();
 
     }
 
     @FXML
-    void LastSeenTypeUpdateButtonAction(MouseEvent event) throws InterruptedException {
-        TransactionServiceGenerator.getInstance().createService(SettingControllerService.class).lastSeenTypeUpdateButtonAction(currentPersonId, lastSeenTypeChoiceBox.getValue()).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable throwable) {
-            }
-        });
+    void privacyUpdateButtonAction(MouseEvent event) throws InterruptedException {
+        Session session = DataBaseUtil.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        transaction.begin();
+        SettingEntity settingEntity = new SettingEntity();
+        settingEntity.setPrivate(privateAccountField.isSelected());
+        settingEntity.setPassword(passwordField.getText());
+        settingEntity.setLastSeenType(lastSeenTypeChoiceBox.getValue());
+        settingEntity.setTimestamp(getTimeStamp());
+        settingEntity.setPersonId(currentPersonId);
+        session.save(settingEntity);
+        transaction.commit();
+        session.close();
         Thread.sleep(1000);
-        reload();
+        reloadData();
     }
 
     @FXML
     void deactivateButtonAction(MouseEvent event) throws InterruptedException {
-        TransactionServiceGenerator.getInstance().createService(SettingControllerService.class).deactivateButtonAction(currentPersonId).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable throwable) {
-            }
-        });
-        mainMenuController.exitButtonAction(null);
+        Session session = DataBaseUtil.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        transaction.begin();
+        SettingEntity settingEntity = new SettingEntity();
+        settingEntity.setTimestamp(getTimeStamp());
+        settingEntity.setPersonId(currentPersonId);
+        settingEntity.setToDeactivate(true);
+        session.save(settingEntity);
+        transaction.commit();
+        session.close();
         Thread.sleep(1000);
-        reload();
+        reloadData();
+    }
+
+    @FXML
+    void deleteAccountAction(MouseEvent event) throws InterruptedException {
+        Session session = DataBaseUtil.getSessionFactory().openSession();
+        Transaction transaction = session.getTransaction();
+        transaction.begin();
+        SettingEntity settingEntity = new SettingEntity();
+        settingEntity.setTimestamp(getTimeStamp());
+        settingEntity.setPersonId(currentPersonId);
+        settingEntity.setToDelete(true);
+        session.save(settingEntity);
+        transaction.commit();
+        session.close();
+        Thread.sleep(1000);
+        reloadData();
+
     }
 
     @FXML
@@ -315,24 +337,7 @@ public class SettingController extends AbstractController implements Initializab
         stage.setScene(scene);
         stage.show();
         Thread.sleep(1000);
-        reload();
-    }
-
-    @FXML
-    void deleteAccountAction(MouseEvent event) throws InterruptedException {
-        TransactionServiceGenerator.getInstance().createService(SettingControllerService.class).deleteAccountAction(currentPersonId).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable throwable) {
-            }
-        });
-        mainMenuController.exitButtonAction(null);
-        Thread.sleep(1000);
-        reload();
-
+        reloadData();
     }
 
     @FXML
@@ -341,7 +346,7 @@ public class SettingController extends AbstractController implements Initializab
         Stage stage = ViewFactory.viewFactory.getStage();
         stage.setScene(scene);
         Thread.sleep(1000);
-        reload();
+        reloadData();
 
     }
 
@@ -364,7 +369,7 @@ public class SettingController extends AbstractController implements Initializab
         choosingCategoryComboBox.setValue(null);
         selectedPeopleFromCategoryManaging.clear();
         Thread.sleep(1000);
-        reload();
+        reloadData();
     }
 
     private final Set<PersonDto> selectedPeopleFromCategoryManaging = new HashSet<PersonDto>();
@@ -383,7 +388,7 @@ public class SettingController extends AbstractController implements Initializab
         stage.setScene(scene);
         stage.show();
         Thread.sleep(1000);
-        reload();
+        reloadData();
     }
 
     @FXML
@@ -403,7 +408,7 @@ public class SettingController extends AbstractController implements Initializab
             }
         });
         Thread.sleep(1000);
-        reload();
+        reloadData();
     }
 
     @FXML
@@ -415,11 +420,42 @@ public class SettingController extends AbstractController implements Initializab
         choosingCategoryComboBox.setValue(null);
         selectedPeopleFromCategoryManaging.clear();
         Thread.sleep(1000);
-        reload();
+        reloadData();
     }
 
     @Override
     public void reload() {
+        Session session1 = DataBaseUtil.getSessionFactory().openSession();
+        String hql = "SELECT s FROM SettingEntity s order by s.timestamp asc";
+        Query query = session1.createQuery(hql);
+        List<SettingEntity> list = query.getResultList();
+        session1.close();
+        for(SettingEntity settingEntity:list){
+            TransactionServiceGenerator.getInstance().createService(SettingControllerService.class).privacyUpdate(
+                    ModelMapperInstance.getModelMapper().map(settingEntity, SettingEntityDto.class)).enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    Session session2 = DataBaseUtil.getSessionFactory().openSession();
+                    Transaction transaction = session2.getTransaction();
+                    transaction.begin();
+                    session2.delete(settingEntity);
+                    transaction.commit();
+                    session2.close();
+                    if(settingEntity.isToDeactivate() || settingEntity.isToDelete()){
+                        Platform.runLater(() -> mainMenuController.exitButtonAction(null));
+                    }
+                    Platform.runLater(() -> reloadData());
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable throwable) {
+
+                }
+            });
+        }
+    }
+
+    public void reloadData(){
         PersonDto currentPerson = null;
         try {
             currentPerson = WebUtil.getPerson(currentPersonId);
@@ -458,7 +494,7 @@ public class SettingController extends AbstractController implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        reload();
-     //   super.initialize(location, resources);
+        reloadData();
+        super.initialize(location, resources);
     }
 }

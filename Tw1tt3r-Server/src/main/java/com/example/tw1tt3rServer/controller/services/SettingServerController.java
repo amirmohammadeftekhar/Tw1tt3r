@@ -7,7 +7,7 @@ import com.example.tw1tt3rServer.repository.entity.Picture;
 import com.example.tw1tt3rServer.repository.entity.Room;
 import dtos.PersonIniDto;
 import dtos.PictureDto;
-import entities.enums.LastSeenType;
+import dtos.SettingEntityDto;
 import entities.enums.RoomType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +21,29 @@ import java.util.List;
 
 @RestController
 public class SettingServerController extends AbstractServerController {
+
+    @PostMapping("api/setting/privacyupdate")
+    public ResponseEntity<Void> privacyUpdate(@RequestBody SettingEntityDto settingEntityDto){
+        System.out.println("!!! 1");
+        Person person = personService.findById(settingEntityDto.getPersonId());
+        if(settingEntityDto.isToDeactivate()){
+            personService.changeActiveState(person, false);
+            return(new ResponseEntity<Void>(HttpStatus.OK));
+        }
+        if(settingEntityDto.isToDelete()){
+            System.out.println("!!! 2");
+            personService.deleteAccount(person);
+            return(new ResponseEntity<Void>(HttpStatus.OK));
+        }
+        person.setLastSeenType(settingEntityDto.getLastSeenType());
+        person.setPrivate(settingEntityDto.isPrivate());
+        if(settingEntityDto.getPassword()!=null && !settingEntityDto.getPassword().equals("")){
+            person.setPassword(settingEntityDto.getPassword());
+        }
+        personService.save(person);
+        return(new ResponseEntity<Void>(HttpStatus.OK));
+    }
+
     @PostMapping("api/setting/categorycreatebuttonaction")
     public ResponseEntity<Void> categoryCreateButtonAction(@RequestParam String name, @RequestParam int currentPersonId, @RequestBody List<Integer> peopleToAdd){
         Person currentPerson = personService.findById(currentPersonId);
@@ -72,36 +95,12 @@ public class SettingServerController extends AbstractServerController {
         Person currentPerson = personService.findById(currentPersonId);
         currentPerson.setFirstname(personIniDto.getFirstname());
         currentPerson.setLastName(personIniDto.getLastName());
-        currentPerson.setUserName(personIniDto.getUserName());
-        if(personIniDto.getPassword()!=null && personIniDto.getPassword().length()>0){
-            currentPerson.setPassword(personIniDto.getPassword());
+        if(currentPerson.getUserName().equals(personIniDto.getUserName()) || !personService.existsPersonByUserName(personIniDto.getUserName())){
+            currentPerson.setUserName(personIniDto.getUserName());
         }
         currentPerson.setEmailAddress(personIniDto.getEmailAddress());
-        currentPerson.setPrivate(personIniDto.isPrivate());
         currentPerson.setToShowEmail(personIniDto.isToShowEmail());
         currentPerson = personService.save(currentPerson);
-        return(new ResponseEntity<Void>(HttpStatus.OK));
-    }
-
-    @PostMapping("api/setting/lastseentypeupdatebuttonaction")
-    public ResponseEntity<Void> lastSeenTypeUpdateButtonAction(@RequestParam int currentPersonId, @RequestParam LastSeenType lastSeenType){
-        Person currentPerson = personService.findById(currentPersonId);
-        currentPerson.setLastSeenType(lastSeenType);
-        personService.save(currentPerson);
-        return(new ResponseEntity<Void>(HttpStatus.OK));
-    }
-
-    @PostMapping("api/setting/deactivatebuttonaction")
-    public ResponseEntity<Void> deactivateButtonAction(@RequestParam int currentPersonId){
-        Person currentPerson = personService.findById(currentPersonId);
-        personService.changeActiveState(currentPerson, false);
-        return(new ResponseEntity<Void>(HttpStatus.OK));
-    }
-
-    @PostMapping("api/setting/deleteaccountaction")
-    public ResponseEntity<Void> deleteAccountAction(@RequestParam int currentPersonId){
-        Person currentPerson = personService.findById(currentPersonId);
-        personService.deleteAccount(currentPerson);
         return(new ResponseEntity<Void>(HttpStatus.OK));
     }
 

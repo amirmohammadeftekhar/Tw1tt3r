@@ -1,6 +1,7 @@
 package database;
 
 import entity.MessageToSendEntity;
+import entity.SettingEntity;
 import lombok.Getter;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -13,6 +14,7 @@ public class DataBaseUtil {
     private static SessionFactory buildSessionFactory() {
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(MessageToSendEntity.class);
+        configuration.addAnnotatedClass(SettingEntity.class);
         return(configuration.buildSessionFactory(new StandardServiceRegistryBuilder().build()));
     }
 }

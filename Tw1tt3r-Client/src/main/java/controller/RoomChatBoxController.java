@@ -79,6 +79,7 @@ public class RoomChatBoxController extends AbstractController implements Initial
 //        session.save(message);
         transaction.commit();
         session.close();
+        file = null;
 
 /*
         TransactionServiceGenerator.getInstance().createService(RoomChatBoxControllerService.class).sendButtonAction(toSend, currentPersonId, room.getId(), pictureId).enqueue(new Callback<Void>() {
@@ -126,7 +127,7 @@ public class RoomChatBoxController extends AbstractController implements Initial
                 MessageDto message = new MessageDto();
                 message.setTimestamp(messageToSendEntity.getTimestamp());
                 message.setText(messageToSendEntity.getText());
-                Parent messageParent = ViewFactory.viewFactory.getMessageParent(message, null);
+                Parent messageParent = ViewFactory.viewFactory.getMessageParent(message, new File("/tmp/"+messageToSendEntity.getFileName()));
                 messagesGridPane.add(messageParent, 1, ++t);
                 showedUnsent++;
             }

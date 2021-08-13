@@ -221,6 +221,7 @@ public class SettingController extends AbstractController implements Initializab
 
     private final FileChooser fileChooser = new FileChooser();
 
+    private PictureDto picture;
 
     @FXML
     void changeProfileImageAction(MouseEvent event) throws InterruptedException {
@@ -228,7 +229,6 @@ public class SettingController extends AbstractController implements Initializab
         if(!isImage(file)){
             return;
         }
-        PictureDto picture = null;
         try {
             picture = makePicture(file);
         } catch (IOException e) {

@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import utility.ModelMapperInstance;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -63,7 +62,7 @@ public class SettingServerController extends AbstractServerController {
     @PostMapping("api/setting/changepicture")
     public ResponseEntity<Void> changePicture(@RequestParam int currentPersonId, @RequestBody PictureDto picture){
         Person currentPerson = personService.findById(currentPersonId);
-        Picture pic = pictureService.save(ModelMapperInstance.getModelMapper().map(picture, Picture.class));
+        Picture pic = pictureService.findById(picture.getId());
         currentPerson = personService.changePicture(currentPerson, pic);
         return(new ResponseEntity<Void>(HttpStatus.OK));
     }

@@ -43,6 +43,9 @@ public class BotLoader implements CommandLineRunner {
                 }
                 String className = je.getName().substring(0,je.getName().length()-6);
                 className = className.replace('/', '.');
+                if(className.equals("BotInterface") || className.equals("Bot")){
+                    continue;
+                }
                 Class c = cl.loadClass(className);
                 Field field = c.getField("value");
                 String value = (String) field.get(null);

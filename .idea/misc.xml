@@ -10,6 +10,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/Bots/pom.xml" />
         <option value="$PROJECT_DIR$/Tw1tt3r-Bots/pom.xml" />
         <option value="$PROJECT_DIR$/Tw1tt3r-Client/Bot-Xo/pom.xml" />
       </set>

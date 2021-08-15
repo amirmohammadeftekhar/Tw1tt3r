@@ -15,6 +15,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Bot-Xo" target="8" />
+      <module name="Bots" target="8" />
       <module name="Tw1tt3r-Bots" target="8" />
       <module name="Tw1tt3r-Bots-Xo" target="8" />
     </bytecodeTargetLevel>

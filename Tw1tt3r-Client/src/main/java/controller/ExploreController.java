@@ -22,6 +22,7 @@ import utility.TimeLineParent;
 import view.ViewFactory;
 import view.ViewUtility;
 import web.BaseResponse;
+import web.ResponseHeader;
 import web.TransactionCallBack;
 import web.TransactionServiceGenerator;
 import web.serviceinterfaces.ExploreControllerService;
@@ -64,6 +65,9 @@ public class ExploreController extends AbstractController implements Initializab
                     @Override
                     public void DoOnResponse(Response<BaseResponse> response) {
                         BaseResponse baseResponse = response.body();
+                        if(baseResponse.getResponseHeader()== ResponseHeader.NOT_ALLOWED){
+                            return;
+                        }
                         PersonDto person = (PersonDto) baseResponse.getDto();
                         ModelAccess.personToPersonalPageController = person;
                         Stage stage = ViewUtility.getNewStage(backButton.getScene().getWindow(), ConfigInstance.getInstance().getProperty("personalPage"));

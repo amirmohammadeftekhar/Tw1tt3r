@@ -260,7 +260,7 @@ public class Calc {
         ops.add('$'); ops.add('*'); ops.add('#'); ops.add('+'); ops.add('?'); ops.add('~'); ops.add('<');
     }
 
-    public String action(String s) {
+    public String action(String s, Integer personId) {
         return String.valueOf((calc(s)));
     }
 }

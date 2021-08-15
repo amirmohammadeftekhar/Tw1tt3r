@@ -26,11 +26,11 @@ public class BotManager {
     }
 
     @SneakyThrows
-    public String getResponse(String botValue, String input, int roomId){
+    public String getResponse(String botValue, String input, int roomId, int personId){
         Object object = valueToRoomToBot.get(botValue).get(roomId);
         Class c = valueToClass.get(botValue);
-        Method method = c.getMethod("action", new Class[]{String.class});
-        return((String) method.invoke(object, input));
+        Method method = c.getMethod("action", new Class[]{String.class, Integer.class});
+        return((String) method.invoke(object, input, personId));
     }
 
 

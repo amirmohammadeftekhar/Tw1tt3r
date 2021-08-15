@@ -251,6 +251,9 @@ public class ActionService {
 
     @NoLogging
     public boolean isMessagingAllowed(Person person1, Person person2) {
+        if(person1.getBotValue()!=null || person2.getBotValue()!=null){
+            return(true);
+        }
         return (isFollowing(person1, person2) || isFollowing(person2, person1));
     }
 

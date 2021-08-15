@@ -13,6 +13,14 @@ public class RoomChatBoxServerController extends AbstractServerController{
     public ResponseEntity<Void> sendButtonAction(@RequestParam String toSend, @RequestParam int currentPersonId, @RequestParam int roomId, @RequestParam int pictureId){
         Picture picture = pictureService.findById(pictureId);
         roomService.sendMessage(toSend, personService.findById(currentPersonId), roomService.findById(roomId), picture);
+        if(toSend.length()>3 && toSend.substring(0, 4).equals("/bot")){
+            System.out.println(1111111);
+            String[] split = toSend.split(" ");
+            if(split.length<3) return(new ResponseEntity<Void>(HttpStatus.OK));
+            System.out.println(2222222);
+            String botValue = split[1];
+            roomService.sendMessage(botManager.getResponse(botValue, split[2], roomId), personService.findPersonByUserName(botValue), roomService.findById(roomId), null);
+        }
         return(new ResponseEntity<Void>(HttpStatus.OK));
     }
 }

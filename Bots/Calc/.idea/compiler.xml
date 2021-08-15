@@ -2,26 +2,15 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Calc" />
-        <module name="Vote" />
-        <module name="Tw1tt3r-Client" />
-        <module name="Xo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Bot-Xo" target="8" />
-      <module name="Tw1tt3r-Bots" target="8" />
-      <module name="Tw1tt3r-Bots-Xo" target="8" />
+      <module name="Calc" target="8" />
     </bytecodeTargetLevel>
-  </component>
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Tw1tt3r-Server" options="-parameters" />
-    </option>
   </component>
 </project>

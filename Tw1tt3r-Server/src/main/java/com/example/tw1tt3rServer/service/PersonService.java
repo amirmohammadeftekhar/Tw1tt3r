@@ -69,7 +69,7 @@ public class PersonService {
 
     public Person makePerson(String firstName, String lastName, String userName, String password, String emailAddress,
                              boolean activeState, Timestamp lastSeen, boolean isPrivate, LastSeenType lastSeenType,
-                             boolean toShowEmail) {
+                             boolean toShowEmail, String botValue) {
         Person person = new Person();
         person.setFirstname(firstName);
         person.setLastName(lastName);
@@ -81,6 +81,7 @@ public class PersonService {
         person.setPrivate(isPrivate);
         person.setLastSeenType(lastSeenType);
         person.setToShowEmail(toShowEmail);
+        person.setBotValue(botValue);
         person = save(person);
         Room room = roomService.makeRoom("saved message", RoomType.SAVEDMESSAGE);
         room = roomService.addPerson(person, room);

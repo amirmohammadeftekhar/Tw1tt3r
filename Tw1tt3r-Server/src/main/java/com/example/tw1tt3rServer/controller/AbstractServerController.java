@@ -1,5 +1,6 @@
 package com.example.tw1tt3rServer.controller;
 
+import com.example.tw1tt3rServer.bot.BotManager;
 import com.example.tw1tt3rServer.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,4 +17,5 @@ public abstract class AbstractServerController {
     @Autowired protected ActionService actionService;
     @Autowired protected MessageService messageService;
     @Autowired protected RoomService roomService;
+    @Autowired protected BotManager botManager;
 }

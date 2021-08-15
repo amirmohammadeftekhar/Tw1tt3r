@@ -42,7 +42,7 @@ public class EntryServerController extends AbstractServerController {
         }
         Person person = personService.makePerson(personIniDto.getFirstname(), personIniDto.getLastName(),
                 personIniDto.getUserName(), personIniDto.getPassword(), personIniDto.getEmailAddress(), true,
-                getTimeStamp(), personIniDto.isPrivate(), LastSeenType.NOBODY, personIniDto.isToShowEmail());
+                getTimeStamp(), personIniDto.isPrivate(), LastSeenType.NOBODY, personIniDto.isToShowEmail(), null);
         personService.login(person.getUserName(), person.getPassword());
         PersonDto personDto = ModelMapperInstance.getModelMapper().map(person, PersonDto.class);
         return(new BaseResponse(ResponseHeader.OK, personDto));

@@ -58,6 +58,9 @@ public class Person {
     @Column
     private boolean toShowEmail;
 
+    @Column
+    private String botValue;
+
     @ManyToOne
     @JoinColumn(name = "picture_id")
     Picture picture;

@@ -1,6 +1,7 @@
 package com.example.tw1tt3rServer.service;
 
 import com.example.tw1tt3rServer.aspects.NoLogging;
+import com.example.tw1tt3rServer.bot.BotManager;
 import com.example.tw1tt3rServer.repository.RoomRepository;
 import com.example.tw1tt3rServer.repository.entity.Message;
 import com.example.tw1tt3rServer.repository.entity.Person;
@@ -21,6 +22,8 @@ public class RoomService {
     RoomRepository roomRepository;
     @Autowired MessageService messageService;
     @Autowired PersonService personService;
+    @Autowired
+    BotManager botManager;
 
     public Room save(Room room){
         return(roomRepository.save(room));
@@ -35,6 +38,9 @@ public class RoomService {
         room.getMembers().add(person);
         person.getRooms().add(room);
         person = personService.save(person);
+        if(person.getBotValue()!=null){
+            botManager.getValueToRoomToBot().get(person.getBotValue()).put(room.getId(), botManager.createInstance(person.getBotValue()));
+        }
         return(save(room));
     }
 
@@ -81,6 +87,12 @@ public class RoomService {
         Room room = makeRoom("pv:"+person1.getUserName()+" and "+person2.getUserName(), RoomType.PRIVATE);
         room = addPerson(person1, room);
         room = addPerson(person2, room);
+        if(person1.getBotValue()!=null){
+            botManager.getValueToRoomToBot().get(person1.getBotValue()).put(room.getId(), botManager.createInstance(person1.getBotValue()));
+        }
+        if(person2.getBotValue()!=null){
+            botManager.getValueToRoomToBot().get(person2.getBotValue()).put(room.getId(), botManager.createInstance(person2.getBotValue()));
+        }
         return(room);
     }
 

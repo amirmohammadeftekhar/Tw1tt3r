@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import utility.enums.MessageStatus;
 
 @RestController
 public class MessagingMainMenuServerController extends AbstractServerController {
@@ -16,6 +17,9 @@ public class MessagingMainMenuServerController extends AbstractServerController 
         Person currentPerson = personService.findById(currentPersonId);
         Room room = roomService.findById(roomId);
         for(Message message:room.getMessages()){
+            if(message.getSourcePerson().getId()!=currentPersonId){
+                messageService.changeStatus(message, MessageStatus.SEEN);
+            }
             messageService.addWhoRead(currentPerson, message);
         }
         return(new ResponseEntity<Void>(HttpStatus.OK));

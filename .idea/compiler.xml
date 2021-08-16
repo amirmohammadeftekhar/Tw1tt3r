@@ -7,17 +7,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Calc" />
-        <module name="Vote" />
         <module name="Tw1tt3r-Client" />
-        <module name="Xo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Bot-Xo" target="8" />
       <module name="Bots" target="8" />
+      <module name="Calc" target="8" />
       <module name="Tw1tt3r-Bots" target="8" />
       <module name="Tw1tt3r-Bots-Xo" target="8" />
+      <module name="Vote" target="8" />
+      <module name="Xo" target="8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

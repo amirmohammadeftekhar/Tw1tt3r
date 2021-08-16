@@ -9,6 +9,7 @@ import com.example.tw1tt3rServer.repository.entity.Room;
 import entities.enums.RoomType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import utility.enums.MessageStatus;
 
 import java.sql.Timestamp;
 
@@ -45,7 +46,13 @@ public class MessageService {
         message.setText(text);
         message.setNotified(false);
         message.setPicture(picture);
+        message.setStatus(MessageStatus.SENT);
         destinationRoom.getMessages().add(message);
+        return(save(message));
+    }
+
+    public Message changeStatus(Message message, MessageStatus status){
+        message.setStatus(status);
         return(save(message));
     }
 

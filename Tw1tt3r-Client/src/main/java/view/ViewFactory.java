@@ -85,7 +85,7 @@ public class ViewFactory{
         HBox messageHBox = (HBox) messageParent.getChildrenUnmodifiable().get(2);
         Label timeLabel = (Label) messageHBox.getChildrenUnmodifiable().get(0);
         Date date = new Date(message.getTimestamp().getTime());
-        timeLabel.setText(date.toString());
+        timeLabel.setText(message.getStatus().toString()+" "+date.toString());
         messageTextArea.setText(message.getText());
         if(file!=null){
             imageView.setImage(new Image(file.toURI().toString()));

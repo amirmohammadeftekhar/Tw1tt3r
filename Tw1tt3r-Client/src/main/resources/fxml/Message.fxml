@@ -5,6 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <VBox alignment="TOP_CENTER" fillWidth="false" styleClass="border" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
    <children>
       <VBox alignment="CENTER">
@@ -15,7 +16,10 @@
       <TextArea fx:id="messageTextArea" editable="false" maxHeight="600.0" minHeight="150.0" wrapText="true" VBox.vgrow="ALWAYS" />
       <HBox fx:id="messageHBox" alignment="CENTER" maxHeight="50.0" minHeight="50.0" prefHeight="50.0">
          <children>
-            <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="266.0" />
+            <Label fx:id="timeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="266.0">
+               <font>
+                  <Font size="10.0" />
+               </font></Label>
          </children>
       </HBox>
    </children>

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import utility.enums.MessageStatus;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -44,6 +45,9 @@ public class MessageDto extends Dto{
 
     @JsonProperty("whoHasRead")
     private Set<PersonDto> whoHasRead = new HashSet<PersonDto>();
+
+    @JsonProperty("status")
+    private MessageStatus status;
 
     @Override
     public String toString() {

@@ -169,6 +169,7 @@ public class PersonalPageController extends AbstractController implements Initia
                     messagingMainMenuController.addRoomToChatsWindow(room, null);
                 }
                 messagingMainMenuController.openChatBox(room);
+                messagingMainMenuController.setOpenedChat(room);
             }
         });
         reload();

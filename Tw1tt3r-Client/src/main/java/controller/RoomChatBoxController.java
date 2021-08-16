@@ -24,6 +24,7 @@ import org.hibernate.Transaction;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import utility.enums.MessageStatus;
 import view.ViewFactory;
 import web.TransactionServiceGenerator;
 import web.serviceinterfaces.services.MessageServiceControllerService;
@@ -127,7 +128,8 @@ public class RoomChatBoxController extends AbstractController implements Initial
                 MessageDto message = new MessageDto();
                 message.setTimestamp(messageToSendEntity.getTimestamp());
                 message.setText(messageToSendEntity.getText());
-                Parent messageParent = ViewFactory.viewFactory.getMessageParent(message, new File("/tmp/"+messageToSendEntity.getFileName()));
+                message.setStatus(MessageStatus.SENDING);
+                Parent messageParent = ViewFactory.viewFactory.getMessageParent(message, messageToSendEntity.getFileName()==null?null:new File("/tmp/"+messageToSendEntity.getFileName()));
                 messagesGridPane.add(messageParent, 1, ++t);
                 showedUnsent++;
             }

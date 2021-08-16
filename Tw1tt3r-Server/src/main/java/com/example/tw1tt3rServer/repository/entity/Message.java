@@ -2,6 +2,7 @@ package com.example.tw1tt3rServer.repository.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import utility.enums.MessageStatus;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -36,6 +37,9 @@ public class Message {
 
     @Column
     private boolean isNotified;
+
+    @Enumerated(EnumType.STRING)
+    private MessageStatus status;
 
     @ManyToOne
     @JoinColumn(name = "picture_id")

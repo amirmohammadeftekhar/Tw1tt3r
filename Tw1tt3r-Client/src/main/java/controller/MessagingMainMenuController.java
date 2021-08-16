@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import lombok.Setter;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import retrofit2.Call;
@@ -48,6 +49,7 @@ public class MessagingMainMenuController extends AbstractController implements I
     @FXML
     private GridPane chatsGridPane;
 
+    @Setter
     private RoomDto openedChat;
 
     public void addRoomToChatsWindow(RoomDto room, PersonDto currentPerson){

@@ -78,7 +78,7 @@ public class CategoryService {
             else{
                 room = roomService.makePv(sourcePerson, person);
             }
-            roomService.sendMessage(toSend, sourcePerson, room, null);
+            roomService.sendMessage(toSend, sourcePerson, room, null, 0);
         }
     }
 

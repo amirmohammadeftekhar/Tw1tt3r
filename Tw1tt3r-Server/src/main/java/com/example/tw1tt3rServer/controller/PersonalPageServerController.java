@@ -2,6 +2,7 @@ package com.example.tw1tt3rServer.controller;
 
 import com.example.tw1tt3rServer.repository.entity.Person;
 import com.example.tw1tt3rServer.repository.entity.Room;
+import dtos.DtoUtility;
 import dtos.RoomDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -80,11 +81,15 @@ public class PersonalPageServerController extends AbstractServerController{
         Room room;
         if(roomService.existsPv(currentPerson, person)){
             room = roomService.findPv(currentPerson, person);
-            return(new BaseResponse(ResponseHeader.ROOM_EXISTS, ModelMapperInstance.getModelMapper().map(room, RoomDto.class)));
+            RoomDto roomDto = ModelMapperInstance.getModelMapper().map(room, RoomDto.class);
+            DtoUtility.makeRoomHealthy(roomDto);
+            return(new BaseResponse(ResponseHeader.ROOM_EXISTS, roomDto));
         }
         else{
             room = roomService.makePv(currentPerson, person);
-            return(new BaseResponse(ResponseHeader.ROOM_NOT_EXISTS, ModelMapperInstance.getModelMapper().map(room, RoomDto.class)));
+            RoomDto roomDto = ModelMapperInstance.getModelMapper().map(room, RoomDto.class);
+            DtoUtility.makeRoomHealthy(roomDto);
+            return(new BaseResponse(ResponseHeader.ROOM_NOT_EXISTS, roomDto));
         }
     }
 }

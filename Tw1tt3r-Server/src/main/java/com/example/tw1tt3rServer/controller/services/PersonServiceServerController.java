@@ -4,6 +4,7 @@ import com.example.tw1tt3rServer.controller.AbstractServerController;
 import com.example.tw1tt3rServer.repository.entity.Message;
 import com.example.tw1tt3rServer.repository.entity.Person;
 import com.example.tw1tt3rServer.repository.entity.Room;
+import dtos.DtoUtility;
 import dtos.PersonDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,9 @@ public class PersonServiceServerController extends AbstractServerController {
                 }
             }
         }
-        return(ModelMapperInstance.getModelMapper().map(person, PersonDto.class));
+        PersonDto personDto = ModelMapperInstance.getModelMapper().map(person, PersonDto.class);
+        DtoUtility.makePersonHealthy(personDto);
+        return(personDto);
     }
 
     @PostMapping(value = "api/personservice/updatelastseen")

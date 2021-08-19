@@ -83,8 +83,9 @@ public class RoomService {
         return(roomRepository.existsByName(name));
     }
 
-    public Room sendMessage(String toSend, Person sourcePerson, Room room, Picture picture){
-        Message message = messageService.makeMessage(sourcePerson, room, new Timestamp(System.currentTimeMillis()), toSend, picture);
+    public Room sendMessage(String toSend, Person sourcePerson, Room room, Picture picture, int tillSend){
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis()+60L*1000*tillSend);
+        Message message = messageService.makeMessage(sourcePerson, room, timestamp, toSend, picture);
         room.getMessages().add(message);
         return(save(room));
 

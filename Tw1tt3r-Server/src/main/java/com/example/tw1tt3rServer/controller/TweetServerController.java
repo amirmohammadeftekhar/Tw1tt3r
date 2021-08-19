@@ -27,7 +27,7 @@ public class TweetServerController extends AbstractServerController{
     public ResponseEntity<Void> saveTweetButtonAction(@RequestParam int tweetId, @RequestParam int currentPersonId){
         Person currentPerson = personService.findById(currentPersonId);
         Tweet tweet = tweetService.findById(tweetId);
-        roomService.sendMessage(tweet.getText(), currentPerson, currentPerson.getSavedMessageRoom(), tweet.getPicture());
+        roomService.sendMessage(tweet.getText(), currentPerson, currentPerson.getSavedMessageRoom(), tweet.getPicture(), 0);
         tweet = tweetService.saveTweet(tweet, currentPerson);
         return(new ResponseEntity<Void>(HttpStatus.OK));
     }

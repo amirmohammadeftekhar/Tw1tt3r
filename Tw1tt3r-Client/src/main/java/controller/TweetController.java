@@ -31,9 +31,9 @@ import view.ViewFactory;
 import view.ViewObjects;
 import view.ViewUtility;
 import web.TransactionServiceGenerator;
+import web.serviceinterfaces.RoomChatBoxControllerService;
 import web.serviceinterfaces.TweetControllerService;
 import web.serviceinterfaces.services.CategoryServiceControllerService;
-import web.serviceinterfaces.services.RoomServiceControllerService;
 import web.serviceinterfaces.services.TweetServiceControllerService;
 
 import java.io.File;
@@ -144,7 +144,7 @@ public class TweetController extends AbstractController implements Initializable
             });
         }
         for(RoomDto room:selectedRooms){
-            TransactionServiceGenerator.getInstance().createService(RoomServiceControllerService.class).sendMessage(room.getId(), currentPersonId, tweet.getText(), tweet.getPicture()==null?-1:tweet.getPicture().getId()).enqueue(new Callback<Void>() {
+            TransactionServiceGenerator.getInstance().createService(RoomChatBoxControllerService .class).sendButtonAction(tweet.getText(), currentPersonId, room.getId(), tweet.getPicture()==null?-1:tweet.getPicture().getId()).enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                 }

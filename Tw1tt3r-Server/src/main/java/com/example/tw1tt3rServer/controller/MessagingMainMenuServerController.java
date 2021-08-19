@@ -24,4 +24,12 @@ public class MessagingMainMenuServerController extends AbstractServerController 
         }
         return(new ResponseEntity<Void>(HttpStatus.OK));
     }
+
+    @PostMapping("api/messagingmainmenu/deleteroom")
+    public ResponseEntity<Void> deleteRoom(@RequestParam int currentPersonId, @RequestParam int roomId){
+        Person currentPerson = personService.findById(currentPersonId);
+        Room room = roomService.findById(roomId);
+        roomService.deletePerson(currentPerson, room);
+        return(new ResponseEntity<Void>(HttpStatus.OK));
+    }
 }

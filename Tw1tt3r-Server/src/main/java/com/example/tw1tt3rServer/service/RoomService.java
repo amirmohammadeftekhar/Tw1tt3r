@@ -44,6 +44,18 @@ public class RoomService {
         return(save(room));
     }
 
+    public Room deletePerson(Person person, Room room){
+        if(room.getRoomType()==RoomType.SAVEDMESSAGE || room.getRoomType()==RoomType.PRIVATE){
+            return(null);
+        }
+        person = personService.findById(person.getId());
+        if(!room.getMembers().contains(person)) return(null);
+        room.getMembers().remove(person);
+        person.getRooms().remove(room);
+        person = personService.save(person);
+        return(save(room));
+    }
+
     public Room delPerson(Person person, Room room) {
         if(!room.getMembers().contains(person)){
             return(room);

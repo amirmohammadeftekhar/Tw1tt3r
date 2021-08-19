@@ -1,5 +1,6 @@
 package controller;
 
+import config.ConfigInstance;
 import controller.utility.ModelAccess;
 import controller.utility.WebUtil;
 import database.DataBaseUtil;
@@ -11,6 +12,8 @@ import entity.MessageToSendEntity;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -33,6 +36,7 @@ import java.net.URL;
 import java.util.*;
 
 import static controller.utility.ModelAccess.currentPersonId;
+import static controller.utility.ModelAccess.messagingMainMenuController;
 import static view.ViewUtility.isImage;
 import static view.ViewUtility.makePicture;
 
@@ -68,10 +72,29 @@ public class MessagingMainMenuController extends AbstractController implements I
             unreadMessageCount += message.getWhoHasRead().contains(currentPerson)?0:1;
         }
         Parent outViewParent = ViewFactory.viewFactory.GetRoomOutViewParent(room, unreadMessageCount);
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem delete = new MenuItem(ConfigInstance.getInstance().getProperty("delete"));
+        contextMenu.getItems().addAll(delete);
+        delete.setOnAction(event -> {
+            TransactionServiceGenerator.getInstance().createService(MessagingMainMenuControllerService.class).deleteRoom(currentPersonId, room.getId()).enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable throwable) {
+                }
+            });
+            chatRoomPane.setCenter(null);
+            openedChat = null;
+            reload();
+            messagingMainMenuController.reload();
+        });
         outViewParent.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             openChatBox(room);
             openedChat = room;
         });
+        outViewParent.setOnContextMenuRequested(event -> contextMenu.show(outViewParent, event.getScreenX(), event.getScreenY()));
         chatsGridPane.add(outViewParent, 0, ++chatsPointer);
         if(roomToChatBoxParent.containsKey(room)){
             return;

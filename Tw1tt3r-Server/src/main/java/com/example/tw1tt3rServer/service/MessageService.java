@@ -51,6 +51,7 @@ public class MessageService {
         return(save(message));
     }
 
+    @NoLogging
     public Message changeStatus(Message message, MessageStatus status){
         message.setStatus(status);
         return(save(message));

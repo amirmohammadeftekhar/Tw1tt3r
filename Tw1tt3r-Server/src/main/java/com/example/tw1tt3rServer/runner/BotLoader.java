@@ -32,7 +32,12 @@ public class BotLoader implements CommandLineRunner {
         Scanner scanner = new Scanner(System.in);
         while(true){
             String url = scanner.nextLine();
-            JarFile jarFile = new JarFile(url);
+            JarFile jarFile;
+            try{
+                jarFile = new JarFile(url);
+            }catch (Exception e){
+                continue;
+            }
             Enumeration<JarEntry> e = jarFile.entries();
             URL[] urls = { new URL("jar:file:" + url+"!/") };
             URLClassLoader cl = URLClassLoader.newInstance(urls);

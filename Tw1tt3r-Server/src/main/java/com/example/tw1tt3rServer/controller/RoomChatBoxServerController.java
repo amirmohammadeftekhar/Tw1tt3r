@@ -1,11 +1,19 @@
 package com.example.tw1tt3rServer.controller;
 
+import com.example.tw1tt3rServer.repository.entity.Person;
 import com.example.tw1tt3rServer.repository.entity.Picture;
+import com.example.tw1tt3rServer.repository.entity.Room;
+import dtos.DtoUtility;
+import dtos.RoomDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import utility.ModelMapperInstance;
+import web.BaseResponse;
+import web.ResponseHeader;
 
 @RestController
 public class RoomChatBoxServerController extends AbstractServerController{
@@ -28,5 +36,24 @@ public class RoomChatBoxServerController extends AbstractServerController{
             }
         }
         return(new ResponseEntity<Void>(HttpStatus.OK));
+    }
+
+    @GetMapping("api/roomchatbox/messagebuttonactionusername")
+    public BaseResponse messageButtonActionUserName(@RequestParam int currentPersonId, @RequestParam String personUserName){
+        Person currentPerson = personService.findById(currentPersonId);
+        Person person = personService.findPersonByUserName(personUserName);
+        if(person == null){
+            return(new BaseResponse(ResponseHeader.NOT_ALLOWED, null));
+        }
+        Room room;
+        if(roomService.existsPv(currentPerson, person)){
+            room = roomService.findPv(currentPerson, person);
+            RoomDto roomDto = ModelMapperInstance.getModelMapper().map(room, RoomDto.class);
+            DtoUtility.makeRoomHealthy(roomDto);
+            return(new BaseResponse(ResponseHeader.ROOM_EXISTS, roomDto));
+        }
+        else{
+            return(new BaseResponse(ResponseHeader.NOT_ALLOWED, null));
+        }
     }
 }

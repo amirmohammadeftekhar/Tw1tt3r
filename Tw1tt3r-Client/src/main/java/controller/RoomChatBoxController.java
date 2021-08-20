@@ -26,7 +26,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import utility.enums.MessageStatus;
 import view.ViewFactory;
+import web.BaseResponse;
+import web.ResponseHeader;
+import web.TransactionCallBack;
 import web.TransactionServiceGenerator;
+import web.serviceinterfaces.RoomChatBoxControllerService;
 import web.serviceinterfaces.services.MessageServiceControllerService;
 
 import javax.persistence.Query;
@@ -180,6 +184,21 @@ public class RoomChatBoxController extends AbstractController implements Initial
                 messagingMainMenuController.reload();
             });
             messageParent.setOnContextMenuRequested(event -> contextMenu.show(messageParent, event.getScreenX(), event.getScreenY()));
+            String[] split = message.getText().split(" ");
+            if(message.getText().length()>7 && split.length==2 && message.getText().substring(0, 8).equals("@room-pv")){
+                messageParent.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    TransactionServiceGenerator.getInstance().createService(RoomChatBoxControllerService.class)
+                            .messageButtonActionUserName(currentPersonId, split[1]).enqueue(new TransactionCallBack<BaseResponse>() {
+                        @Override
+                        public void DoOnResponse(Response<BaseResponse> response) {
+                            if(response.body().getResponseHeader()== ResponseHeader.ROOM_EXISTS){
+                                RoomDto room = (RoomDto) response.body().getDto();
+                                messagingMainMenuController.setOpenedChat(room);
+                            }
+                        }
+                    });
+                });
+            }
             if(message.getSourcePerson().getId() == currentPersonId){
                 messagesGridPane.add(messageParent, 1, ++t);
             }

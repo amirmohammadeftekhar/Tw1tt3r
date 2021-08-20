@@ -78,6 +78,9 @@ public class PersonalPageServerController extends AbstractServerController{
     public BaseResponse messageButtonAction(@RequestParam int currentPersonId, @RequestParam int personId){
         Person currentPerson = personService.findById(currentPersonId);
         Person person = personService.findById(personId);
+        if(person == null){
+            return(new BaseResponse(ResponseHeader.NOT_ALLOWED, null));
+        }
         Room room;
         if(roomService.existsPv(currentPerson, person)){
             room = roomService.findPv(currentPerson, person);
@@ -92,6 +95,7 @@ public class PersonalPageServerController extends AbstractServerController{
             return(new BaseResponse(ResponseHeader.ROOM_NOT_EXISTS, roomDto));
         }
     }
+
 }
 
 

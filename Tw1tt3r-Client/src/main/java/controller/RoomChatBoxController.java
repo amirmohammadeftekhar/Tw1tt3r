@@ -188,10 +188,26 @@ public class RoomChatBoxController extends AbstractController implements Initial
             if(message.getText().length()>7 && split.length==2 && message.getText().substring(0, 8).equals("@room-pv")){
                 messageParent.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                     TransactionServiceGenerator.getInstance().createService(RoomChatBoxControllerService.class)
-                            .messageButtonActionUserName(currentPersonId, split[1]).enqueue(new TransactionCallBack<BaseResponse>() {
+                            .roomPvAction(currentPersonId, split[1]).enqueue(new TransactionCallBack<BaseResponse>() {
                         @Override
                         public void DoOnResponse(Response<BaseResponse> response) {
                             if(response.body().getResponseHeader()== ResponseHeader.ROOM_EXISTS){
+                                RoomDto room = (RoomDto) response.body().getDto();
+                                messagingMainMenuController.setOpenedChat(room);
+                            }
+                        }
+                    });
+                });
+            }
+            if(message.getText().length()>10 && split.length==2 && message.getText().substring(0, 11).equals("@room-group")){
+                System.out.println("!!!");
+                messageParent.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    System.out.println("@@@");
+                    TransactionServiceGenerator.getInstance().createService(RoomChatBoxControllerService.class)
+                            .roomGroupAction(currentPersonId, split[1]).enqueue(new TransactionCallBack<BaseResponse>() {
+                        @Override
+                        public void DoOnResponse(Response<BaseResponse> response) {
+                            if(response.body().getResponseHeader() == ResponseHeader.OK){
                                 RoomDto room = (RoomDto) response.body().getDto();
                                 messagingMainMenuController.setOpenedChat(room);
                             }

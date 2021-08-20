@@ -75,6 +75,9 @@ public class RoomService {
 
     @NoLogging
     public Room findByName(String name){
+        if(!roomRepository.existsByName(name)){
+            return(null);
+        }
         return(roomRepository.findByName(name));
     }
 

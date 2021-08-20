@@ -10,6 +10,9 @@ public interface RoomChatBoxControllerService {
     @POST(value = "api/roomchatbox/sendbuttonaction")
     Call<Void> sendButtonAction(@Query("toSend") String toSend, @Query("currentPersonId") int currentPersonId, @Query("roomId") int roomId, @Query("pictureId") int pictureId);
 
-    @GET(value = "api/roomchatbox/messagebuttonactionusername")
-    public Call<BaseResponse> messageButtonActionUserName(@Query("currentPersonId") int currentPersonId, @Query("personUserName") String personUserName);
+    @GET(value = "api/roomchatbox/roompvaction")
+    public Call<BaseResponse> roomPvAction(@Query("currentPersonId") int currentPersonId, @Query("personUserName") String personUserName);
+
+    @GET(value = "api/roomchatbox/roomgroupaction")
+    public Call<BaseResponse> roomGroupAction(@Query("currentPersonId") int currentPersonId, @Query("groupName") String groupName);
 }

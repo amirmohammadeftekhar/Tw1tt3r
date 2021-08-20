@@ -38,8 +38,8 @@ public class RoomChatBoxServerController extends AbstractServerController{
         return(new ResponseEntity<Void>(HttpStatus.OK));
     }
 
-    @GetMapping("api/roomchatbox/messagebuttonactionusername")
-    public BaseResponse messageButtonActionUserName(@RequestParam int currentPersonId, @RequestParam String personUserName){
+    @GetMapping("api/roomchatbox/roompvaction")
+    public BaseResponse roomPvAction(@RequestParam int currentPersonId, @RequestParam String personUserName){
         Person currentPerson = personService.findById(currentPersonId);
         Person person = personService.findPersonByUserName(personUserName);
         if(person == null){
@@ -55,5 +55,18 @@ public class RoomChatBoxServerController extends AbstractServerController{
         else{
             return(new BaseResponse(ResponseHeader.NOT_ALLOWED, null));
         }
+    }
+
+    @GetMapping("api/roomchatbox/roomgroupaction")
+    public BaseResponse roomGroupAction(@RequestParam int currentPersonId, @RequestParam String groupName){
+        Person currentPerson = personService.findById(currentPersonId);
+        Room room = roomService.findByName(groupName);
+        if(room == null){
+            return(new BaseResponse(ResponseHeader.NOT_ALLOWED, null));
+        }
+        if(!room.getMembers().contains(currentPerson)){
+            roomService.addPerson(currentPerson, room);
+        }
+        return(new BaseResponse(ResponseHeader.OK, ModelMapperInstance.getModelMapper().map(room, RoomDto.class)));
     }
 }

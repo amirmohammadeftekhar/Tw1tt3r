@@ -155,7 +155,9 @@ public class MessagingMainMenuController extends AbstractController implements I
         sendAll();
         if(openedChat != null){
             RoomChatBoxController controller = roomToController.get(openedChat);
-            controller.reload();
+            if(controller!=null){
+                controller.reload();
+            }
             openChatBox(openedChat);
         }
         PersonDto currentPerson = null;

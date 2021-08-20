@@ -23,7 +23,6 @@ public class RoomChatBoxServerController extends AbstractServerController{
         Picture picture = pictureService.findById(pictureId);
         int tillSend = 0;
         if(toSend.length()>4 && toSend.substring(0, 5).equals("/time") && split.length > 1){
-            System.out.println("!!!");
             tillSend = Integer.parseInt(split[1]);
             System.out.println(tillSend);
         }
@@ -32,7 +31,10 @@ public class RoomChatBoxServerController extends AbstractServerController{
         if(toSend.length()>3 && toSend.substring(0, 4).equals("/bot") && split.length > 2){
             String botValue = split[1];
             if(botManager.getValueToClass().containsKey(botValue)){
-                roomService.sendMessage(botManager.getResponse(botValue, toSend.substring(secondSpace+1), roomId, currentPersonId), personService.findPersonByUserName(botValue), roomService.findById(roomId), null, 0);
+                String response = botManager.getResponse(botValue, toSend.substring(secondSpace+1), roomId, currentPersonId);
+                if(response!=null){
+                    roomService.sendMessage(response, personService.findPersonByUserName(botValue), roomService.findById(roomId), null, 0);
+                }
             }
         }
         return(new ResponseEntity<Void>(HttpStatus.OK));
@@ -52,6 +54,12 @@ public class RoomChatBoxServerController extends AbstractServerController{
             DtoUtility.makeRoomHealthy(roomDto);
             return(new BaseResponse(ResponseHeader.ROOM_EXISTS, roomDto));
         }
+        else if(person.getBotValue()!=null) {
+            room = roomService.makePv(currentPerson, person);
+            RoomDto roomDto = ModelMapperInstance.getModelMapper().map(room, RoomDto.class);
+            DtoUtility.makeRoomHealthy(roomDto);
+            return(new BaseResponse(ResponseHeader.ROOM_NOT_EXISTS, roomDto));
+        }
         else{
             return(new BaseResponse(ResponseHeader.NOT_ALLOWED, null));
         }
@@ -67,6 +75,8 @@ public class RoomChatBoxServerController extends AbstractServerController{
         if(!room.getMembers().contains(currentPerson)){
             roomService.addPerson(currentPerson, room);
         }
-        return(new BaseResponse(ResponseHeader.OK, ModelMapperInstance.getModelMapper().map(room, RoomDto.class)));
+        RoomDto roomDto = ModelMapperInstance.getModelMapper().map(room, RoomDto.class);
+        DtoUtility.makeRoomHealthy(roomDto);
+        return(new BaseResponse(ResponseHeader.OK, roomDto));
     }
 }

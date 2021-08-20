@@ -79,12 +79,17 @@ public class ViewFactory{
     }
 
     private void loadMessageParent(Parent messageParent, MessageDto message, File file){
-        VBox messageVBox = (VBox) messageParent.getChildrenUnmodifiable().get(0);
+        HBox userNameHBox = (HBox) messageParent.getChildrenUnmodifiable().get(0);
+        Label userNameLabel = (Label)userNameHBox.getChildrenUnmodifiable().get(0);
+        VBox messageVBox = (VBox) messageParent.getChildrenUnmodifiable().get(1);
         ImageView imageView = (ImageView) messageVBox.getChildrenUnmodifiable().get(0);
-        TextArea messageTextArea = (TextArea) messageParent.getChildrenUnmodifiable().get(1);
-        HBox messageHBox = (HBox) messageParent.getChildrenUnmodifiable().get(2);
+        TextArea messageTextArea = (TextArea) messageParent.getChildrenUnmodifiable().get(2);
+        HBox messageHBox = (HBox) messageParent.getChildrenUnmodifiable().get(3);
         Label timeLabel = (Label) messageHBox.getChildrenUnmodifiable().get(0);
         Date date = new Date(message.getTimestamp().getTime());
+        if(message.getSourcePerson()!=null){
+            userNameLabel.setText(message.getSourcePerson().getUserName());
+        }
         timeLabel.setText(message.getStatus().toString()+" "+date.toString());
         messageTextArea.setText(message.getText());
         if(file!=null){

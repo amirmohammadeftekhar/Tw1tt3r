@@ -74,32 +74,32 @@ public class MainMenuController extends AbstractController implements Initializa
 
     @FXML
     void exploreButtonAction(MouseEvent event) {
-        ModelAccess.exploreController.reload();
         MainWindowPane.setCenter(items.get(MainMenuItems.EXPLORE));
+        ModelAccess.exploreController.reload();
     }
 
     @FXML
     void homeButtonAction(MouseEvent event) {
-        ModelAccess.mainMenuController.reload();
         MainWindowPane.setCenter(items.get(MainMenuItems.TIMELINE));
+        ModelAccess.mainMenuController.reload();
     }
 
     @FXML
     void messageButtonAction(MouseEvent event) {
-        ModelAccess.messagingMainMenuController.reload();
         MainWindowPane.setCenter(items.get(MainMenuItems.MESSAGING));
+        ModelAccess.messagingMainMenuController.reload();
     }
 
     @FXML
     void profileButtonAction(MouseEvent event) {
-        ModelAccess.profileController.reload();
         MainWindowPane.setCenter(items.get(MainMenuItems.PROFILE));
+        ModelAccess.profileController.reload();
     }
 
     @FXML
     void settingButtonAction(MouseEvent event) {
-        ModelAccess.settingController.reload();
         MainWindowPane.setCenter(items.get(MainMenuItems.SETTING));
+        ModelAccess.settingController.reload();
     }
 
     @Override

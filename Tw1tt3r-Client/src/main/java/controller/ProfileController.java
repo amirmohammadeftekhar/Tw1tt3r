@@ -226,15 +226,30 @@ public class ProfileController extends AbstractController implements Initializab
                     confirm.setOnAction(event -> {
                         WebUtil.makeFollow(action.getSourcePerson().getId(), action.getDestinationPerson().getId());
                         WebUtil.deleteAction(action.getId());
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException interruptedException) {
+                            interruptedException.printStackTrace();
+                        }
                         reload();
                     });
                     rejectAndNotify.setOnAction(event -> {
                         WebUtil.makeReject(action.getDestinationPerson().getId(), action.getSourcePerson().getId());
                         WebUtil.deleteAction(action.getId());
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException interruptedException) {
+                            interruptedException.printStackTrace();
+                        }
                         reload();
                     });
                     rejectAndNotNotify.setOnAction(event -> {
                         WebUtil.deleteAction(action.getId());
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException interruptedException) {
+                            interruptedException.printStackTrace();
+                        }
                         reload();
                     });
                     parent.setOnContextMenuRequested(event -> contextMenu.show(parent, event.getScreenX(), event.getScreenY()));

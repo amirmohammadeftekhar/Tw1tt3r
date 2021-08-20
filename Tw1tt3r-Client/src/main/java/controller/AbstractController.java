@@ -1,10 +1,8 @@
 package controller;
 
-import dtos.PersonDto;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.SneakyThrows;
 
 import java.net.URL;
@@ -28,9 +26,6 @@ public abstract class AbstractController implements Initializable {
 //        thread.setDaemon(true);
         thread.start();
     }
-
-    @Setter
-    protected PersonDto personDto;
 
     public Timestamp getTimeStamp() {
         return (new Timestamp(System.currentTimeMillis()));

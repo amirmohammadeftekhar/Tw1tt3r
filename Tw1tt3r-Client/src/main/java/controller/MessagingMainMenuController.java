@@ -152,10 +152,10 @@ public class MessagingMainMenuController extends AbstractController implements I
 
     @Override
     public void reload() {
-        sendAll();
         if(openedChat != null){
             RoomChatBoxController controller = roomToController.get(openedChat);
             if(controller!=null){
+                System.out.println("!!!!!!!!");
                 controller.reload();
             }
             openChatBox(openedChat);
@@ -173,6 +173,7 @@ public class MessagingMainMenuController extends AbstractController implements I
         for(RoomDto room:rooms){
             addRoomToChatsWindow(room, currentPerson);
         }
+        sendAll();
     }
 
     public void openChatBox(RoomDto room){

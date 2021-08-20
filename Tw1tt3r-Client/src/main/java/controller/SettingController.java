@@ -417,6 +417,19 @@ public class SettingController extends AbstractController implements Initializab
         if(category==null){
             return;
         }
+        List<Integer> peopleToRemove = new LinkedList<Integer>();
+        for(PersonDto person:selectedPeopleFromCategoryManaging) peopleToRemove.add(person.getId());
+        TransactionServiceGenerator.getInstance().createService(SettingControllerService.class).removePersonFromCategoryButtonAction(category.getId(), peopleToRemove).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable throwable) {
+
+            }
+        });
         choosingCategoryComboBox.setValue(null);
         selectedPeopleFromCategoryManaging.clear();
         Thread.sleep(1000);

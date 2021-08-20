@@ -142,6 +142,7 @@ public class RoomChatBoxController extends AbstractController implements Initial
         messagesGridPane.getChildren().clear();
         t = showedUnsent = 0;
         for(MessageDto message:room.getMessages()){
+            if(message.getText()==null) continue;
             Parent messageParent = ViewFactory.viewFactory.getMessageParent(message, null);
             ContextMenu contextMenu = new ContextMenu();
             MenuItem delete = new MenuItem(ConfigInstance.getInstance().getProperty("delete"));
@@ -191,7 +192,7 @@ public class RoomChatBoxController extends AbstractController implements Initial
                             .roomPvAction(currentPersonId, split[1]).enqueue(new TransactionCallBack<BaseResponse>() {
                         @Override
                         public void DoOnResponse(Response<BaseResponse> response) {
-                            if(response.body().getResponseHeader()== ResponseHeader.ROOM_EXISTS){
+                            if(response.body().getResponseHeader()!= ResponseHeader.NOT_ALLOWED){
                                 RoomDto room = (RoomDto) response.body().getDto();
                                 messagingMainMenuController.setOpenedChat(room);
                             }

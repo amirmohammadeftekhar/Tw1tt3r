@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static controller.utility.ModelAccess.currentPersonId;
+import static controller.utility.ModelAccess.profileController;
 import static view.ViewUtility.isImage;
 import static view.ViewUtility.makePicture;
 
@@ -54,6 +55,12 @@ public class TweetMakingController extends AbstractController implements Initial
         });
         Stage stage = (Stage) createButton.getScene().getWindow();
         stage.close();
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException interruptedException) {
+            interruptedException.printStackTrace();
+        }
+        profileController.reload();
     }
 
     private final FileChooser fileChooser = new FileChooser();

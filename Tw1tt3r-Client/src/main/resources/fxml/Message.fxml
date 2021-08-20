@@ -3,11 +3,15 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <VBox alignment="TOP_CENTER" fillWidth="false" styleClass="border" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
    <children>
+      <HBox alignment="CENTER" prefHeight="39.0" prefWidth="548.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="53.0" prefWidth="282.0" text="Label" />
+         </children>
+      </HBox>
       <VBox alignment="CENTER">
          <children>
             <ImageView fx:id="messageImage" fitHeight="239.0" fitWidth="372.0" pickOnBounds="true" preserveRatio="true" />
